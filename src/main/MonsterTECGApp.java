@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 public class MonsterTECGApp extends Application {
 
     /**

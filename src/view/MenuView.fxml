@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.MenuController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<StackPane focusTraversable="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+   <children>
+      <VBox fx:id="vBoxSelect" alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="40.0">
+         <children>
+            <Label text="Monster TECG">
+               <font>
+                  <Font name="Papyrus" size="32.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#handleCreateServer" text="Crear una Partida" />
+            <Button mnemonicParsing="false" onAction="#handleJoinServer" text="Unirse a una Partida" />
+         </children>
+      </VBox>
+      <VBox fx:id="vBoxCreate" alignment="CENTER" disable="true" prefHeight="200.0" prefWidth="200.0" spacing="40.0" visible="false">
+         <children>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Esperando que otro jugador se conecte" textAlignment="CENTER" />
+            <ProgressIndicator disable="true" progress="0.0" />
+            <Label fx:id="labelPortServer" text="-----Port-----" />
+         </children>
+      </VBox>
+      <VBox fx:id="vBoxJoin" alignment="CENTER" prefHeight="400.0" prefWidth="400.0" spacing="40.0" visible="false">
+         <children>
+            <Label alignment="CENTER" text="IP del otro jugador">
+               <padding>
+                  <Insets top="20.0" />
+               </padding></Label>
+            <TextField fx:id="textFieldIp" prefHeight="25.0" prefWidth="100.0" />
+            <Label alignment="CENTER" text="Puerto" />
+            <TextField fx:id="textFieldPuerto" prefHeight="25.0" prefWidth="100.0" />
+            <Button mnemonicParsing="false" text="Unirse" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>
