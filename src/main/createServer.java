@@ -1,6 +1,8 @@
 package main;
 
 
+import com.sun.javafx.geom.AreaOp;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,22 +36,24 @@ public class createServer implements Runnable{
                 ServerSocket server = new ServerSocket(getPort());
 
                 System.out.println("Su puerto es:" + String.valueOf(getPort()));
-                //portLabel.setText("Su puerto es: " + String.valueOf(port));
+
                 portAlive = false;
 
                 while (true) {
                     System.out.println("Listening");
                     Socket socketS = server.accept();
 
-                    DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
+                    DataOutputStream serverOut = new DataOutputStream(socketS.getOutputStream());
+                    DataInputStream serverInD = new DataInputStream(socketS.getInputStream()); // aqui se debe cambiar por un objetimput
+
+                    serverOut.writeUTF("Conectado al servidor!");
 
                     String message = serverInD.readUTF();
 
                     System.out.println(message);
 
-                    //textArea.append(message + "\n");
 
-                    //socketS.close();
+                    socketS.close();
                 }
             } catch (IOException e) {
                 setPort(++port);

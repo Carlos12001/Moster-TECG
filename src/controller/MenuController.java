@@ -62,7 +62,7 @@ public class MenuController {
         createServer Server = new createServer();
         Thread serverThread = new Thread(Server);
         serverThread.start();
-        labelPortServer.setText("Su puerto es: " + String.valueOf(Server.getPort()));
+        labelPortServer.setText("Su puerto es: " + Server.getPort()); // esto es un error ne se actualiza
     }
 
     /**
