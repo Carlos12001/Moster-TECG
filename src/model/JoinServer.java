@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,11 +8,11 @@ import java.net.Socket;
 /**
  *
  */
-public class joinServer {
+public class JoinServer {
     private int port;
     private String IPserver;
 
-    public joinServer(int newPort, String newIPserver) {
+    public JoinServer(int newPort, String newIPserver) {
         this.port = newPort;
         this.IPserver = newIPserver;
 

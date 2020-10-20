@@ -1,4 +1,4 @@
-package main;
+package model;
 
 
 import com.sun.javafx.geom.AreaOp;
@@ -14,7 +14,7 @@ import java.net.Socket;
 /**
  *
  */
-public class createServer implements Runnable{
+public class CreateServer implements Runnable{
     int port = 1024;
 
     public int getPort(){

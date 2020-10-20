@@ -4,8 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import main.createServer;
-import main.joinServer;
+import model.CreateServer;
+import model.JoinServer;
 
 /**
  *
@@ -59,7 +59,7 @@ public class MenuController {
         this.vBoxCreate.setVisible(!false);
         this.vBoxCreate.setDisable(!true);
 
-        createServer Server = new createServer();
+        CreateServer Server = new CreateServer();
         Thread serverThread = new Thread(Server);
         serverThread.start();
         labelPortServer.setText("Su puerto es: " + Server.getPort()); // esto es un error ne se actualiza
@@ -83,7 +83,7 @@ public class MenuController {
     @FXML
     private void handleInitGame(ActionEvent event) {
 
-        joinServer client = new joinServer(Integer.parseInt(textFieldPuerto.getText()), textFieldIp.getText());
+        JoinServer client = new JoinServer(Integer.parseInt(textFieldPuerto.getText()), textFieldIp.getText());
         client.connectToServer();
     }
 
