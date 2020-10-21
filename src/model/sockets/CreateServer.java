@@ -1,4 +1,4 @@
-package model;
+package model.sockets;
 
 
 import com.sun.javafx.geom.AreaOp;

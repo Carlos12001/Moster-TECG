@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.game.Game;
 
 import java.io.IOException;
 
@@ -41,7 +42,7 @@ public class MonsterTECGApp extends Application {
             // Seteo la scene y la muestro
             window.setScene(scene);
             window.setTitle("Monster TECG");
-            window.getIcons().add(new Image("/resource/icon.png"));
+            window.getIcons().add(new Image("/images/icon.png"));
             window.setResizable(false);
             window.show();
         } catch (IOException e) {

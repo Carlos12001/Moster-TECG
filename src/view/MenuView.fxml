@@ -18,26 +18,28 @@
                   <Font name="Papyrus" size="32.0" />
                </font>
             </Label>
+            <TextField fx:id="textFieldName" alignment="CENTER" prefHeight="26.0" prefWidth="97.0" promptText="Player" />
             <Button mnemonicParsing="false" onAction="#handleCreateServer" text="Crear una Partida" />
             <Button mnemonicParsing="false" onAction="#handleJoinServer" text="Unirse a una Partida" />
          </children>
       </VBox>
-      <VBox fx:id="vBoxCreate" alignment="CENTER" disable="true" prefHeight="200.0" prefWidth="200.0" spacing="40.0" visible="false">
+      <VBox fx:id="vBoxCreate" alignment="CENTER" disable="true" prefHeight="200.0" prefWidth="200.0" spacing="20.0" visible="false">
          <children>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="200.0" text="Esperando que otro jugador se conecte" textAlignment="CENTER" />
-            <ProgressIndicator disable="true" progress="0.0" />
-            <Label fx:id="labelPortServer" text="-----Port-----" />
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="261.0" text="Esperando que otro jugador se conecte" textAlignment="CENTER" />
+            <ProgressIndicator disable="true" />
+            <Label fx:id="labelIPServer" alignment="CENTER" text="-----IP-----" />
+            <Label fx:id="labelPortServer" alignment="CENTER" text="----Port-----" />
          </children>
       </VBox>
-      <VBox fx:id="vBoxJoin" alignment="CENTER" prefHeight="400.0" prefWidth="400.0" spacing="40.0" visible="false">
+      <VBox fx:id="vBoxJoin" alignment="CENTER" disable="true" prefHeight="325.0" prefWidth="400.0" spacing="20.0" visible="false">
          <children>
             <Label alignment="CENTER" text="IP del otro jugador">
                <padding>
                   <Insets top="20.0" />
                </padding></Label>
-            <TextField fx:id="textFieldIp" prefHeight="25.0" prefWidth="100.0" />
+            <TextField fx:id="textFieldIp" alignment="CENTER" prefHeight="25.0" prefWidth="100.0" />
             <Label alignment="CENTER" text="Puerto" />
-            <TextField fx:id="textFieldPuerto" prefHeight="25.0" prefWidth="100.0" />
+            <TextField fx:id="textFieldPuerto" alignment="CENTER" prefHeight="25.0" prefWidth="100.0" />
             <Button mnemonicParsing="false" onAction="#handleInitGame" text="Unirse" />
          </children>
       </VBox>

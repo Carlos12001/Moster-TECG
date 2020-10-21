@@ -1,4 +1,4 @@
-package model;
+package model.sockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

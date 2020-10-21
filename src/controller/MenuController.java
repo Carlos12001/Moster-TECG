@@ -4,20 +4,32 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import model.CreateServer;
-import model.JoinServer;
+import model.game.Conextion;
+import model.game.Game;
+import model.game.Player;
+import model.sockets.CreateServer;
+import model.sockets.JoinServer;
 
 /**
- *
+ *This class controller all the MenuView of the game
+ * @author Carlos Andrés Mata Calderón
+ * @version 1.0
  */
 public class MenuController {
 
+    private  Game game;
 
     /**Value injected by FXMLLoader
      * fx:id="vBoxselect"
      */
     @FXML
     private VBox vBoxSelect;
+
+    /**Value injected by FXMLLoader
+     * fx:id="textFieldName"
+     */
+    @FXML
+    private TextField textFieldName;
 
     /**Value injected by FXMLLoader
      * fx:id="vBoxCreate"
@@ -30,6 +42,12 @@ public class MenuController {
      */
     @FXML
     private Label labelPortServer;
+
+    /**Value injected by FXMLLoader
+     * fx:id="labelIPServer"
+     */
+    @FXML
+    private Label labelIPServer;
 
     /**Value injected by FXMLLoader
      * fx:id="vBoxJoin"
@@ -49,11 +67,15 @@ public class MenuController {
     @FXML
     private TextField textFieldPuerto;
 
+
     /**
      * @param event
      */
     @FXML
-    private void handleCreateServer (ActionEvent event) {
+    private void handleCreateServer(ActionEvent event) {
+
+        this.game = Game.getInstance(new Player(this.textFieldName.getText()), Conextion.SERVER);
+
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
         this.vBoxCreate.setVisible(!false);
@@ -70,6 +92,9 @@ public class MenuController {
      */
     @FXML
     private void handleJoinServer(ActionEvent event) {
+
+        this.game = Game.getInstance(new Player(this.textFieldName.getText()), Conextion.CLIENT);
+
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
         this.vBoxJoin.setVisible(!false);
@@ -82,8 +107,7 @@ public class MenuController {
      */
     @FXML
     private void handleInitGame(ActionEvent event) {
-
-        JoinServer client = new JoinServer(Integer.parseInt(textFieldPuerto.getText()), textFieldIp.getText());
+        JoinServer client = new JoinServer(Integer.parseInt(this.textFieldPuerto.getText()), this.textFieldIp.getText());
         client.connectToServer();
     }
 
@@ -93,4 +117,5 @@ public class MenuController {
     @FXML
     private void initialize() {
     }
+
 }
