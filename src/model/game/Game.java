@@ -1,5 +1,8 @@
 package model.game;
 
+import model.sockets.Server;
+import model.sockets.Client;
+
 public class Game {
 
     /**
@@ -13,11 +16,11 @@ public class Game {
     /**
      *
      */
-    private final Conextion typeConexion;
+    private final ConnectionType typeConexion;
     /**
      *
      */
-    private Conextion whoFisrt;
+    private ConnectionType whoFisrt;
     /**
      *
      */
@@ -43,7 +46,11 @@ public class Game {
      */
     private String cartTablePlayer;
 
-    private Game(Player player, Conextion typeConexion) {
+    private Client client;
+
+    private Server server;
+
+    private Game(Player player, ConnectionType typeConexion) {
         this.player = player;
         this.typeConexion = typeConexion;
     }
@@ -54,7 +61,7 @@ public class Game {
      *
      * @param whoFisrt New value of whoFisrt.
      */
-    public void setWhoFisrt(Conextion whoFisrt) {
+    public void setWhoFisrt(ConnectionType whoFisrt) {
         this.whoFisrt = whoFisrt;
     }
 
@@ -135,7 +142,7 @@ public class Game {
      *
      * @return Value of whoFisrt.
      */
-    public Conextion getWhoFisrt() {
+    public ConnectionType getWhoFisrt() {
         return whoFisrt;
     }
 
@@ -179,7 +186,7 @@ public class Game {
      *
      * @return Value of typeConexion.
      */
-    public Conextion getTypeConexion() {
+    public ConnectionType getTypeConexion() {
         return typeConexion;
     }
 
@@ -192,7 +199,38 @@ public class Game {
         return player;
     }
 
-    public static Game getInstance(Player player, Conextion typeConexion) {
+    public Server getServer(){
+        if(this.typeConexion== ConnectionType.SERVER){
+            return this.server;
+        }else {
+            return null;
+        }
+    }
+
+    public Client getClient() {
+        if(this.typeConexion == ConnectionType.CLIENT) {
+            return this.client;
+        }else{
+            return null;
+        }
+    }
+
+    public void createConnection(int port, String ip ){
+        if ((this.client==null)&(this.typeConexion== ConnectionType.CLIENT)){
+            this.client = new Client(port, ip);
+            this.client.connectToServer();
+        }
+    }
+
+    public void createConnection(){
+        if ((this.server==null)&(this.typeConexion == ConnectionType.SERVER)){
+            this.server = new Server();
+            Thread serverThread = new Thread(this.server);
+            serverThread.start();
+        }
+    }
+
+    public static Game getInstance(Player player, ConnectionType typeConexion) {
 
         Game result = instance;
         if (result != null) {

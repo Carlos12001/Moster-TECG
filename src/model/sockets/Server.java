@@ -6,16 +6,18 @@ import com.sun.javafx.geom.AreaOp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import java.net.UnknownHostException;
 
 
 /**
  *
  */
-public class CreateServer implements Runnable{
+public class Server implements Runnable{
     int port = 1024;
+    String messageJSON;
 
     public int getPort(){
         return this.port;
@@ -23,6 +25,15 @@ public class CreateServer implements Runnable{
 
     private void setPort(int num){
         this.port = num;
+    }
+
+    public String getIp(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());;
+        }
+        return null;
     }
 
     @Override
@@ -43,12 +54,13 @@ public class CreateServer implements Runnable{
                     System.out.println("Listening");
                     Socket socketS = server.accept();
 
-                    DataOutputStream serverOut = new DataOutputStream(socketS.getOutputStream());
-                    DataInputStream serverInD = new DataInputStream(socketS.getInputStream()); // aqui se debe cambiar por un objetimput
+                    DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
 
-                    serverOut.writeUTF("Conectado al servidor!");
 
                     String message = serverInD.readUTF();
+
+                    this.messageJSON = message;
+                    // luego pasar ese message al jackson
 
                     System.out.println(message);
 
@@ -60,5 +72,23 @@ public class CreateServer implements Runnable{
             }
         }
 
+    }
+
+    /**
+     * Sets new messageJSON.
+     *
+     * @param messageJSON New value of messageJSON.
+     */
+    public void setMessageJSON(String messageJSON) {
+        this.messageJSON = messageJSON;
+    }
+
+    /**
+     * Gets messageJSON.
+     *
+     * @return Value of messageJSON.
+     */
+    public String getMessageJSON() {
+        return messageJSON;
     }
 }

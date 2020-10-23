@@ -1,6 +1,6 @@
 package model.game;
 
-public enum Conextion {
+public enum ConnectionType {
     SERVER,
     CLIENT,
 }

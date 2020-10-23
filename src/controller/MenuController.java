@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import model.game.Conextion;
+import model.game.ConnectionType;
 import model.game.Game;
 import model.game.Player;
-import model.sockets.CreateServer;
-import model.sockets.JoinServer;
 
 /**
  *This class controller all the MenuView of the game
@@ -17,50 +15,46 @@ import model.sockets.JoinServer;
  */
 public class MenuController {
 
-    private  Game game;
 
+    /**
+     * The isinstance for the game.
+     */
+    private  Game game;
     /**Value injected by FXMLLoader
      * fx:id="vBoxselect"
      */
     @FXML
     private VBox vBoxSelect;
-
     /**Value injected by FXMLLoader
      * fx:id="textFieldName"
      */
     @FXML
     private TextField textFieldName;
-
     /**Value injected by FXMLLoader
      * fx:id="vBoxCreate"
      */
     @FXML
     private VBox vBoxCreate;
-
     /**Value injected by FXMLLoader
      * fx:id="labelPortServer"
      */
     @FXML
     private Label labelPortServer;
-
     /**Value injected by FXMLLoader
      * fx:id="labelIPServer"
      */
     @FXML
     private Label labelIPServer;
-
     /**Value injected by FXMLLoader
      * fx:id="vBoxJoin"
      */
     @FXML
     private VBox vBoxJoin;
-
     /**Value injected by FXMLLoader
      * fx:id="textFieldIp"
      */
     @FXML
     private TextField textFieldIp;
-
     /**Value injected by FXMLLoader
      * fx:id="textFieldPuerto"
      */
@@ -74,17 +68,19 @@ public class MenuController {
     @FXML
     private void handleCreateServer(ActionEvent event) {
 
-        this.game = Game.getInstance(new Player(this.textFieldName.getText()), Conextion.SERVER);
+        this.game = Game.getInstance(new Player(this.textFieldName.getText()), ConnectionType.SERVER);
 
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
-        this.vBoxCreate.setVisible(!false);
-        this.vBoxCreate.setDisable(!true);
+        this.vBoxCreate.setVisible(true);
+        this.vBoxCreate.setDisable(false);
 
-        CreateServer Server = new CreateServer();
-        Thread serverThread = new Thread(Server);
-        serverThread.start();
-        labelPortServer.setText("Su puerto es: " + Server.getPort()); // esto es un error ne se actualiza
+        this.game.createConnection();
+        this.labelIPServer.setText(this.game.getServer().getIp()+"");
+        this.labelPortServer.setText(this.game.getServer().getPort()+"");
+
+
+
     }
 
     /**
@@ -93,12 +89,12 @@ public class MenuController {
     @FXML
     private void handleJoinServer(ActionEvent event) {
 
-        this.game = Game.getInstance(new Player(this.textFieldName.getText()), Conextion.CLIENT);
+        this.game = Game.getInstance(new Player(this.textFieldName.getText()), ConnectionType.CLIENT);
 
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
-        this.vBoxJoin.setVisible(!false);
-        this.vBoxJoin.setDisable(!true);
+        this.vBoxJoin.setVisible(true);
+        this.vBoxJoin.setDisable(false);
     }
 
     /**
@@ -107,8 +103,14 @@ public class MenuController {
      */
     @FXML
     private void handleInitGame(ActionEvent event) {
-        JoinServer client = new JoinServer(Integer.parseInt(this.textFieldPuerto.getText()), this.textFieldIp.getText());
-        client.connectToServer();
+        int port = 0;
+                try {
+                    port = Integer.parseInt(this.textFieldPuerto.getText());
+                    this.game.createConnection(port,this.textFieldIp.getText());
+                }catch (NumberFormatException ex){
+                    System.out.println(ex.getMessage());
+                }
+
     }
 
     /** This method is called by the FXMLLoader when initialization is complete

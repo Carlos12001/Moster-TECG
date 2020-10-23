@@ -8,11 +8,11 @@ import java.net.Socket;
 /**
  *
  */
-public class JoinServer {
+public class Client {
     private int port;
     private String IPserver;
 
-    public JoinServer(int newPort, String newIPserver) {
+    public Client(int newPort, String newIPserver) {
         this.port = newPort;
         this.IPserver = newIPserver;
 

@@ -1,7 +1,5 @@
 package model.game;
 
-import test.Hola;
-
 /**
  *
  */
@@ -19,10 +17,6 @@ public class Player {
      *
      */
     private int life;
-    /**
-     *
-     */
-    private Conextion typeConexion;
 
     /**
      *

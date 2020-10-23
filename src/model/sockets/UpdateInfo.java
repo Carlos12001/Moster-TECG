@@ -1,6 +1,6 @@
 package model.sockets;
 
-import model.game.Conextion;
+import model.game.ConnectionType;
 
 public class UpdateInfo {
 
@@ -12,7 +12,7 @@ public class UpdateInfo {
     /**
      *PLayer name who start.
      */
-    private Conextion whoFirst;
+    private ConnectionType whoFirst;
 
     /**
      *Player mana who send the information.
@@ -39,7 +39,7 @@ public class UpdateInfo {
      */
     private boolean skipTurn;
 
-    public UpdateInfo(String playerSendName, Conextion whoFirst){
+    public UpdateInfo(String playerSendName, ConnectionType whoFirst){
         this.playerSendName = playerSendName;
         this.whoFirst = whoFirst;
         this.skipTurn = false;
@@ -78,11 +78,11 @@ public class UpdateInfo {
         this.playerSendName = playerSendName;
     }
 
-    public Conextion getWhoFirst() {
+    public ConnectionType getWhoFirst() {
         return whoFirst;
     }
 
-    public void setWhoFirst(Conextion whoFirst) {
+    public void setWhoFirst(ConnectionType whoFirst) {
         this.whoFirst = whoFirst;
     }
 
