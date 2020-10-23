@@ -2,6 +2,7 @@ package model.game;
 
 import model.sockets.Server;
 import model.sockets.Client;
+import model.sockets.UpdateInfo;
 
 public class Game {
 
@@ -50,9 +51,12 @@ public class Game {
 
     private Server server;
 
+    private UpdateInfo updateInfo;
+
     private Game(Player player, ConnectionType typeConexion) {
         this.player = player;
         this.typeConexion = typeConexion;
+        this.updateInfo = new UpdateInfo(this.player.getName(), typeConexion);
     }
 
 
@@ -218,7 +222,7 @@ public class Game {
     public void createConnection(int port, String ip ){
         if ((this.client==null)&(this.typeConexion== ConnectionType.CLIENT)){
             this.client = new Client(port, ip);
-            this.client.connectToServer();
+           this.client.connectToServer("Estoy conectado");
         }
     }
 

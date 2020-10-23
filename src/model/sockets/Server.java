@@ -32,6 +32,7 @@ public class Server implements Runnable{
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             System.out.println(e.getMessage());;
+            // agregar en el log
         }
         return null;
     }
@@ -41,17 +42,16 @@ public class Server implements Runnable{
 
         boolean portAlive = true;
 
-        while (portAlive) {
+        while(portAlive) {
             try {
 
                 ServerSocket server = new ServerSocket(getPort());
-
-                System.out.println("Su puerto es:" + String.valueOf(getPort()));
 
                 portAlive = false;
 
                 while (true) {
                     System.out.println("Listening");
+
                     Socket socketS = server.accept();
 
                     DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
@@ -63,7 +63,6 @@ public class Server implements Runnable{
                     // luego pasar ese message al jackson
 
                     System.out.println(message);
-
 
                     socketS.close();
                 }

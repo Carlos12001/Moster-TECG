@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- *
+ * This class send the information through the socket
+ * @Param newPort new int
+ * @Param ner
  */
 public class Client {
     private int port;
@@ -26,7 +28,7 @@ public class Client {
         return this.IPserver;
     }
 
-    public void connectToServer() {
+    public void connectToServer(String jacksonStr) {
 
         int portOut = getPort() ;
         String IPout = getIPserver();
@@ -35,18 +37,15 @@ public class Client {
             Socket clientSocket = new Socket(IPout, portOut);
 
             DataOutputStream clientOutD = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream clientIn = new DataInputStream(clientSocket.getInputStream());
 
-            String messageIn = clientIn.readUTF();
+            clientOutD.writeUTF(jacksonStr);
 
-            clientOutD.writeUTF("cliente conectado");
-
-            System.out.println(messageIn);
             clientOutD.close();
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
             System.out.println(ioException.getMessage());
+            //agregar al log
         }
     }
 

@@ -101,5 +101,6 @@ public class UpdateInfo {
     public void setPlayerSendLife(int playerSendLife) {
         this.playerSendLife = playerSendLife;
     }
+
 }
 
