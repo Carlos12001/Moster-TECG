@@ -39,6 +39,8 @@ public class UpdateInfo {
      */
     private boolean skipTurn;
 
+    public UpdateInfo(){}
+
     public UpdateInfo(String playerSendName, ConnectionType whoFirst){
         this.playerSendName = playerSendName;
         this.whoFirst = whoFirst;
@@ -102,5 +104,17 @@ public class UpdateInfo {
         this.playerSendLife = playerSendLife;
     }
 
+    @Override
+    public String toString() {
+        return "UpdateInfo{" +
+                "playerSendName='" + playerSendName + '\'' +
+                ", whoFirst=" + whoFirst +
+                ", playerSendMana=" + playerSendMana +
+                ", playerSendLife=" + playerSendLife +
+                ", codeSendCart=" + codeSendCart +
+                ", round=" + round +
+                ", skipTurn=" + skipTurn +
+                '}';
+    }
 }
 

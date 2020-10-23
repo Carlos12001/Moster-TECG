@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import main.MonsterTECGApp;
 import model.game.ConnectionType;
 import model.game.Game;
 import model.game.Player;
@@ -108,7 +109,7 @@ public class MenuController {
                     port = Integer.parseInt(this.textFieldPuerto.getText());
                     this.game.createConnection(port,this.textFieldIp.getText());
                 }catch (NumberFormatException ex){
-                    System.out.println(ex.getMessage());
+                    MonsterTECGApp.logger.error(ex.getMessage());
                 }
 
     }

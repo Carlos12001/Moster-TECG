@@ -1,8 +1,14 @@
 package model.game;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.sockets.Server;
 import model.sockets.Client;
 import model.sockets.UpdateInfo;
+
+import java.io.*;
+import java.util.Random;
 
 public class Game {
 
@@ -177,12 +183,11 @@ public class Game {
         return cartTablePlayer;
     }
 
-    /**
-     * Sets new round.
-     *
+    /** Sets new round
+     * @param round
      */
-    public void setRound() {
-        this.round ++;
+    public void setRound(byte round) {
+        this.round = round;
     }
 
     /**
@@ -211,6 +216,9 @@ public class Game {
         }
     }
 
+    /**
+     * @return
+     */
     public Client getClient() {
         if(this.typeConexion == ConnectionType.CLIENT) {
             return this.client;
@@ -219,21 +227,94 @@ public class Game {
         }
     }
 
+    /**
+     * @return
+     */
+    public UpdateInfo getUpdateInfo() {
+        return updateInfo;
+    }
+
+    public void setUpdateInfo(UpdateInfo updateInfo){
+        this.updateInfo = updateInfo;
+
+    }
+
+    /**Excuete the client
+     * @param port
+     * @param ip
+     */
     public void createConnection(int port, String ip ){
         if ((this.client==null)&(this.typeConexion== ConnectionType.CLIENT)){
             this.client = new Client(port, ip);
-           this.client.connectToServer("Estoy conectado");
+            Random rnd = new Random();
+            int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
+
+            switch (ramdomNum){
+                case 1:
+                   this.whoFisrt = ConnectionType.SERVER;
+                    break;
+                case 2:
+                    this.whoFisrt = ConnectionType.CLIENT;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + ramdomNum);
+            }
+
+            this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
+            this.client.writeSocket(generateJackson());
         }
     }
 
+    /**
+     *
+     */
     public void createConnection(){
         if ((this.server==null)&(this.typeConexion == ConnectionType.SERVER)){
             this.server = new Server();
-            Thread serverThread = new Thread(this.server);
-            serverThread.start();
+            this.server.readSockect();
         }
     }
 
+    /**
+     * @return jsonRead
+     */
+    private String generateJackson() {
+        // Creating Object of ObjectMapper define in Jakson Api
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson ;
+        jackson =  new File(System.getProperty("user.dir")+"/src/data/Update.json");
+        try {
+            mapper.writeValue(jackson, this.updateInfo);
+
+            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/data/Update.json"));
+            String jsonRead = new String();
+            String linea = "";
+
+
+            //Lee linea por linea el archivo
+            while ((linea = br.readLine()) != null) {
+                jsonRead += linea;
+            }
+
+            return jsonRead;
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param player
+     * @param typeConexion
+     * @return
+     */
     public static Game getInstance(Player player, ConnectionType typeConexion) {
 
         Game result = instance;
@@ -248,8 +329,12 @@ public class Game {
         }
     }
 
+    /** Return the game instance.
+     * @return Game instance
+     */
     public static Game getInstance() {
         return instance;
     }
+
 
 }

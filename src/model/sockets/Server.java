@@ -1,10 +1,14 @@
 package model.sockets;
 
 
-import com.sun.javafx.geom.AreaOp;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import main.MonsterTECGApp;
+import model.game.Game;
 
+import javax.sql.rowset.serial.SerialArray;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -15,79 +19,117 @@ import java.net.UnknownHostException;
 /**
  *
  */
-public class Server implements Runnable{
-    int port = 1024;
-    String messageJSON;
+public class Server {
 
-    public int getPort(){
+    /**
+     *
+     */
+    private ServerSocket server;
+
+    /**
+     *
+     */
+    private int port = 1024;
+
+    /**
+     *
+     */
+    public Server() {
+        boolean alive = true;
+
+        while (alive) {
+            try {
+                server = new ServerSocket(getPort());
+                alive = false;
+
+            } catch (IOException e) {
+                setPort(++this.port);
+                MonsterTECGApp.logger.error(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * This method returns the port number
+     *
+     * @return Value of port
+     */
+    public int getPort() {
         return this.port;
     }
 
-    private void setPort(int num){
+    /**
+     * This method set the port number
+     *
+     * @param num New value of port
+     */
+    private void setPort(int num) {
         this.port = num;
     }
 
-    public String getIp(){
+    /**
+     * This method returns the IP
+     *
+     * @return Ip number
+     */
+    public String getIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            System.out.println(e.getMessage());;
-            // agregar en el log
+            MonsterTECGApp.logger.error(e.getMessage());
         }
         return null;
     }
 
-    @Override
-    public void run() {
+    public void readSockect() {
+        ClassReadServer InfoIN = new ClassReadServer(this.server);
+        Thread hilo = new Thread(InfoIN);
+        hilo.start();
+    }
 
-        boolean portAlive = true;
+    private class ClassReadServer extends Thread{
 
-        while(portAlive) {
-            try {
+        private ServerSocket socketChlid;
 
-                ServerSocket server = new ServerSocket(getPort());
+        private ClassReadServer(ServerSocket socketNew){
+            this.socketChlid = socketNew;
+        }
 
-                portAlive = false;
 
-                while (true) {
-                    System.out.println("Listening");
+        @Override
+        public void run() {
 
-                    Socket socketS = server.accept();
+            ObjectMapper mapper = new ObjectMapper();
+
+            while (true) {
+                System.out.println("Listening Servidor");
+                try {
+
+                    Socket socketS = this.socketChlid.accept();
 
                     DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
 
-
                     String message = serverInD.readUTF();
 
-                    this.messageJSON = message;
-                    // luego pasar ese message al jackson
+                    UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
 
-                    System.out.println(message);
+                    System.out.println(Info);
 
-                    socketS.close();
+                    Game.getInstance().setUpdateInfo(Info);
+
+                    serverInD.close();
+
+                    break;
+                } catch (JsonMappingException e) {
+                    MonsterTECGApp.logger.error(e.getMessage());
+                } catch (JsonProcessingException e) {
+                    MonsterTECGApp.logger.error(e.getMessage());
+                } catch (IOException e) {
+                    MonsterTECGApp.logger.error(e.getMessage());
                 }
-            } catch (IOException e) {
-                setPort(++port);
             }
+
         }
-
     }
 
-    /**
-     * Sets new messageJSON.
-     *
-     * @param messageJSON New value of messageJSON.
-     */
-    public void setMessageJSON(String messageJSON) {
-        this.messageJSON = messageJSON;
-    }
-
-    /**
-     * Gets messageJSON.
-     *
-     * @return Value of messageJSON.
-     */
-    public String getMessageJSON() {
-        return messageJSON;
-    }
 }

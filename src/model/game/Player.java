@@ -19,6 +19,9 @@ public class Player {
      */
     private int life;
 
+    /**
+     *
+     */
     private int percentaje;
 
     /**
@@ -31,39 +34,67 @@ public class Player {
     }
 
     /**
-     * Este metodo retorna el nombre del jugador
+     * This method returns the name of the player
+     * @return String name
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Este metodo retorna el mana del jugador
+     * This method returns the mana of the player
+     * @return Value of mana
      */
     public int getMana() {
         return this.mana;
     }
 
     /**
-     * Este metodo se encarga de colocar un nuevo mana
+     * This method set the mana
+     * @param mana New value of num
      */
     public void setMana(int mana) {
         this.mana = mana;
-        if(this.mana > 1000){
+        if(this.mana >= 1000){
             this.mana = 1000;
         }
     }
 
     /**
-     * Este metodo se encarga de incrementar en un 25 porciento el mana del jugador
-     *
+     * This method sum points of mana
+     * @param num New value of num
+     */
+
+    public void increaseMana(int num){
+        if ((this.mana + num) >= 1000) {
+            this.mana = 1000;
+        } else {
+            this.mana += num;
+        }
+    }
+
+    /**
+     * This method rest points of mana
+     * @param num int points of mana to decrease
+     */
+
+    public void decreaseMana(int num){
+        if ((this.mana - num) <= 0) {
+            this.mana = 0;
+        } else {
+            this.mana -= num;
+        }
+    }
+
+    /**
+     * This method increase 25% of the mana
      */
     public void increase25() {
         percentaje = (int) (0.25 * this.mana);
 
-        if (this.mana > 1000){
+        if (this.mana >= 1000){
             this.mana = 1000;
-        } else if ((this.mana + percentaje) > 1000){
+        } else if ((this.mana + percentaje) >= 1000){
             this.mana = 1000;
         } else {
             this.mana += percentaje;
@@ -72,19 +103,47 @@ public class Player {
 
     /**
      * Este metodo retorna la vida del jugador
+     * @return Value of life
      */
     public int getLife() {
         return this.life;
     }
 
     /**
-     * Este metodo coloca un nuevo entero en la vida del jugador
+     * This method set playes's life
+     * @param life int new points of life
      */
     public void setLife(int life) {
         this.life = life;
         if(this.life>1000){
             this.life = 1000;
         }
+    }
 
+    /**
+     * This method sum points of life
+     * @param num New value of num
+     */
+
+    public void increaseLife(int num){
+        if ((this.life + num) >= 1000) {
+            this.life = 1000;
+        } else {
+            this.life += num;
+        }
+    }
+
+    /**
+     * This method rest points of life
+     * @param num New value of num
+     */
+
+    public void decreaseLife(int num){
+        if ((this.life - num) <= 0) {
+            this.life = 0;
+        } else {
+            this.life -= num;
+        }
     }
 }
+
