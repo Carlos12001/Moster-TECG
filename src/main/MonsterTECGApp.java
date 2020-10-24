@@ -46,20 +46,23 @@ public class MonsterTECGApp extends Application {
             Scene scene = new Scene(ventana);
 
             // Seteo la scene y la muestro
-            window.setScene(scene);
-            window.setTitle("Monster TECG");
-            window.getIcons().add(new Image("/images/icon.png"));
-            window.setResizable(false);
-            window.show();
+            this.window.setScene(scene);
+            this.window.setTitle("Monster TECG");
+            this.window.getIcons().add(new Image("/images/icon.png"));
+            this.window.setResizable(false);
+            this.window.show();
+
+
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
     }
 
-    /**Retorna la ventana de la ejecución
+    /**
+     * This method returns the program window
      * @return Ventana del programa
      */
     public Stage getWindow() {
-        return window;
+        return this.window;
     }
 }

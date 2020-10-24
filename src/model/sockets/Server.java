@@ -2,13 +2,22 @@ package model.sockets;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.io.DataOutputAsStream;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import controller.GameController;
+import controller.MenuController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import main.MonsterTECGApp;
 import model.game.Game;
 
 import javax.sql.rowset.serial.SerialArray;
+import javax.sql.rowset.spi.SyncFactory;
+import javax.xml.crypto.Data;
 import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -17,9 +26,11 @@ import java.net.UnknownHostException;
 
 
 /**
- *
+ * This class handles the server connection
  */
 public class Server {
+
+    private static boolean firstConexion= false;
 
     /**
      *
@@ -32,7 +43,7 @@ public class Server {
     private int port = 1024;
 
     /**
-     *
+     * This is the constructor, it finds the a free port and creates the ServerSocket
      */
     public Server() {
         boolean alive = true;
@@ -81,21 +92,54 @@ public class Server {
         return null;
     }
 
+    /**
+     * This method connect to the client and send the jackson
+     * @param jacksonStr New jackson String
+     */
+
+    public void writeSocket(String jacksonStr){
+
+        try {
+            DataOutputStream serverOutD = new DataOutputStream(this.server.accept().getOutputStream());
+
+            serverOutD.writeUTF(jacksonStr);
+
+            serverOutD.close();
+
+        } catch (IOException e) {
+            MonsterTECGApp.logger.error(e.getMessage());
+        }
+
+    }
+
+    /**
+     *  This method read the message that client sends
+     */
     public void readSockect() {
         ClassReadServer InfoIN = new ClassReadServer(this.server);
         Thread hilo = new Thread(InfoIN);
         hilo.start();
     }
 
+    /**
+     *  This private class is a thread that listen incoming messages
+     */
     private class ClassReadServer extends Thread{
 
         private ServerSocket socketChlid;
 
+        /**
+         * This is the constructor
+         * @param socketNew New ServerSocket
+         */
         private ClassReadServer(ServerSocket socketNew){
             this.socketChlid = socketNew;
         }
 
 
+        /**
+         * This is a funtion from the Thread
+         */
         @Override
         public void run() {
 
@@ -113,11 +157,11 @@ public class Server {
 
                     UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
 
-                    System.out.println(Info);
-
                     Game.getInstance().setUpdateInfo(Info);
 
                     serverInD.close();
+
+                    this.join();
 
                     break;
                 } catch (JsonMappingException e) {
@@ -126,10 +170,21 @@ public class Server {
                     MonsterTECGApp.logger.error(e.getMessage());
                 } catch (IOException e) {
                     MonsterTECGApp.logger.error(e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
         }
     }
 
+
+    /**
+     * Gets server.
+     *
+     * @return Value of server.
+     */
+    public ServerSocket getServer() {
+        return server;
+    }
 }

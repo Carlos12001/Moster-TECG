@@ -27,12 +27,12 @@ public class UpdateInfo {
     /**
      *Cart type to sent the other player.
      */
-    private byte codeSendCart;
+    private short codeSendCart;
 
     /**
      *The round in the game.
      */
-    private byte round;
+    private short round;
 
     /**
      *Says if the other player skips the turn.
@@ -48,19 +48,19 @@ public class UpdateInfo {
         this.round = 1;
     }
 
-    public byte getCodeSendCart() {
+    public short getCodeSendCart() {
         return codeSendCart;
     }
 
-    public void setCodeSendCart(byte codeSendCart) {
+    public void setCodeSendCart(short codeSendCart) {
         this.codeSendCart = codeSendCart;
     }
 
-    public byte getRound() {
+    public short getRound() {
         return round;
     }
 
-    public void setRound(byte round) {
+    public void setRound(short round) {
         this.round = round;
     }
 

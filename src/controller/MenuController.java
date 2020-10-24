@@ -2,12 +2,23 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import main.MonsterTECGApp;
 import model.game.ConnectionType;
 import model.game.Game;
 import model.game.Player;
+import model.sockets.UpdateInfo;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  *This class controller all the MenuView of the game
@@ -80,7 +91,9 @@ public class MenuController {
         this.labelIPServer.setText(this.game.getServer().getIp()+"");
         this.labelPortServer.setText(this.game.getServer().getPort()+"");
 
-
+        WaitUpload waitUpload = new WaitUpload();
+        Thread hilo = new Thread(waitUpload);
+        hilo.start();
 
     }
 
@@ -105,13 +118,23 @@ public class MenuController {
     @FXML
     private void handleInitGame(ActionEvent event) {
         int port = 0;
-                try {
-                    port = Integer.parseInt(this.textFieldPuerto.getText());
-                    this.game.createConnection(port,this.textFieldIp.getText());
-                }catch (NumberFormatException ex){
-                    MonsterTECGApp.logger.error(ex.getMessage());
-                }
+        try {
+            port = Integer.parseInt(this.textFieldPuerto.getText());
+            this.updateGUIMessage();
+            this.game.createConnection(port,this.textFieldIp.getText());
+        }catch (NumberFormatException ex){
+            MonsterTECGApp.logger.error(ex.getMessage());
+        }
+    }
 
+    public void updateGUIMessage(){
+
+        try {
+            ((Stage) this.labelIPServer.getScene().getWindow()).
+                    setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));
+        } catch (IOException e) {
+            MonsterTECGApp.logger.error(e.getMessage(), e);
+        }
     }
 
     /** This method is called by the FXMLLoader when initialization is complete
@@ -119,6 +142,46 @@ public class MenuController {
      */
     @FXML
     private void initialize() {
+
+        try {
+            this.textFieldIp.setPromptText(InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class  WaitUpload extends Thread {
+        @Override
+        public void run() {
+            boolean runner = true;
+            UpdateInfo oldInfo = game.getUpdateInfo();
+            System.out.println(oldInfo);
+            while (runner) {
+                if (oldInfo.equals(game.getUpdateInfo())) {
+                    runner = true;
+                    System.out.println(oldInfo);
+                }
+                else {
+                    runner = false;
+                    System.out.println(game.getUpdateInfo());
+                    try {
+                        this.join();
+                    } catch (InterruptedException e) {
+                        try {
+                            this.wait();
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
+                        e.printStackTrace();
+                    }finally {
+                        updateGUIMessage();
+                    }
+
+                    break;
+
+                }
+            }
+        }
     }
 
 }

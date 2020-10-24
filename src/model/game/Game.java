@@ -53,12 +53,26 @@ public class Game {
      */
     private String cartTablePlayer;
 
+    /**
+     *
+     */
     private Client client;
 
+    /**
+     *
+     */
     private Server server;
 
+    /**
+     *
+     */
     private UpdateInfo updateInfo;
 
+    /**
+     * This is the constructor
+     * @param player New player object
+     * @param typeConexion New connectionType
+     */
     private Game(Player player, ConnectionType typeConexion) {
         this.player = player;
         this.typeConexion = typeConexion;
@@ -208,6 +222,10 @@ public class Game {
         return player;
     }
 
+    /**
+     * This method return the server class
+     * @return server class
+     */
     public Server getServer(){
         if(this.typeConexion== ConnectionType.SERVER){
             return this.server;
@@ -217,7 +235,8 @@ public class Game {
     }
 
     /**
-     * @return
+     * This method returns the client class
+     * @return client class
      */
     public Client getClient() {
         if(this.typeConexion == ConnectionType.CLIENT) {
@@ -228,20 +247,25 @@ public class Game {
     }
 
     /**
-     * @return
+     * This method returns the info
+     * @return info
      */
     public UpdateInfo getUpdateInfo() {
         return updateInfo;
     }
 
+    /**
+     * This method sets the new information
+     * @param updateInfo New Json
+     */
     public void setUpdateInfo(UpdateInfo updateInfo){
         this.updateInfo = updateInfo;
 
     }
 
     /**Excuete the client
-     * @param port
-     * @param ip
+     * @param port New int
+     * @param ip New String
      */
     public void createConnection(int port, String ip ){
         if ((this.client==null)&(this.typeConexion== ConnectionType.CLIENT)){
@@ -261,12 +285,15 @@ public class Game {
             }
 
             this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
-            this.client.writeSocket(generateJackson());
+            this.updateInfo.setPlayerSendMana(this.player.getMana());
+            this.updateInfo.setPlayerSendLife(this.player.getLife());
+            this.updateInfo.setCodeSendCart((short) 0);
+            this.client.writeSocket(this.generateJackson());
         }
     }
 
     /**
-     *
+     * TH
      */
     public void createConnection(){
         if ((this.server==null)&(this.typeConexion == ConnectionType.SERVER)){

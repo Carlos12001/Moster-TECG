@@ -57,11 +57,11 @@ public class Client extends Thread{
         try {
             DataOutputStream clientOutD = new DataOutputStream(this.clientSocket.getOutputStream());
 
+            System.out.println(jacksonStr);
+
             clientOutD.writeUTF(jacksonStr);
 
             clientOutD.close();
-
-            System.out.println(this.clientSocket.isClosed() + "cliente");
 
         } catch (IOException ioException) {
             MonsterTECGApp.logger.error(ioException);
@@ -97,12 +97,12 @@ public class Client extends Thread{
 
                     UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
 
-                    System.out.println(Info);
-
                     Game.getInstance().setUpdateInfo(Info);
 
                     serverInD.close();
                     socket.setKeepAlive(true);
+
+                    this.join();
                     break;
                 } catch (JsonMappingException e) {
                     MonsterTECGApp.logger.error(e.getMessage());
@@ -110,6 +110,8 @@ public class Client extends Thread{
                     MonsterTECGApp.logger.error(e.getMessage());
                 } catch (IOException e) {
                     MonsterTECGApp.logger.error(e.getMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
