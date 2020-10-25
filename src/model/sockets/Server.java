@@ -103,9 +103,7 @@ public class Server {
      */
     public void readSockect() {
         if(this.socketClient==null) {
-            ClassReadServer InfoIN = new ClassReadServer(this.server);
-            Thread hilo = new Thread(InfoIN);
-            hilo.start();
+            this.waitJoinClient();
         }else{
             readSocketAux();
         }
@@ -150,36 +148,25 @@ public class Server {
     }
 
     /**
-     *  This private class is a thread that listen incoming messages
+     *  This method is a thread listeng the firts
      */
-    private class ClassReadServer extends Thread {
-
-        private ServerSocket serverChlid;
-
-        /**
-         * This is the constructor
-         *
-         * @param socketNew New ServerSocket
-         */
-        private ClassReadServer(ServerSocket socketNew) {
-            this.serverChlid = socketNew;
-        }
-
-        /**
-         * This is a funtion from the Thread
-         */
-        @Override
-        public void run() {
-            while (true) {
-                System.out.println("\n\n--Listening Servidor--\n\n");
-                try {
-                    socketClient = this.serverChlid.accept();
-                    readSocketAux();
-                    break;
-                } catch (IOException e) {
-                    e.printStackTrace();
+    private void waitJoinClient(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    System.out.println("\n\n--Listening Servidor--\n\n");
+                    try {
+                        socketClient = server.accept();
+                        readSocketAux();
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 }

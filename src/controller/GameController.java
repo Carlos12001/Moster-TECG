@@ -1,9 +1,9 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.game.ConnectionType;
 import model.game.Game;
 import model.sockets.UpdateInfo;
 
@@ -47,7 +47,6 @@ public class GameController {
             //Agrega el historial la jugada
             updateGUI();
         }
-
 //      this.game.sendInfoOtherPlayer((short) 0); Envio el mensaje
         this.recibeMessage(oldInfo);
     }
@@ -64,7 +63,28 @@ public class GameController {
      *
      */
     private void recibeMessage(UpdateInfo oldInfo) {
-
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        updateGUI();
+                    }
+                };
+                boolean runner = true;
+                while (runner) {
+                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                        // UI update is run on the Application thread
+                        Platform.runLater(updater);
+                        runner = false;
+                        break;
+                    }
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     /**

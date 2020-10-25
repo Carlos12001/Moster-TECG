@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.webkit.ThemeClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +96,8 @@ public class MenuController {
     }
 
     /**
-     * @param event
+     * This method is in charge of instantiating the Game, of the Client type.
+     * @param event The event button for to joinGame
      */
     @FXML
     private void handleJoinServer(ActionEvent event) {
@@ -145,13 +145,11 @@ public class MenuController {
                         }
                     }
                 };
-                boolean runner = true;
                 UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
-                while (runner) {
+                while (true) {
                     if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
                         // UI update is run on the Application thread
                         Platform.runLater(updater);
-                        runner = false;
                         break;
                     }
                 }
