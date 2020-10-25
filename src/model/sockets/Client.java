@@ -15,7 +15,7 @@ import java.net.Socket;
  * This class send the information through the socket
  * @Param newPort New value of newPort
  */
-public class Client extends Thread{
+public class Client{
     private int port;
     private String IPserver;
     private  Socket clientSocket;
@@ -81,14 +81,20 @@ public class Client extends Thread{
         private ClassReadClient(Socket socket) {
             this.socket = socket;
         }
-
+        
 
         @Override
         public void run() {
+
             ObjectMapper mapper = new ObjectMapper();
 
             while (true) {
                 System.out.println("Listening cliente");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    MonsterTECGApp.logger.error(e.getMessage());
+                }
                 try {
 
                     DataInputStream serverInD = new DataInputStream(this.socket.getInputStream());
@@ -111,7 +117,7 @@ public class Client extends Thread{
                 } catch (IOException e) {
                     MonsterTECGApp.logger.error(e.getMessage());
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    MonsterTECGApp.logger.error(e.getMessage());
                 }
             }
         }
