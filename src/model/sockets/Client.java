@@ -10,16 +10,30 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * This class send the information through the socket
  * @Param newPort New value of newPort
  */
 public class Client extends Thread{
+    /**
+     *
+     */
     private int port;
+    /**
+     *
+     */
     private String IPserver;
+    /**
+     *
+     */
     private  Socket clientSocket;
 
+    /**
+     * @param newPort
+     * @param newIPserver
+     */
     public Client(int newPort, String newIPserver) {
         this.port = newPort;
         this.IPserver = newIPserver;
@@ -30,6 +44,7 @@ public class Client extends Thread{
         }
 
     }
+
 
     /**
      * This method returns the port number
@@ -47,71 +62,71 @@ public class Client extends Thread{
         return this.IPserver;
     }
 
-
     /**
      * This method connect to the server and send the jackson
      * @param jacksonStr New jackson String
      */
     public void writeSocket(String jacksonStr) {
+        System.out.println("\n\n--Write cliente--\n\n");
+
 
         try {
             DataOutputStream clientOutD = new DataOutputStream(this.clientSocket.getOutputStream());
 
             clientOutD.writeUTF(jacksonStr);
 
-            clientOutD.close();
-
+            this.clientSocket.setKeepAlive(true);
         } catch (IOException ioException) {
         }
     }
 
+    /**
+     *
+     */
     public void readSockect() {
-        ClassReadClient infoIN = new ClassReadClient(this.clientSocket);
-        Thread hilo = new Thread(infoIN);
-        hilo.start();
-    }
+        ObjectMapper mapper = new ObjectMapper();
 
-    private class ClassReadClient extends Thread{
+        System.out.println("\n\n--Listening cliente--\n\n");
 
-        private  Socket socket;
+        DataInputStream inputSocketInD = null;
+        try {
+            inputSocketInD = new DataInputStream(this.clientSocket.getInputStream());
 
-        private ClassReadClient(Socket socket) {
-            this.socket = socket;
-        }
+            String message = inputSocketInD.readUTF();
 
+            UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
 
-        @Override
-        public void run() {
-            ObjectMapper mapper = new ObjectMapper();
+            Game.getInstance().setUpdateInfo(Info);
 
-            while (true) {
-                System.out.println("Listening cliente");
-                try {
-
-                    DataInputStream serverInD = new DataInputStream(this.socket.getInputStream());
-
-                    String message = serverInD.readUTF();
-
-                    UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
-
-                    Game.getInstance().setUpdateInfo(Info);
-
-                    serverInD.close();
-                    socket.setKeepAlive(true);
-
-                    this.join();
-                    break;
-                } catch (JsonMappingException e) {
-                    e.getMessage();
-                } catch (JsonProcessingException e) {
-                    e.getMessage();
-                } catch (IOException e) {
-                    e.getMessage();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            this.clientSocket.setKeepAlive(true);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+//    private class ClassReadClient extends Thread{
+//
+//        private  Socket socket;
+//
+//        private ClassReadClient(Socket socket) {
+//            this.socket = socket;
+//        }
+//
+//
+//        @Override
+//        public void run() {
+//
+//
+//            while (true) {
+//
+//            }
+//        }
+//    }
 }
 

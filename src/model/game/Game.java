@@ -202,10 +202,10 @@ public class Game {
     }
 
     /** Sets new round
-     * @param round
+     *
      */
-    public void setRound(short round) {
-        this.round = round;
+    public void setRound() {
+        ++this.round;
     }
 
     /**
@@ -361,7 +361,7 @@ public class Game {
         try {
             mapper.writeValue(jackson, this.updateInfo);
 
-            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/data/Update.json"));
+            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/data/Update" + ".json"));
             String jsonRead = new String();
             String linea = "";
 

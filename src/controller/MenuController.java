@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.webkit.ThemeClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,6 +69,11 @@ public class MenuController {
      */
     @FXML
     private TextField textFieldPuerto;
+    /** Value injected by FXMLLoader
+     * fx:id="buttomInit"
+     */
+    @FXML
+    private Button buttonInit;
 
 
     /**
@@ -110,11 +116,13 @@ public class MenuController {
      */
     @FXML
     private void handleInitGame(ActionEvent event) {
+        this.buttonInit.setDisable(true);
         int port = 0;
         try {
             port = Integer.parseInt(this.textFieldPuerto.getText());
             this.game.createConnection(port,this.textFieldIp.getText());
-//            this.game.getClient().readSockect();
+            this.updateGUIMessage();
+            this.game.getClient().readSockect();
         }catch (NumberFormatException ex){
            ex.getMessage();
         }
@@ -130,10 +138,11 @@ public class MenuController {
                 Runnable updater = new Runnable() {
                     @Override
                     public void run() {
+                        openGameView();
                         if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
                             //metodos de escritura sockets en Game
+                            Game.getInstance().sendInfoOtherPlayer((short) 0);
                         }
-                        openGameView();
                     }
                 };
 

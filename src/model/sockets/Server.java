@@ -26,6 +26,8 @@ public class Server {
      */
     private int port = 1024;
 
+    private Socket socketClient;
+
     /**
      * This is the constructor, it finds the a free port and creates the ServerSocket
      */
@@ -82,14 +84,14 @@ public class Server {
      */
 
     public void writeSocket(String jacksonStr){
+        System.out.println("\n\n--Write Servidor--\n\n");
 
         try {
-            DataOutputStream serverOutD = new DataOutputStream(this.server.accept().getOutputStream());
+            DataOutputStream serverOutD = new DataOutputStream(this.socketClient.getOutputStream());
 
             serverOutD.writeUTF(jacksonStr);
 
-            serverOutD.close();
-
+            this.socketClient.setKeepAlive(true);
         } catch (IOException e) {
             e.getMessage();
         }
@@ -103,6 +105,21 @@ public class Server {
         ClassReadServer InfoIN = new ClassReadServer(this.server);
         Thread hilo = new Thread(InfoIN);
         hilo.start();
+    }
+
+    /**
+     *
+     */
+    private void readSocketAux(){
+    }
+
+    /**
+     * Gets server.
+     *
+     * @return Value of server.
+     */
+    public ServerSocket getServer() {
+        return server;
     }
 
     /**
@@ -130,10 +147,10 @@ public class Server {
             ObjectMapper mapper = new ObjectMapper();
 
             while (true) {
-                System.out.println("Listening Servidor");
+                System.out.println("\n\n--Listening Servidor--\n\n");
                 try {
 
-                    Socket socketS = this.socketChlid.accept();
+                    Socket socketS = socketClient = this.socketChlid.accept();
 
                     DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
 
@@ -143,8 +160,7 @@ public class Server {
 
                     Game.getInstance().setUpdateInfo(Info);
 
-                    serverInD.close();
-
+                    socketS.setKeepAlive(true);
 
                     break;
                 } catch (JsonMappingException e) {
@@ -160,12 +176,4 @@ public class Server {
     }
 
 
-    /**
-     * Gets server.
-     *
-     * @return Value of server.
-     */
-    public ServerSocket getServer() {
-        return server;
-    }
 }
