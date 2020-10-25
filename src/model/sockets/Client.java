@@ -57,8 +57,6 @@ public class Client extends Thread{
         try {
             DataOutputStream clientOutD = new DataOutputStream(this.clientSocket.getOutputStream());
 
-            System.out.println(jacksonStr);
-
             clientOutD.writeUTF(jacksonStr);
 
             clientOutD.close();
@@ -67,7 +65,7 @@ public class Client extends Thread{
         }
     }
 
-    private void readSockect() {
+    public void readSockect() {
         ClassReadClient infoIN = new ClassReadClient(this.clientSocket);
         Thread hilo = new Thread(infoIN);
         hilo.start();

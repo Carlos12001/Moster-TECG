@@ -2,27 +2,11 @@ package model.sockets;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.io.DataOutputAsStream;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controller.GameController;
-import controller.MenuController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import main.MonsterTECGApp;
 import model.game.Game;
-
-import javax.sql.rowset.serial.SerialArray;
-import javax.sql.rowset.spi.SyncFactory;
-import javax.xml.crypto.Data;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.*;
+import java.net.*;
 
 
 /**

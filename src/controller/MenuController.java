@@ -4,13 +4,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.MonsterTECGApp;
 import model.game.ConnectionType;
 import model.game.*;
 import model.sockets.UpdateInfo;
@@ -90,35 +87,7 @@ public class MenuController {
         this.labelIPServer.setText(this.game.getServer().getIp()+"");
         this.labelPortServer.setText(this.game.getServer().getPort()+"");
 
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-                    @Override
-                    public void run() {
-                        updateGUIMessage();
-                    }
-                };
-
-                boolean runner = true;
-                UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
-                System.out.println(oldInfo);
-
-                while (runner) {
-                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
-                        // UI update is run on the Application thread
-                        Platform.runLater(updater);
-                        runner = false;
-                        break;
-                    }
-                }
-            }
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
-
+        this.updateGUIMessage();
     }
 
     /**
@@ -144,14 +113,50 @@ public class MenuController {
         int port = 0;
         try {
             port = Integer.parseInt(this.textFieldPuerto.getText());
-            this.updateGUIMessage();
             this.game.createConnection(port,this.textFieldIp.getText());
+//            this.game.getClient().readSockect();
         }catch (NumberFormatException ex){
            ex.getMessage();
         }
     }
 
-    public void updateGUIMessage(){
+    /**
+     *
+     */
+    private void updateGUIMessage() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
+                            //metodos de escritura sockets en Game
+                        }
+                        openGameView();
+                    }
+                };
+
+                boolean runner = true;
+                UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
+                while (runner) {
+                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                        // UI update is run on the Application thread
+                        Platform.runLater(updater);
+                        runner = false;
+                        break;
+                    }
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    /**
+     *
+     */
+    public void openGameView() {
         try {
             ((Stage) this.labelIPServer.getScene().getWindow()).
                     setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));

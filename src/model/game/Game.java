@@ -11,6 +11,9 @@ import model.sockets.UpdateInfo;
 import java.io.*;
 import java.util.Random;
 
+import static model.game.ConnectionType.CLIENT;
+import static model.game.ConnectionType.SERVER;
+
 public class Game {
 
     /**
@@ -44,7 +47,7 @@ public class Game {
     /**
      *
      */
-    private byte round;
+    private short round = 1;
     /**
      *
      */
@@ -140,7 +143,7 @@ public class Game {
      *
      * @return Value of round.
      */
-    public byte getRound() {
+    public short getRound() {
         return round;
     }
 
@@ -201,7 +204,7 @@ public class Game {
     /** Sets new round
      * @param round
      */
-    public void setRound(byte round) {
+    public void setRound(short round) {
         this.round = round;
     }
 
@@ -228,7 +231,7 @@ public class Game {
      * @return server class
      */
     public Server getServer(){
-        if(this.typeConexion== ConnectionType.SERVER){
+        if(this.typeConexion== SERVER){
             return this.server;
         }else {
             return null;
@@ -240,7 +243,7 @@ public class Game {
      * @return client class
      */
     public Client getClient() {
-        if(this.typeConexion == ConnectionType.CLIENT) {
+        if(this.typeConexion == CLIENT) {
             return this.client;
         }else{
             return null;
@@ -269,17 +272,18 @@ public class Game {
      * @param ip New String
      */
     public void createConnection(int port, String ip ){
-        if ((this.client==null)&(this.typeConexion== ConnectionType.CLIENT)){
+        if ((this.client==null)&(this.typeConexion== CLIENT)){
             this.client = new Client(port, ip);
+
+            //Choice the random
             Random rnd = new Random();
             int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
-
             switch (ramdomNum){
                 case 1:
-                   this.whoFisrt = ConnectionType.SERVER;
+                   this.whoFisrt = SERVER;
                     break;
                 case 2:
-                    this.whoFisrt = ConnectionType.CLIENT;
+                    this.whoFisrt = CLIENT;
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + ramdomNum);
@@ -297,9 +301,52 @@ public class Game {
      * TH
      */
     public void createConnection(){
-        if ((this.server==null)&(this.typeConexion == ConnectionType.SERVER)){
+        if ((this.server==null)&(this.typeConexion == SERVER)){
             this.server = new Server();
             this.server.readSockect();
+        }
+    }
+
+    /**
+     * @param skipTurn
+     */
+    public void sendInfoOtherPlayer(boolean skipTurn){
+        this.updateInfo.setPlayerSendName(player.getName());
+        this.updateInfo.setPlayerSendLife(player.getLife());
+        this.updateInfo.setPlayerSendMana(player.getMana());
+        this.updateInfo.setRound(this.round);
+        this.updateInfo.setCodeSendCart((short) 0);
+        this.updateInfo.setSkipTurn(true);
+        switch (this.getTypeConexion()) {
+            case SERVER:
+                this.server.writeSocket(this.generateJackson());
+                break;
+            case CLIENT:
+                this.client.writeSocket(this.generateJackson());
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
+        }
+    }
+
+    /**
+     * @param codeCart
+     */
+    public void sendInfoOtherPlayer(short codeCart){
+        this.updateInfo.setPlayerSendName(player.getName());
+        this.updateInfo.setPlayerSendLife(player.getLife());
+        this.updateInfo.setPlayerSendMana(player.getMana());
+        this.updateInfo.setRound(this.round);
+        this.updateInfo.setCodeSendCart(codeCart);
+        switch (this.getTypeConexion()) {
+            case SERVER:
+                this.server.writeSocket(this.generateJackson());
+                break;
+            case CLIENT:
+                this.client.writeSocket(this.generateJackson());
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
         }
     }
 
