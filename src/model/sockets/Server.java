@@ -83,7 +83,7 @@ public class Server {
      * @param jacksonStr New jackson String
      */
 
-    public void writeSocket(String jacksonStr){
+    public void writeSocket(String jacksonStr) {
         System.out.println("\n\n--Write Servidor--\n\n");
 
         try {
@@ -102,15 +102,42 @@ public class Server {
      *  This method read the message that client sends
      */
     public void readSockect() {
-        ClassReadServer InfoIN = new ClassReadServer(this.server);
-        Thread hilo = new Thread(InfoIN);
-        hilo.start();
+        if(this.socketClient==null) {
+            ClassReadServer InfoIN = new ClassReadServer(this.server);
+            Thread hilo = new Thread(InfoIN);
+            hilo.start();
+        }else{
+            readSocketAux();
+        }
     }
 
     /**
      *
      */
     private void readSocketAux(){
+
+        System.out.println("\n\n--Listening Servidor--\n\n");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            DataInputStream serverInD = new DataInputStream(this.socketClient.getInputStream());
+
+            String message = serverInD.readUTF();
+
+            UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
+
+            Game.getInstance().setUpdateInfo(Info);
+
+            this.socketClient.setKeepAlive(true);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -125,55 +152,34 @@ public class Server {
     /**
      *  This private class is a thread that listen incoming messages
      */
-    private class ClassReadServer extends Thread{
+    private class ClassReadServer extends Thread {
 
-        private ServerSocket socketChlid;
+        private ServerSocket serverChlid;
 
         /**
          * This is the constructor
+         *
          * @param socketNew New ServerSocket
          */
-        private ClassReadServer(ServerSocket socketNew){
-            this.socketChlid = socketNew;
+        private ClassReadServer(ServerSocket socketNew) {
+            this.serverChlid = socketNew;
         }
-
 
         /**
          * This is a funtion from the Thread
          */
         @Override
         public void run() {
-
-            ObjectMapper mapper = new ObjectMapper();
-
             while (true) {
                 System.out.println("\n\n--Listening Servidor--\n\n");
                 try {
-
-                    Socket socketS = socketClient = this.socketChlid.accept();
-
-                    DataInputStream serverInD = new DataInputStream(socketS.getInputStream());
-
-                    String message = serverInD.readUTF();
-
-                    UpdateInfo Info = mapper.readValue(message, UpdateInfo.class);
-
-                    Game.getInstance().setUpdateInfo(Info);
-
-                    socketS.setKeepAlive(true);
-
+                    socketClient = this.serverChlid.accept();
+                    readSocketAux();
                     break;
-                } catch (JsonMappingException e) {
-                    e.getMessage();
-                } catch (JsonProcessingException e) {
-                    e.getMessage();
                 } catch (IOException e) {
-                    e.getMessage();
+                    e.printStackTrace();
                 }
             }
-
         }
     }
-
-
 }

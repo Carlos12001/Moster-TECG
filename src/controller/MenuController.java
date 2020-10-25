@@ -122,7 +122,7 @@ public class MenuController {
             port = Integer.parseInt(this.textFieldPuerto.getText());
             this.game.createConnection(port,this.textFieldIp.getText());
             this.updateGUIMessage();
-            this.game.getClient().readSockect();
+            this.game.recibeNewInfo();
         }catch (NumberFormatException ex){
            ex.getMessage();
         }
@@ -145,7 +145,6 @@ public class MenuController {
                         }
                     }
                 };
-
                 boolean runner = true;
                 UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
                 while (runner) {

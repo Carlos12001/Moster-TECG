@@ -39,17 +39,17 @@ public class GameController {
      */
     @FXML
     private void handleSend(ActionEvent event) {
-        ConnectionType typeC = game.getTypeConexion();
-
-        switch (typeC){
-            case SERVER ->{
-                System.out.println("Soy servidor");
-            }
-            case CLIENT -> {
-                System.out.println("Soy cliente");
-
-            }
+        UpdateInfo oldInfo = this.game.getUpdateInfo();
+        this.dissableGUI(true);
+        if  ( game.getWhoFisrt() != this.game.getTypeConexion()) {
+            System.out.println("Cambie de turno soy " + this.game.getTypeConexion());
+            game.setRound();
+            //Agrega el historial la jugada
+            updateGUI();
         }
+
+//      this.game.sendInfoOtherPlayer((short) 0); Envio el mensaje
+        this.recibeMessage(oldInfo);
     }
 
     /**
@@ -63,7 +63,22 @@ public class GameController {
     /**
      *
      */
-    public void updateGUIMessage() {
+    private void recibeMessage(UpdateInfo oldInfo) {
+
+    }
+
+    /**
+     *
+     */
+    private void updateGUI() {
+        UpdateInfo info = this.game.getUpdateInfo();
+        this.game.setWhoFisrt(info.getWhoFirst());
+
+        this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
+                info.getPlayerSendLife() + "\n" +
+                info.getPlayerSendMana() + "\n" +
+                this.game.getRound() );
+
     }
 
     @FXML
@@ -75,20 +90,15 @@ public class GameController {
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
                 info.getPlayerSendLife() + "\n" +
                 info.getPlayerSendMana() + "\n" +
-                this.game.getTypeConexion() + "\n" +
                 this.game.getRound() );
 
-        ConnectionType typeC = game.getWhoFisrt();
-
-        if ((typeC == ConnectionType.SERVER) && (this.game.getTypeConexion()==ConnectionType.SERVER)) {
-            System.out.println("Empiezo el " + typeC);
+        if  (game.getWhoFisrt() == this.game.getTypeConexion()) {
+            System.out.println("Empiezo el " + this.game.getTypeConexion());
             this.dissableGUI(false);
-        } else if ((typeC == ConnectionType.CLIENT) && (this.game.getTypeConexion()==ConnectionType.CLIENT)){
-            System.out.println("Empiezo el " + typeC);
-            this.dissableGUI(false);
-        }else{
-            System.out.println("NO empiezo ");
+        } else{
+            System.out.println("NO empiezo " + this.game.getTypeConexion());
             this.dissableGUI(true);
+//            this.game.recibeNewInfo();
         }
     }
 

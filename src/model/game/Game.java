@@ -339,14 +339,17 @@ public class Game {
         this.updateInfo.setRound(this.round);
         this.updateInfo.setCodeSendCart(codeCart);
         switch (this.getTypeConexion()) {
-            case SERVER:
-                this.server.writeSocket(this.generateJackson());
-                break;
-            case CLIENT:
-                this.client.writeSocket(this.generateJackson());
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
+            case SERVER -> this.server.writeSocket(this.generateJackson());
+            case CLIENT -> this.client.writeSocket(this.generateJackson());
+            default -> throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
+        }
+    }
+
+    public void recibeNewInfo(){
+        switch (this.getTypeConexion()) {
+            case SERVER -> this.server.readSockect();
+            case CLIENT -> this.client.readSockect();
+            default -> throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
         }
     }
 
@@ -365,11 +368,9 @@ public class Game {
             String jsonRead = new String();
             String linea = "";
 
-
             //Lee linea por linea el archivo
-            while ((linea = br.readLine()) != null) {
+            while ((linea = br.readLine()) != null)
                 jsonRead += linea;
-            }
 
             return jsonRead;
         } catch (JsonGenerationException e) {
