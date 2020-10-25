@@ -147,7 +147,7 @@ public class MenuController {
             this.updateGUIMessage();
             this.game.createConnection(port,this.textFieldIp.getText());
         }catch (NumberFormatException ex){
-            MonsterTECGApp.logger.error(ex.getMessage());
+           ex.getMessage();
         }
     }
 
@@ -156,7 +156,7 @@ public class MenuController {
             ((Stage) this.labelIPServer.getScene().getWindow()).
                     setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));
         } catch (IOException e) {
-            MonsterTECGApp.logger.error(e.getMessage());
+            e.getMessage();
         }
     }
 

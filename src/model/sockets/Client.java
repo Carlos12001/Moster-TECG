@@ -26,7 +26,7 @@ public class Client extends Thread{
         try {
             this.clientSocket= new Socket(this.IPserver, this.port);
         } catch (IOException e) {
-            MonsterTECGApp.logger.error(e.getMessage());
+            e.getMessage();
         }
 
     }
@@ -64,7 +64,6 @@ public class Client extends Thread{
             clientOutD.close();
 
         } catch (IOException ioException) {
-            MonsterTECGApp.logger.error(ioException);
         }
     }
 
@@ -105,11 +104,11 @@ public class Client extends Thread{
                     this.join();
                     break;
                 } catch (JsonMappingException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 } catch (JsonProcessingException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 } catch (IOException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

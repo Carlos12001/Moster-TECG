@@ -55,7 +55,7 @@ public class Server {
 
             } catch (IOException e) {
                 setPort(++this.port);
-                MonsterTECGApp.logger.error(e.getMessage());
+                e.getMessage();
             }
         }
     }
@@ -87,7 +87,7 @@ public class Server {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            MonsterTECGApp.logger.error(e.getMessage());
+            e.getMessage();
         }
         return null;
     }
@@ -107,7 +107,7 @@ public class Server {
             serverOutD.close();
 
         } catch (IOException e) {
-            MonsterTECGApp.logger.error(e.getMessage());
+            e.getMessage();
         }
 
     }
@@ -164,11 +164,11 @@ public class Server {
 
                     break;
                 } catch (JsonMappingException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 } catch (JsonProcessingException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 } catch (IOException e) {
-                    MonsterTECGApp.logger.error(e.getMessage());
+                    e.getMessage();
                 }
             }
 
