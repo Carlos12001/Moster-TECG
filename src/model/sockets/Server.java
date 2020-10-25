@@ -41,7 +41,6 @@ public class Server {
 
             } catch (IOException e) {
                 setPort(++this.port);
-                e.getMessage();
             }
         }
     }
@@ -73,7 +72,7 @@ public class Server {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return null;
     }
@@ -93,9 +92,8 @@ public class Server {
 
             this.socketClient.setKeepAlive(true);
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
-
     }
 
     /**
@@ -151,18 +149,15 @@ public class Server {
      *  This method is a thread listeng the firts
      */
     private void waitJoinClient(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    System.out.println("\n\n--Listening Servidor--\n\n");
-                    try {
-                        socketClient = server.accept();
-                        readSocketAux();
-                        break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        Thread thread = new Thread(() -> {
+            while (true) {
+                System.out.println("\n\n--Listening Servidor--\n\n");
+                try {
+                    socketClient = server.accept();
+                    readSocketAux();
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

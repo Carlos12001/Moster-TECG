@@ -3,7 +3,6 @@ package model.game;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controller.GameController;
 import model.sockets.Server;
 import model.sockets.Client;
 import model.sockets.UpdateInfo;
@@ -278,15 +277,10 @@ public class Game {
             //Choice the random
             Random rnd = new Random();
             int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
-            switch (ramdomNum){
-                case 1:
-                   this.whoFisrt = SERVER;
-                    break;
-                case 2:
-                    this.whoFisrt = CLIENT;
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + ramdomNum);
+            switch (ramdomNum) {
+                case 1 -> this.whoFisrt = SERVER;
+                case 2 -> this.whoFisrt = CLIENT;
+                default -> throw new IllegalStateException("Unexpected value: " + ramdomNum);
             }
 
             this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
@@ -318,14 +312,9 @@ public class Game {
         this.updateInfo.setCodeSendCart((short) 0);
         this.updateInfo.setSkipTurn(true);
         switch (this.getTypeConexion()) {
-            case SERVER:
-                this.server.writeSocket(this.generateJackson());
-                break;
-            case CLIENT:
-                this.client.writeSocket(this.generateJackson());
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
+            case SERVER -> this.server.writeSocket(this.generateJackson());
+            case CLIENT -> this.client.writeSocket(this.generateJackson());
+            default -> throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
         }
     }
 
@@ -365,14 +354,14 @@ public class Game {
             mapper.writeValue(jackson, this.updateInfo);
 
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/data/Update" + ".json"));
-            String jsonRead = new String();
-            String linea = "";
+            StringBuilder jsonRead = new StringBuilder();
+            String linea;
 
             //Lee linea por linea el archivo
             while ((linea = br.readLine()) != null)
-                jsonRead += linea;
+                jsonRead.append(linea);
 
-            return jsonRead;
+            return jsonRead.toString();
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -388,7 +377,7 @@ public class Game {
     /**
      * @param player
      * @param typeConexion
-     * @return
+     * @return instance
      */
     public static Game getInstance(Player player, ConnectionType typeConexion) {
 

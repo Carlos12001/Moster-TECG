@@ -3,7 +3,6 @@ package model.sockets;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import main.MonsterTECGApp;
 import model.game.Game;
 
 import java.io.DataInputStream;
@@ -13,8 +12,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 /**
- * This class send the information through the socket
- * @Param newPort New value of newPort
+ * This class
  */
 public class Client extends Thread{
     /**
@@ -40,7 +38,7 @@ public class Client extends Thread{
         try {
             this.clientSocket= new Socket(this.IPserver, this.port);
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
 
     }
@@ -77,6 +75,7 @@ public class Client extends Thread{
 
             this.clientSocket.setKeepAlive(true);
         } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
@@ -88,7 +87,7 @@ public class Client extends Thread{
 
         System.out.println("\n\n--Listening cliente--\n\n");
 
-        DataInputStream inputSocketInD = null;
+        DataInputStream inputSocketInD;
         try {
             inputSocketInD = new DataInputStream(this.clientSocket.getInputStream());
 
@@ -110,23 +109,5 @@ public class Client extends Thread{
         }
     }
 
-//    private class ClassReadClient extends Thread{
-//
-//        private  Socket socket;
-//
-//        private ClassReadClient(Socket socket) {
-//            this.socket = socket;
-//        }
-//
-//
-//        @Override
-//        public void run() {
-//
-//
-//            while (true) {
-//
-//            }
-//        }
-//    }
 }
 

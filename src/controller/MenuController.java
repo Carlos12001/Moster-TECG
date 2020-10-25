@@ -117,14 +117,14 @@ public class MenuController {
     @FXML
     private void handleInitGame(ActionEvent event) {
         this.buttonInit.setDisable(true);
-        int port = 0;
+        int port;
         try {
             port = Integer.parseInt(this.textFieldPuerto.getText());
             this.game.createConnection(port,this.textFieldIp.getText());
             this.updateGUIMessage();
             this.game.recibeNewInfo();
-        }catch (NumberFormatException ex){
-           ex.getMessage();
+        }catch (NumberFormatException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -132,26 +132,20 @@ public class MenuController {
      *
      */
     private void updateGUIMessage() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-                    @Override
-                    public void run() {
-                        openGameView();
-                        if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
-                            //metodos de escritura sockets en Game
-                            Game.getInstance().sendInfoOtherPlayer((short) 0);
-                        }
-                    }
-                };
-                UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
-                while (true) {
-                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
-                        // UI update is run on the Application thread
-                        Platform.runLater(updater);
-                        break;
-                    }
+        Thread thread = new Thread(() -> {
+            Runnable updater = () -> {
+                openGameView();
+                if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
+                    //metodos de escritura sockets en Game
+                    Game.getInstance().sendInfoOtherPlayer((short) 0);
+                }
+            };
+            UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
+            while (true) {
+                if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                    break;
                 }
             }
         });
@@ -167,7 +161,7 @@ public class MenuController {
             ((Stage) this.labelIPServer.getScene().getWindow()).
                     setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));
         } catch (IOException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 

@@ -33,6 +33,12 @@ public class GameController {
     @FXML
     private TextArea lalbelPrueba;
 
+    @FXML
+    public Label labelPLayerName;
+
+    @FXML
+    private Label labelTypeConnection;
+
 
     /**
      * @param event
@@ -52,7 +58,7 @@ public class GameController {
     }
 
     /**
-     * @param setter
+     * @param setter This is boolean who blocks the GUI.
      */
     private void dissableGUI(boolean setter) {
         this.buttonSendCart.setDisable(setter);
@@ -63,23 +69,13 @@ public class GameController {
      *
      */
     private void recibeMessage(UpdateInfo oldInfo) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-                    @Override
-                    public void run() {
-                        updateGUI();
-                    }
-                };
-                boolean runner = true;
-                while (runner) {
-                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
-                        // UI update is run on the Application thread
-                        Platform.runLater(updater);
-                        runner = false;
-                        break;
-                    }
+        Thread thread = new Thread(() -> {
+            Runnable updater = this::updateGUI;
+            while (true) {
+                if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                    break;
                 }
             }
         });
@@ -104,6 +100,8 @@ public class GameController {
     @FXML
     private void initialize() {
         this.game = Game.getInstance();
+        this.labelPLayerName.setText(this.game.getPlayer().getName());
+        this.labelTypeConnection.setText(this.game.getTypeConexion() + "");
         UpdateInfo info = this.game.getUpdateInfo();
         this.game.setWhoFisrt(info.getWhoFirst());
 
