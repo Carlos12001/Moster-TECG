@@ -3,6 +3,7 @@ package model.game;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import controller.GameController;
 import model.sockets.Server;
 import model.sockets.Client;
 import model.sockets.UpdateInfo;
@@ -336,7 +337,6 @@ public class Game {
         return null;
     }
 
-
     /**
      * @param player
      * @param typeConexion
@@ -362,6 +362,5 @@ public class Game {
     public static Game getInstance() {
         return instance;
     }
-
 
 }

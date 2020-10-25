@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.MonsterTECGApp;
 import model.game.ConnectionType;
-import model.game.Game;
-import model.game.Player;
+import model.game.*;
 import model.sockets.UpdateInfo;
 
 import java.io.IOException;
@@ -91,9 +90,34 @@ public class MenuController {
         this.labelIPServer.setText(this.game.getServer().getIp()+"");
         this.labelPortServer.setText(this.game.getServer().getPort()+"");
 
-        WaitUpload waitUpload = new WaitUpload();
-        Thread hilo = new Thread(waitUpload);
-        hilo.start();
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        updateGUIMessage();
+                    }
+                };
+
+                boolean runner = true;
+                UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();
+                System.out.println(oldInfo);
+
+                while (runner) {
+                    if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                        // UI update is run on the Application thread
+                        Platform.runLater(updater);
+                        runner = false;
+                        break;
+                    }
+                }
+            }
+        });
+        // don't let thread prevent JVM shutdown
+        thread.setDaemon(true);
+        thread.start();
 
     }
 
@@ -128,12 +152,11 @@ public class MenuController {
     }
 
     public void updateGUIMessage(){
-
         try {
             ((Stage) this.labelIPServer.getScene().getWindow()).
                     setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));
         } catch (IOException e) {
-            MonsterTECGApp.logger.error(e.getMessage(), e);
+            MonsterTECGApp.logger.error(e.getMessage());
         }
     }
 
@@ -142,45 +165,10 @@ public class MenuController {
      */
     @FXML
     private void initialize() {
-
         try {
             this.textFieldIp.setPromptText(InetAddress.getLocalHost().getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class  WaitUpload extends Thread {
-        @Override
-        public void run() {
-            boolean runner = true;
-            UpdateInfo oldInfo = game.getUpdateInfo();
-            System.out.println(oldInfo);
-            while (runner) {
-                if (oldInfo.equals(game.getUpdateInfo())) {
-                    runner = true;
-                    System.out.println(oldInfo);
-                }
-                else {
-                    runner = false;
-                    System.out.println(game.getUpdateInfo());
-                    try {
-                        this.join();
-                    } catch (InterruptedException e) {
-                        try {
-                            this.wait();
-                        } catch (InterruptedException interruptedException) {
-                            interruptedException.printStackTrace();
-                        }
-                        e.printStackTrace();
-                    }finally {
-                        updateGUIMessage();
-                    }
-
-                    break;
-
-                }
-            }
         }
     }
 

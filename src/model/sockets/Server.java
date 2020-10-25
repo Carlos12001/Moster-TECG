@@ -161,7 +161,6 @@ public class Server {
 
                     serverInD.close();
 
-                    this.join();
 
                     break;
                 } catch (JsonMappingException e) {
@@ -170,8 +169,6 @@ public class Server {
                     MonsterTECGApp.logger.error(e.getMessage());
                 } catch (IOException e) {
                     MonsterTECGApp.logger.error(e.getMessage());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
 
