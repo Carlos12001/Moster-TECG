@@ -1,9 +1,12 @@
 package model.Card;
 
+import model.Card.Card;
+
 public class HandCardList {
 
     private HandCardNode head;
     private HandCardNode tail;
+    private HandCardNode currentDisplay = this.head;
     private int size;
 
     public HandCardList(){
@@ -20,20 +23,20 @@ public class HandCardList {
         return this.size;
     }
 
-    public void insertLast(Object handCardNode){
+    public void insertLast(Card handCardNode){
         HandCardNode newCardNode = new HandCardNode(handCardNode);
 
         if (this.isEmpty()){
             this.head = this.tail = newCardNode;
         } else {
-            this.head.setNext(newCardNode);
+            this.head.setPrevious(newCardNode);
             newCardNode.setPrevious(this.tail);
             this.tail.setNext(newCardNode);
             this.tail = newCardNode;
         }
     }
 
-    public Object deleteCard(String id){
+    public Card deleteCard(String id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;
         HandCardNode tmp;
@@ -52,12 +55,21 @@ public class HandCardList {
                     previous.setNext(current.getNext());
                     tmp.setPrevious(current.getPrevious());
                 }
-                return current;
+                return current.getCardN();
             }
             else {
                 previous = current;
                 current = current.getNext();
             }
         }
+        return null;
+    }
+
+    public Card displayCard(){
+        return this.currentDisplay.getCardN();
+    }
+
+    public void setCurrentDisplay(){
+        this.currentDisplay = this.currentDisplay.getNext();
     }
 }

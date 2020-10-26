@@ -3,19 +3,19 @@ package model.Card;
 public class HandCardNode {
     private HandCardNode next;
     private HandCardNode previous;
-    private Object cardN;
+    private Card cardN;
 
-    public HandCardNode(Object cardN){
+    public HandCardNode(Card cardN){
         this.next = null;
         this.previous = null;
         this.cardN = cardN;
     }
 
-    public  Object getCardN(){
+    public Card getCardN(){
         return  this.cardN;
     }
 
-    public void setCardN(Object newCardN){
+    public void setCardN(Card newCardN){
         this.cardN = newCardN;
     }
 
@@ -31,7 +31,7 @@ public class HandCardNode {
         return this.previous;
     }
 
-    public HandCardNode setPrevious(HandCardNode handCardNode){
+    public void setPrevious(HandCardNode handCardNode){
         this.previous = handCardNode;
     }
 }
