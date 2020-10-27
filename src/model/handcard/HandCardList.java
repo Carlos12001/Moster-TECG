@@ -80,10 +80,15 @@ public class HandCardList {
     }
 
     public Card displayCard(String direction){
-        if (direction == "back"){
-            //
-        } else if (direction == "foward"){
-            
+        if (direction == "previous"){
+            this.currentDisplay = this.currentDisplay.getPrevious();
+            return this.currentDisplay.getCardN();
+        } else if (direction == "next"){
+            this.currentDisplay = this.currentDisplay.getNext();
+            return this.currentDisplay.getCardN();
+        } else if (direction == "current"){
+            return this.currentDisplay.getCardN();
         }
+        return null;
     }
 }
