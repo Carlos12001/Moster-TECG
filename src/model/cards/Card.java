@@ -1,34 +1,64 @@
 package model.cards;
 
-public class Card {
-    private String id;
-    private String category;
-    private short powerAtack;
-    private short costCard;
+public abstract class Card {
 
-    public Card(String category, String id){
+
+    /**
+     *
+     */
+    private final String category;
+    /**
+     *
+     */
+    private String eventCart;//players, game, both. JSON
+    /**
+     *
+     */
+    private final short code;
+    /**
+     *
+     */
+    private short costCard;//JSON
+
+
+    public Card(String category, short code){
         this.category = category;
-        this.id = id;
+        this.code = code;
     }
 
-    public void setPowerAtack(short powerAtack){
-        this.powerAtack= powerAtack;
+    /**
+     * Gets code.
+     *
+     * @return Value of code.
+     */
+    public short getCode() {
+        return code;
     }
 
-    public short getPowerAtack(){
-        return this.powerAtack;
+    /**
+     * Gets costCard.
+     *
+     * @return Value of costCard.
+     */
+    public short getCostCard() {
+        return costCard;
     }
 
-    public void setCostCard(short costCard){
-        this.costCard = costCard;
+    /**
+     * Gets category.
+     *
+     * @return Value of category.
+     */
+    public String getCategory() {
+        return category;
     }
 
-    public String getId(){
-        return this.id;
+    /**
+     * Gets eventCart.
+     *
+     * @return Value of eventCart.
+     */
+    public String getEventCart() {
+        return eventCart;
     }
-
-    public String getCategory(){
-        return this.category;
-    }
-
 }

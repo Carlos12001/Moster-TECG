@@ -36,12 +36,12 @@ public class HandCardList {
         }
     }
 
-    public Card deleteCard(String id){
+    public Card deleteCard(short id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;
         HandCardNode tmp;
         while (current != null){
-            if (current.getCardN().getId().equals(id)){ // hacer este emtodo en clase carta
+            if (current.getCardN().getCode()==id){ // hacer este emtodo en clase carta
                 if (current == this.head){
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
