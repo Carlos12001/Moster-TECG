@@ -5,11 +5,11 @@ import model.Card.Card;
 import javax.swing.*;
 
 public class DeckStack {
-    private int maxSize;
+    private short maxSize;
     private Card[] stackArray;
-    private int top;
+    private short top;
 
-    public void DeckStack(int max){
+    public void DeckStack(short max){
         this.maxSize = max;
         this.top = -1;
     }
