@@ -3,6 +3,7 @@ package model.cards;
 public class Card {
     private String id;
     private String category;
+    private String img;
     private short powerAtack;
     private short costCard;
 
