@@ -27,15 +27,18 @@ public class GameController {
     @FXML
     private Button buttomSkipTurn;
 
+    @FXML
+    private TextArea lalbelPrueba;
+
     /**
      *
      */
     @FXML
-    private TextArea lalbelPrueba;
-
-    @FXML
     public Label labelPLayerName;
 
+    /**
+     *
+     */
     @FXML
     private Label labelTypeConnection;
 
@@ -48,12 +51,12 @@ public class GameController {
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
         if  ( game.getWhoFisrt() != this.game.getTypeConexion()) {
-            System.out.println("Cambie de turno soy " + this.game.getTypeConexion());
             game.setRound();
             //Agrega el historial la jugada
             updateGUI();
         }
-//      this.game.sendInfoOtherPlayer((short) 0); Envio el mensaje
+        this.game.sendInfoOtherPlayer((short) 0);
+        this.game.recibeNewInfo();
         this.recibeMessage(oldInfo);
     }
 
@@ -70,7 +73,7 @@ public class GameController {
      */
     private void recibeMessage(UpdateInfo oldInfo) {
         Thread thread = new Thread(() -> {
-            Runnable updater = this::updateGUI;
+            Runnable updater = this::recibeMessageAux;
             while (true) {
                 if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
                     // UI update is run on the Application thread
@@ -83,18 +86,21 @@ public class GameController {
         thread.start();
     }
 
+    private void recibeMessageAux(){
+        this.dissableGUI(false);
+        this.updateGUI();
+    }
+
     /**
      *
      */
     private void updateGUI() {
         UpdateInfo info = this.game.getUpdateInfo();
         this.game.setWhoFisrt(info.getWhoFirst());
-
-        this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
-                info.getPlayerSendLife() + "\n" +
-                info.getPlayerSendMana() + "\n" +
+        this.lalbelPrueba.setText(this.game.getPlayerOtherName() + "\n" +
+                this.game.getPlayerOtherLife() + "\n" +
+                this.game.getPlayerOtherMana() + "\n" +
                 this.game.getRound() );
-
     }
 
     @FXML
@@ -111,12 +117,11 @@ public class GameController {
                 this.game.getRound() );
 
         if  (game.getWhoFisrt() == this.game.getTypeConexion()) {
-            System.out.println("Empiezo el " + this.game.getTypeConexion());
             this.dissableGUI(false);
         } else{
-            System.out.println("NO empiezo " + this.game.getTypeConexion());
             this.dissableGUI(true);
-//            this.game.recibeNewInfo();
+            this.recibeMessage(this.game.getUpdateInfo());
+            this.game.recibeNewInfo();
         }
     }
 

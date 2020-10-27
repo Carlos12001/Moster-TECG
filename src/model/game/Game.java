@@ -50,7 +50,7 @@ public class Game {
     /**
      *
      */
-    private String cartTableOtherPlayer;
+    private short cartTableOtherPlayer;
     /**
      *
      */
@@ -97,7 +97,7 @@ public class Game {
      *
      * @return Value of cartTableOtherPlayer.
      */
-    public String getCartTableOtherPlayer() {
+    public Short getCartTableOtherPlayer() {
         return cartTableOtherPlayer;
     }
 
@@ -106,7 +106,7 @@ public class Game {
      *
      * @param cartTableOtherPlayer New value of cartTableOtherPlayer.
      */
-    public void setCartTableOtherPlayer(String cartTableOtherPlayer) {
+    public void setCartTableOtherPlayer(Short cartTableOtherPlayer) {
         this.cartTableOtherPlayer = cartTableOtherPlayer;
     }
 
@@ -263,7 +263,12 @@ public class Game {
      */
     public void setUpdateInfo(UpdateInfo updateInfo){
         this.updateInfo = updateInfo;
-
+        this.round = updateInfo.getRound();
+        this.playerOtherLife = updateInfo.getPlayerSendLife();
+        this.playerOtherMana = updateInfo.getPlayerSendMana();
+        this.playerOtherName = updateInfo.getPlayerSendName();
+        this.cartTableOtherPlayer = updateInfo.getCodeSendCart();
+        this.whoFisrt = updateInfo.getWhoFirst();
     }
 
     /**Excuete the client
@@ -278,7 +283,7 @@ public class Game {
             Random rnd = new Random();
             int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
             switch (ramdomNum) {
-                case 1 -> this.whoFisrt = SERVER;
+                case 1 -> this.whoFisrt = CLIENT;
                 case 2 -> this.whoFisrt = CLIENT;
                 default -> throw new IllegalStateException("Unexpected value: " + ramdomNum);
             }

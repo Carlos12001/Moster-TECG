@@ -11,11 +11,11 @@
       <Button fx:id="buttomSkipTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="658.0" layoutY="431.0" mnemonicParsing="false" prefWidth="63.0" text="SkipTurn" textAlignment="CENTER" />
       <TextArea fx:id="lalbelPrueba" layoutX="14.0" layoutY="30.0" prefHeight="100.0" prefWidth="218.0" />
       <Label fx:id="labelPLayerName" alignment="CENTER" contentDisplay="CENTER" layoutX="649.0" layoutY="510.0" text="--Name Player--" textAlignment="CENTER" />
-      <Label fx:id="labelTypeConnection" alignment="CENTER" contentDisplay="CENTER" layoutX="639.0" layoutY="544.0" text="--TypeConnection--" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="293.0" prefHeight="150.0" prefWidth="100.0" style="-fx-background-color: #9FC9EF;" text="Deck the cartas" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="279.0" layoutY="400.0" prefHeight="170.0" prefWidth="291.0" style="-fx-background-color: #E9E9E9;" text="Mano de Cartas" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="100.0" text="Label" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="300.0" text="Label" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="642.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #9FEF86;" text="History" />
+      <Label fx:id="labelTypeConnection" alignment="CENTER" contentDisplay="CENTER" layoutX="649.0" layoutY="546.0" text="--Type--" textAlignment="CENTER" />
    </children>
 </AnchorPane>
