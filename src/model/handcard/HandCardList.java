@@ -9,6 +9,7 @@ public class HandCardList {
     private HandCardNode currentDisplay = this.head;
     private int size;
 
+
     public HandCardList(){
         this.head = null;
         this.tail = null;
@@ -28,11 +29,13 @@ public class HandCardList {
 
         if (this.isEmpty()){
             this.head = this.tail = newCardNode;
+            size++;
         } else {
             this.head.setPrevious(newCardNode);
             newCardNode.setPrevious(this.tail);
             this.tail.setNext(newCardNode);
             this.tail = newCardNode;
+            size++;
         }
     }
 
@@ -46,14 +49,17 @@ public class HandCardList {
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
                     this.tail.setNext(this.head);
+                    size--;
                 } else if (current == this.tail){
                     this.tail =  previous.getNext();
                     previous.setNext(this.head);
                     this.head.setPrevious(this.tail);
+                    size--;
                 } else {
                     tmp = current.getNext();
                     previous.setNext(current.getNext());
                     tmp.setPrevious(current.getPrevious());
+                    size--;
                 }
                 return current.getCardN();
             }
@@ -71,5 +77,13 @@ public class HandCardList {
 
     public void setCurrentDisplay(){
         this.currentDisplay = this.currentDisplay.getNext();
+    }
+
+    public Card displayCard(String direction){
+        if (direction == "back"){
+            //
+        } else if (direction == "foward"){
+            
+        }
     }
 }
