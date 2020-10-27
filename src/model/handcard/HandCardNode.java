@@ -1,4 +1,6 @@
-package model.Card;
+package model.handcard;
+
+import model.cards.Card;
 
 public class HandCardNode {
     private HandCardNode next;

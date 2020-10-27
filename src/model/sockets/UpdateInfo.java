@@ -1,7 +1,5 @@
 package model.sockets;
 
-import model.game.ConnectionType;
-
 public class UpdateInfo {
 
     /**

@@ -3,6 +3,7 @@ package model.game;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.sockets.ConnectionType;
 import model.sockets.Server;
 import model.sockets.Client;
 import model.sockets.UpdateInfo;
@@ -10,8 +11,8 @@ import model.sockets.UpdateInfo;
 import java.io.*;
 import java.util.Random;
 
-import static model.game.ConnectionType.CLIENT;
-import static model.game.ConnectionType.SERVER;
+import static model.sockets.ConnectionType.CLIENT;
+import static model.sockets.ConnectionType.SERVER;
 
 public class Game {
 

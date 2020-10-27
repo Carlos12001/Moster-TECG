@@ -1,8 +1,6 @@
-package model.Deck;
+package model.deckcard;
 
-import model.Card.Card;
-
-import javax.swing.*;
+import model.cards.Card;
 
 public class DeckStack {
     private short maxSize;

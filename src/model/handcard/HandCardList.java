@@ -1,6 +1,6 @@
-package model.Card;
+package model.handcard;
 
-import model.Card.Card;
+import model.cards.Card;
 
 public class HandCardList {
 

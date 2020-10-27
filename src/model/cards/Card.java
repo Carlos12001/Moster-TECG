@@ -1,4 +1,4 @@
-package model.Card;
+package model.cards;
 
 public class Card {
     private String id;
