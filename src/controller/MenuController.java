@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.game.ConnectionType;
+import model.sockets.ConnectionType;
 import model.game.*;
 import model.sockets.UpdateInfo;
 
