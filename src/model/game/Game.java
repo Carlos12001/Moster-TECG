@@ -8,6 +8,12 @@ import model.cards.Henchman;
 import model.cards.Secret;
 import model.cards.Spell;
 import model.deckcard.DeckStack;
+import model.handcard.HandCardList;
+import model.cards.Card;
+import model.cards.Henchman;
+import model.cards.Secret;
+import model.cards.Spell;
+import model.deckcard.DeckStack;
 import model.sockets.ConnectionType;
 import model.sockets.Server;
 import model.sockets.Client;
@@ -78,6 +84,9 @@ public class Game {
     private UpdateInfo updateInfo;
 
     private DeckStack deckStack = new DeckStack();
+
+    private HandCardList handCardList = new HandCardList();
+
 
     /**
      * This is the constructor
@@ -208,8 +217,8 @@ public class Game {
         return cartTablePlayer;
     }
 
-    /** Sets new round
-     *
+    /**
+     * Sets new round
      */
     public void setRound() {
         ++this.round;
@@ -237,28 +246,30 @@ public class Game {
      * This method return the server class
      * @return server class
      */
-    public Server getServer(){
-        if(this.typeConexion== SERVER){
+    public Server getServer() {
+        if (this.typeConexion == SERVER) {
             return this.server;
-        }else {
+        } else {
             return null;
         }
     }
 
     /**
      * This method returns the client class
+     *
      * @return client class
      */
     public Client getClient() {
-        if(this.typeConexion == CLIENT) {
+        if (this.typeConexion == CLIENT) {
             return this.client;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
      * This method returns the info
+     *
      * @return info
      */
     public UpdateInfo getUpdateInfo() {
@@ -267,9 +278,10 @@ public class Game {
 
     /**
      * This method sets the new information
+     *
      * @param updateInfo New Json
      */
-    public void setUpdateInfo(UpdateInfo updateInfo){
+    public void setUpdateInfo(UpdateInfo updateInfo) {
         this.updateInfo = updateInfo;
         this.round = updateInfo.getRound();
         this.playerOtherLife = updateInfo.getPlayerSendLife();
@@ -280,57 +292,13 @@ public class Game {
     }
 
     /**
-     * Gets deckStack.
+     * Excuete the client
      *
-     * @return Value of deckStack.
-     */
-    public DeckStack getDeckStack() {
-        return deckStack;
-    }
-
-
-    public static void decksNewsCart(){
-//        ObjectMapper mapper = new ObjectMapper();
-//        File jackson ;
-//        jackson =  new File(System.getProperty("user.dir")+"/src/data/Cards.json");
-//
-//        try {
-//            Card[][] arrayCard = mapper.readValue(jackson, Card[][].class);
-//            boolean done = false;
-//            for (int i = 0; i <arrayCard.length ; i++) {
-//                switch (i){
-//                    case 0->{
-//                        Henchman[] array1 = (Henchman[]) arrayCard[i];
-//                        System.out.println(array1[0].getCategory());
-//                    }
-//                    case 1->{
-//                        Secret[] array2 = (Secret[]) arrayCard[i];
-//                        System.out.println(array2[0].getCategory());
-//                    }
-//                    case 2->{
-//                        Spell[] array3 = (Spell[]) arrayCard[i];
-//                        System.out.println(array3[0].getCategory());
-//                    }
-//                    default->{
-//                        throw new IllegalStateException("Unexpected value: " + i);
-//                    }
-//                }
-//            }
-//            for (int i = 0; i < 16; i++) {
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-    }
-
-    /**Excuete the client
      * @param port New int
-     * @param ip New String
+     * @param ip   New String
      */
-    public void createConnection(int port, String ip ){
-        if ((this.client==null)&(this.typeConexion== CLIENT)){
+    public void createConnection(int port, String ip) {
+        if ((this.client == null) & (this.typeConexion == CLIENT)) {
             this.client = new Client(port, ip);
 
             //Choice the random
@@ -353,8 +321,8 @@ public class Game {
     /**
      * TH
      */
-    public void createConnection(){
-        if ((this.server==null)&(this.typeConexion == SERVER)){
+    public void createConnection() {
+        if ((this.server == null) & (this.typeConexion == SERVER)) {
             this.server = new Server();
             this.server.readSockect();
         }
@@ -363,7 +331,7 @@ public class Game {
     /**
      * @param skipTurn
      */
-    public void sendInfoOtherPlayer(boolean skipTurn){
+    public void sendInfoOtherPlayer(boolean skipTurn) {
         this.updateInfo.setPlayerSendName(player.getName());
         this.updateInfo.setPlayerSendLife(player.getLife());
         this.updateInfo.setPlayerSendMana(player.getMana());
@@ -380,7 +348,7 @@ public class Game {
     /**
      * @param codeCart
      */
-    public void sendInfoOtherPlayer(String codeCart){
+    public void sendInfoOtherPlayer(String codeCart) {
         this.updateInfo.setPlayerSendName(player.getName());
         this.updateInfo.setPlayerSendLife(player.getLife());
         this.updateInfo.setPlayerSendMana(player.getMana());
@@ -393,7 +361,7 @@ public class Game {
         }
     }
 
-    public void recibeNewInfo(){
+    public void recibeNewInfo() {
         switch (this.getTypeConexion()) {
             case SERVER -> this.server.readSockect();
             case CLIENT -> this.client.readSockect();
@@ -407,8 +375,8 @@ public class Game {
     private String generateJackson() {
         // Creating Object of ObjectMapper define in Jakson Api
         ObjectMapper mapper = new ObjectMapper();
-        File jackson ;
-        jackson =  new File(System.getProperty("user.dir")+"/src/data/Update.json");
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Update.json");
         try {
             mapper.writeValue(jackson, this.updateInfo);
 
@@ -459,5 +427,42 @@ public class Game {
         return instance;
     }
 
+    public void first4cards() {
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
+        Card[][] arrayCard;
+
+        try {
+            arrayCard = mapper.readValue(jackson, Card[][].class);
+            System.out.println(arrayCard[0][0].getCategory());
+            for (int i = 0; i < 3; i++) {
+
+                switch (arrayCard[i][0].getCategory()) {
+                    case "HENCHEMAN":
+                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardH);
+                        System.out.println(this.handCardList.displayCard("current").getCategory());
+                        break;
+                    case "SECRET":
+                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardS);
+                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                        break;
+                    case "SPELL":
+                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardSP);
+                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                        break;
+                }
+            }
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

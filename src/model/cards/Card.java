@@ -1,19 +1,15 @@
 package model.cards;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.sockets.ConnectionType;
 
-public abstract class Card {
+
+public class Card {
 
     private short numerCode;
     /**
      *
      */
     private String category;
-    /**
-     *
-     */
-    private String eventCart;//players, game, both. JSON
     /**
      *
      */
@@ -26,10 +22,7 @@ public abstract class Card {
      *
      */
     private String image;
-    /**
-     *
-     */
-    private ConnectionType owner;
+
 
     public Card(){
     }
@@ -68,14 +61,7 @@ public abstract class Card {
         return category;
     }
 
-    /**
-     * Gets eventCart.
-     *
-     * @return Value of eventCart.
-     */
-    public String getEventCart(){
-        return this.eventCart;
-    }
+
 
     private void setInfo(){
         ObjectMapper mapper = new ObjectMapper();
@@ -96,21 +82,22 @@ public abstract class Card {
 
     }
 
+
     /**
-     * Sets new owner.
+     * Gets numerCode.
      *
-     * @param owner New value of owner.
+     * @return Value of numerCode.
      */
-    public void setOwner(ConnectionType owner) {
-        this.owner = owner;
+    public short getNumerCode() {
+        return numerCode;
     }
 
     /**
-     * Gets owner.
+     * Gets image.
      *
-     * @return Value of owner.
+     * @return Value of image.
      */
-    public ConnectionType getOwner() {
-        return owner;
+    public String getImage() {
+        return image;
     }
 }

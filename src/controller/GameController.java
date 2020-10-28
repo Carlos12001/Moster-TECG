@@ -115,7 +115,7 @@ public class GameController {
         this.labelTypeConnection.setText(this.game.getTypeConexion() + "");
         UpdateInfo info = this.game.getUpdateInfo();
         this.game.setWhoFisrt(info.getWhoFirst());
-
+        this.game.first4cards();
 
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
                 info.getPlayerSendLife() + "\n" +
