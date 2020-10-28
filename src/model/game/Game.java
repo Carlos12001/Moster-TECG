@@ -435,7 +435,7 @@ public class Game {
             for (int i = 0; i < 3; i++) {
 
                 switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN" -> {
+                    case "HENCHEMAN":
                         Card newCardH = new Henchman(arrayCard[i][0].getCode());
                         this.handCardList.insertLast(newCardH);
                         break;
@@ -457,32 +457,33 @@ public class Game {
             e.printStackTrace();
         }
     }
+//
+//    /**
+//     * @param player
+//     * @param typeConexion
+//     * @return instance
+//     */
+//    public static Game getInstance(Player player, ConnectionType typeConexion) {
+//
+//        Game result = instance;
+//        if (result != null) {
+//            return result;
+//        }
+//        synchronized(Game.class) {
+//            if (instance == null) {
+//                instance = new Game(player, typeConexion);
+//            }
+//            return instance;
+//        }
+//    }
+//
+//    /** Return the game instance.
+//     * @return Game instance
+//     */
+//    public static Game getInstance() {
+//        return instance;
+//    }
 
-    /**
-     * @param player
-     * @param typeConexion
-     * @return instance
-     */
-    public static Game getInstance(Player player, ConnectionType typeConexion) {
-
-        Game result = instance;
-        if (result != null) {
-            return result;
-        }
-        synchronized(Game.class) {
-            if (instance == null) {
-                instance = new Game(player, typeConexion);
-            }
-            return instance;
-        }
-    }
-
-    /** Return the game instance.
-     * @return Game instance
-     */
-    public static Game getInstance() {
-        return instance;
-    }
 
 
 
