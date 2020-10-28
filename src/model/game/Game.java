@@ -1,23 +1,13 @@
 package model.game;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.cards.Card;
-import model.cards.Henchman;
-import model.cards.Secret;
-import model.cards.Spell;
+import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
-import model.cards.Card;
-import model.cards.Henchman;
-import model.cards.Secret;
-import model.cards.Spell;
-import model.deckcard.DeckStack;
-import model.sockets.ConnectionType;
-import model.sockets.Server;
-import model.sockets.Client;
-import model.sockets.UpdateInfo;
+import model.sockets.*;
 
 import java.io.*;
 import java.util.Random;
@@ -400,6 +390,43 @@ public class Game {
         }
         return null;
     }
+    public void first4cards() {
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
+        Card[][] arrayCard;
+
+        try {
+            arrayCard = mapper.readValue(jackson, Card[][].class);
+            System.out.println(arrayCard[0][0].getCategory());
+            for (int i = 0; i < 3; i++) {
+
+                switch (arrayCard[i][0].getCategory()) {
+                    case "HENCHEMAN" -> {
+                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardH);
+                        System.out.println(this.handCardList.displayCard("current").getCategory());
+                    }
+                    case "SECRET" -> {
+                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardS);
+                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                    }
+                    case "SPELL" -> {
+                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardSP);
+                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                    }
+                }
+            }
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param player
@@ -427,42 +454,6 @@ public class Game {
         return instance;
     }
 
-    public void first4cards() {
-        ObjectMapper mapper = new ObjectMapper();
-        File jackson;
-        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
-        Card[][] arrayCard;
 
-        try {
-            arrayCard = mapper.readValue(jackson, Card[][].class);
-            System.out.println(arrayCard[0][0].getCategory());
-            for (int i = 0; i < 3; i++) {
-
-                switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN":
-                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardH);
-                        System.out.println(this.handCardList.displayCard("current").getCategory());
-                        break;
-                    case "SECRET":
-                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardS);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
-                        break;
-                    case "SPELL":
-                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardSP);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
-                        break;
-                }
-            }
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
