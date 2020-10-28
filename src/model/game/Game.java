@@ -3,6 +3,11 @@ package model.game;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.cards.Card;
+import model.cards.Henchman;
+import model.cards.Secret;
+import model.cards.Spell;
+import model.deckcard.DeckStack;
 import model.sockets.ConnectionType;
 import model.sockets.Server;
 import model.sockets.Client;
@@ -71,6 +76,8 @@ public class Game {
      *
      */
     private UpdateInfo updateInfo;
+
+    private DeckStack deckStack = new DeckStack();
 
     /**
      * This is the constructor
@@ -272,6 +279,52 @@ public class Game {
         this.whoFisrt = updateInfo.getWhoFirst();
     }
 
+    /**
+     * Gets deckStack.
+     *
+     * @return Value of deckStack.
+     */
+    public DeckStack getDeckStack() {
+        return deckStack;
+    }
+
+
+    public static void decksNewsCart(){
+//        ObjectMapper mapper = new ObjectMapper();
+//        File jackson ;
+//        jackson =  new File(System.getProperty("user.dir")+"/src/data/Cards.json");
+//
+//        try {
+//            Card[][] arrayCard = mapper.readValue(jackson, Card[][].class);
+//            boolean done = false;
+//            for (int i = 0; i <arrayCard.length ; i++) {
+//                switch (i){
+//                    case 0->{
+//                        Henchman[] array1 = (Henchman[]) arrayCard[i];
+//                        System.out.println(array1[0].getCategory());
+//                    }
+//                    case 1->{
+//                        Secret[] array2 = (Secret[]) arrayCard[i];
+//                        System.out.println(array2[0].getCategory());
+//                    }
+//                    case 2->{
+//                        Spell[] array3 = (Spell[]) arrayCard[i];
+//                        System.out.println(array3[0].getCategory());
+//                    }
+//                    default->{
+//                        throw new IllegalStateException("Unexpected value: " + i);
+//                    }
+//                }
+//            }
+//            for (int i = 0; i < 16; i++) {
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
+    }
+
     /**Excuete the client
      * @param port New int
      * @param ip New String
@@ -405,5 +458,6 @@ public class Game {
     public static Game getInstance() {
         return instance;
     }
+
 
 }
