@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.game.Game;
+import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
 
 public class GameController {
@@ -42,6 +43,25 @@ public class GameController {
     @FXML
     private Label labelTypeConnection;
 
+    @FXML
+    private Label handCardLabel;
+
+    @FXML
+    private Button nextCard;
+
+    @FXML
+    private Button previousCard;
+
+    @FXML
+    private void handleNextCard(ActionEvent event){
+        HandCardList list = this.game.getHandCardList();
+        this.handCardLabel.setText(list.displayCard("next").getCategory());
+    }
+    @FXML
+    private void handlePreCard(ActionEvent event){
+        HandCardList list = this.game.getHandCardList();
+        this.handCardLabel.setText(list.displayCard("previous").getCategory());
+    }
 
     /**
      * @param event
@@ -116,6 +136,7 @@ public class GameController {
         UpdateInfo info = this.game.getUpdateInfo();
         this.game.setWhoFisrt(info.getWhoFirst());
         this.game.first4cards();
+        this.handCardLabel.setText(this.game.getHandCardList().displayCard("current").getCategory());
 
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
                 info.getPlayerSendLife() + "\n" +

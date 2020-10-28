@@ -79,6 +79,8 @@ public class Game {
      */
     private UpdateInfo updateInfo;
 
+
+
     private HandCardList handCardList = new HandCardList();
 
 
@@ -425,6 +427,10 @@ public class Game {
         return instance;
     }
 
+    public HandCardList getHandCardList() {
+        return handCardList;
+    }
+
     public void first4cards() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
@@ -433,24 +439,21 @@ public class Game {
 
         try {
             arrayCard = mapper.readValue(jackson, Card[][].class);
-            System.out.println(arrayCard[0][0].getCategory());
+
             for (int i = 0; i < 3; i++) {
 
                 switch (arrayCard[i][0].getCategory()) {
                     case "HENCHEMAN":
                         Card newCardH = new Henchman(arrayCard[i][0].getCode());
                         this.handCardList.insertLast(newCardH);
-                        System.out.println(this.handCardList.displayCard("current").getCategory());
                         break;
                     case "SECRET":
                         Secret newCardS = new Secret(arrayCard[i][0].getCode());
                         this.handCardList.insertLast(newCardS);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
                         break;
                     case "SPELL":
                         Spell newCardSP = new Spell(arrayCard[i][0].getCode());
                         this.handCardList.insertLast(newCardSP);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
                         break;
                 }
             }
