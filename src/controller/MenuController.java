@@ -122,6 +122,7 @@ public class MenuController {
             port = Integer.parseInt(this.textFieldPuerto.getText());
             this.game.createConnection(port,this.textFieldIp.getText());
             this.updateGUIMessage();
+            // agregar metodo de mano de cartas
             this.game.recibeNewInfo();
         }catch (NumberFormatException ex) {
             ex.printStackTrace();
