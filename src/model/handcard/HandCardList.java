@@ -30,13 +30,13 @@ public class HandCardList {
 
         if (this.isEmpty()){
             this.head = this.tail = newCardNode;
-            size++;
+            this.size++;
         } else {
             this.head.setPrevious(newCardNode);
             newCardNode.setPrevious(this.tail);
             this.tail.setNext(newCardNode);
             this.tail = newCardNode;
-            size++;
+            this.size++;
         }
     }
 
@@ -50,17 +50,17 @@ public class HandCardList {
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
                     this.tail.setNext(this.head);
-                    size--;
+                    this.size--;
                 } else if (current == this.tail){
                     this.tail =  previous.getNext();
                     previous.setNext(this.head);
                     this.head.setPrevious(this.tail);
-                    size--;
+                    this.size--;
                 } else {
                     tmp = current.getNext();
                     previous.setNext(current.getNext());
                     tmp.setPrevious(current.getPrevious());
-                    size--;
+                    this.size--;
                 }
                 return current.getCardN();
             }
