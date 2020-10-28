@@ -4,16 +4,10 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.cards.Card;
-import model.cards.Henchman;
-import model.cards.Secret;
-import model.cards.Spell;
+import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
-import model.sockets.ConnectionType;
-import model.sockets.Server;
-import model.sockets.Client;
-import model.sockets.UpdateInfo;
+import model.sockets.*;
 
 import java.io.*;
 import java.util.Random;
@@ -79,15 +73,14 @@ public class Game {
      */
     private UpdateInfo updateInfo;
 
-
+    private DeckStack deckStack = new DeckStack();
 
     private HandCardList handCardList = new HandCardList();
 
 
     /**
      * This is the constructor
-     *
-     * @param player       New player object
+     * @param player New player object
      * @param typeConexion New connectionType
      */
     private Game(Player player, ConnectionType typeConexion) {
@@ -241,7 +234,6 @@ public class Game {
 
     /**
      * This method return the server class
-     *
      * @return server class
      */
     public Server getServer() {
@@ -443,7 +435,7 @@ public class Game {
             for (int i = 0; i < 3; i++) {
 
                 switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN":
+                    case "HENCHEMAN" -> {
                         Card newCardH = new Henchman(arrayCard[i][0].getCode());
                         this.handCardList.insertLast(newCardH);
                         break;
@@ -465,4 +457,33 @@ public class Game {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param player
+     * @param typeConexion
+     * @return instance
+     */
+    public static Game getInstance(Player player, ConnectionType typeConexion) {
+
+        Game result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(Game.class) {
+            if (instance == null) {
+                instance = new Game(player, typeConexion);
+            }
+            return instance;
+        }
+    }
+
+    /** Return the game instance.
+     * @return Game instance
+     */
+    public static Game getInstance() {
+        return instance;
+    }
+
+
+
 }
