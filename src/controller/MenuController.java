@@ -137,7 +137,7 @@ public class MenuController {
                 openGameView();
                 if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
                     //metodos de escritura sockets en Game
-                    Game.getInstance().sendInfoOtherPlayer((short) 0);
+                    Game.getInstance().sendInfoOtherPlayer("");
                 }
             };
             UpdateInfo oldInfo = Game.getInstance().getUpdateInfo();

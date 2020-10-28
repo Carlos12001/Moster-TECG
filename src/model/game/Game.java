@@ -51,7 +51,7 @@ public class Game {
     /**
      *
      */
-    private short cartTableOtherPlayer;
+    private String cartTableOtherPlayer;
     /**
      *
      */
@@ -98,7 +98,7 @@ public class Game {
      *
      * @return Value of cartTableOtherPlayer.
      */
-    public Short getCartTableOtherPlayer() {
+    public String getCartTableOtherPlayer() {
         return cartTableOtherPlayer;
     }
 
@@ -107,7 +107,7 @@ public class Game {
      *
      * @param cartTableOtherPlayer New value of cartTableOtherPlayer.
      */
-    public void setCartTableOtherPlayer(Short cartTableOtherPlayer) {
+    public void setCartTableOtherPlayer(String cartTableOtherPlayer) {
         this.cartTableOtherPlayer = cartTableOtherPlayer;
     }
 
@@ -284,7 +284,7 @@ public class Game {
             Random rnd = new Random();
             int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
             switch (ramdomNum) {
-                case 1 -> this.whoFisrt = CLIENT;
+                case 1 -> this.whoFisrt = SERVER;
                 case 2 -> this.whoFisrt = CLIENT;
                 default -> throw new IllegalStateException("Unexpected value: " + ramdomNum);
             }
@@ -292,7 +292,7 @@ public class Game {
             this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
             this.updateInfo.setPlayerSendMana(this.player.getMana());
             this.updateInfo.setPlayerSendLife(this.player.getLife());
-            this.updateInfo.setCodeSendCart((short) 0);
+            this.updateInfo.setCodeSendCart("");
             this.client.writeSocket(this.generateJackson());
         }
     }
@@ -315,7 +315,7 @@ public class Game {
         this.updateInfo.setPlayerSendLife(player.getLife());
         this.updateInfo.setPlayerSendMana(player.getMana());
         this.updateInfo.setRound(this.round);
-        this.updateInfo.setCodeSendCart((short) 0);
+        this.updateInfo.setCodeSendCart("");
         this.updateInfo.setSkipTurn(true);
         switch (this.getTypeConexion()) {
             case SERVER -> this.server.writeSocket(this.generateJackson());
@@ -327,7 +327,7 @@ public class Game {
     /**
      * @param codeCart
      */
-    public void sendInfoOtherPlayer(short codeCart){
+    public void sendInfoOtherPlayer(String codeCart){
         this.updateInfo.setPlayerSendName(player.getName());
         this.updateInfo.setPlayerSendLife(player.getLife());
         this.updateInfo.setPlayerSendMana(player.getMana());

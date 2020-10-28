@@ -48,6 +48,11 @@ public class GameController {
      */
     @FXML
     private void handleSend(ActionEvent event) {
+
+        //logica si tiene mana suficiente
+
+
+
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
         if  ( game.getWhoFisrt() != this.game.getTypeConexion()) {
@@ -55,7 +60,7 @@ public class GameController {
             //Agrega el historial la jugada
             updateGUI();
         }
-        this.game.sendInfoOtherPlayer((short) 0);
+        this.game.sendInfoOtherPlayer("");
         this.game.recibeNewInfo();
         this.recibeMessage(oldInfo);
     }
@@ -110,6 +115,7 @@ public class GameController {
         this.labelTypeConnection.setText(this.game.getTypeConexion() + "");
         UpdateInfo info = this.game.getUpdateInfo();
         this.game.setWhoFisrt(info.getWhoFirst());
+
 
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
                 info.getPlayerSendLife() + "\n" +

@@ -1,11 +1,15 @@
 package model.cards;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.sockets.ConnectionType;
+
 public abstract class Card {
 
+    private final short numerCode;
     /**
      *
      */
-    private final String category;
+    private String category;
     /**
      *
      */
@@ -13,16 +17,28 @@ public abstract class Card {
     /**
      *
      */
-    private final short code;
+    private String code;
     /**
      *
      */
     private short costCard;//JSON
+    /**
+     *
+     */
+    private String image;
+    /**
+     *
+     */
+    private ConnectionType owner;
 
+    public Card(){
+    }
 
-    public Card(String category, short code){
-        this.category = category;
+    public Card(String code){
         this.code = code;
+        this.category = code.split("@")[0];
+        this.numerCode =  Short.parseShort(code.split("@")[1]);
+        this.setInfo();
     }
 
     /**
@@ -30,7 +46,7 @@ public abstract class Card {
      *
      * @return Value of code.
      */
-    public short getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -57,7 +73,44 @@ public abstract class Card {
      *
      * @return Value of eventCart.
      */
-    public String getEventCart() {
-        return eventCart;
+    public String getEventCart(){
+        return this.eventCart;
+    }
+
+    private void setInfo(){
+        ObjectMapper mapper = new ObjectMapper();
+
+        Card [][] array = new Card[3][1];//jackson
+
+//        switch (this.category){
+//            case "HENCHMAN"{
+//            }
+//            case "SECRET"{
+//            }
+//            case "SPELL"{
+//            }
+//            break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + this.category);
+//        }
+
+    }
+
+    /**
+     * Sets new owner.
+     *
+     * @param owner New value of owner.
+     */
+    public void setOwner(ConnectionType owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * Gets owner.
+     *
+     * @return Value of owner.
+     */
+    public ConnectionType getOwner() {
+        return owner;
     }
 }

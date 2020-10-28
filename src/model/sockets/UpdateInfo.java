@@ -25,12 +25,12 @@ public class UpdateInfo {
     /**
      *Cart type to sent the other player.
      */
-    private short codeSendCart;
+    private String codeSendCart;
 
     /**
      *The round in the game.
      */
-    private short round;
+    private short round = 1;
 
     /**
      *Says if the other player skips the turn.
@@ -58,7 +58,7 @@ public class UpdateInfo {
      *
      * @param codeSendCart New value of Cart type to sent the other player..
      */
-    public void setCodeSendCart(short codeSendCart) {
+    public void setCodeSendCart(String codeSendCart) {
         this.codeSendCart = codeSendCart;
     }
 
@@ -112,7 +112,7 @@ public class UpdateInfo {
      *
      * @return Value of Cart type to sent the other player..
      */
-    public short getCodeSendCart() {
+    public String getCodeSendCart() {
         return codeSendCart;
     }
 

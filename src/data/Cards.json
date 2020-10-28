@@ -1,0 +1,31 @@
+[
+  [
+    {
+      "category": "HENCHEMAN",
+      "code": "HENCHEMAN@0",
+      "costCard": 10,
+      "eventCart": "player",
+      "atack": 20,
+      "image": "HENCHEMAN@0.png"
+    }
+  ],
+  [
+    {
+      "category": "SECRET",
+      "code": "SECRET@0",
+      "costCard": 70,
+      "eventCart": "game",
+      "image": "SECRET@0.png"
+    }
+  ],
+  [
+    {
+      "category": "SPELL",
+      "code": "SPELL@01",
+      "costCard": 20,
+      "eventCart": "both",
+      "image": "SPELL@0.png"
+    }
+  ]
+]
+
