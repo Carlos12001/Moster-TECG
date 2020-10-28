@@ -5,7 +5,7 @@ import model.sockets.ConnectionType;
 
 public abstract class Card {
 
-    private final short numerCode;
+    private short numerCode;
     /**
      *
      */
