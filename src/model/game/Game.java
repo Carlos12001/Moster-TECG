@@ -73,7 +73,10 @@ public class Game {
      */
     private UpdateInfo updateInfo;
 
-    private DeckStack deckStack = new DeckStack();
+    /**
+     *
+     */
+    private DeckStack deckStack = new DeckStack((short)16);
 
     private HandCardList handCardList = new HandCardList();
 
@@ -282,6 +285,15 @@ public class Game {
     }
 
     /**
+     * Gets deckStack.
+     *
+     * @return Value of deckStack.
+     */
+    public DeckStack getDeckStack() {
+        return deckStack;
+    }
+
+    /**
      * Excuete the client
      *
      * @param port New int
@@ -390,7 +402,8 @@ public class Game {
         }
         return null;
     }
-    public void first4cards() {
+
+    public void initDeck() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
         jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
@@ -398,24 +411,26 @@ public class Game {
 
         try {
             arrayCard = mapper.readValue(jackson, Card[][].class);
-            System.out.println(arrayCard[0][0].getCategory());
-            for (int i = 0; i < 3; i++) {
 
-                switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN" -> {
-                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardH);
-                        System.out.println(this.handCardList.displayCard("current").getCategory());
+            Random rnd = new Random();
+            for (int i = 0; i < this.getDeckStack().getMaxSize(); i++) {
+
+                int num1 = (int) (rnd.nextDouble() * 2 + 0);
+
+                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+
+                switch (num1) {
+                    case 0-> {
+                        Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardH);
                     }
-                    case "SECRET" -> {
-                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardS);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                    case 1 -> {
+                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardS);
                     }
-                    case "SPELL" -> {
-                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
-                        this.handCardList.insertLast(newCardSP);
-                        System.out.println(this.handCardList.displayCard("next").getCategory());
+                    case 2 -> {
+                        Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardSP);
                     }
                 }
             }

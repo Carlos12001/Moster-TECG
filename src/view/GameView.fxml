@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.control.ProgressBar?>
-<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameController">
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GameController">
    <children>
-      <Button fx:id="buttonSendCart" alignment="CENTER" contentDisplay="CENTER" layoutX="661.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleSend" text="SendCart" textAlignment="CENTER" />
-      <Button fx:id="buttomSkipTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="661.0" layoutY="604.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="71.0" text="SkipTurn" textAlignment="CENTER" wrapText="true" />
-      <TextArea fx:id="lalbelPrueba" layoutX="14.0" layoutY="30.0" prefHeight="100.0" prefWidth="218.0" />
-      <Label fx:id="labelPLayerName" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="354.0" text="--Name Player--" textAlignment="CENTER" wrapText="true" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="485.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FC9EF;" text="Deck the cartas" textAlignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="256.0" layoutY="471.0" prefHeight="227.0" prefWidth="352.0" style="-fx-background-color: #E9E9E9;" text="Mano de Cartas" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="486.0" prefHeight="225.0" prefWidth="350.0" style="-fx-background-color: #E9E9E9;" text="Mano de Cartas" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="634.0" layoutY="163.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FEF86;" text="History" />
-      <Label fx:id="labelTypeConnection" alignment="CENTER" contentDisplay="CENTER" layoutX="750.0" layoutY="677.0" text="--Type--" textAlignment="CENTER" wrapText="true" />
       <Label alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="362.0" layoutY="263.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FC9EF;" text="Carta de 1" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="362.0" layoutY="30.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FC9EF;" text="Carta de 2" textAlignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="362.0" layoutY="488.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FC9EF;" text="Carta de 1" textAlignment="CENTER" />
-      <ProgressBar layoutX="18.0" layoutY="382.0" prefHeight="32.0" prefWidth="210.0" progress="0.77" />
-      <ProgressBar layoutX="18.0" layoutY="191.0" prefHeight="32.0" prefWidth="210.0" progress="0.34" />
-      <Label alignment="CENTER" layoutX="73.0" layoutY="154.0" text="--OtherPlayerName--" />
-      <Label alignment="CENTER" layoutX="133.0" layoutY="431.0" prefHeight="32.0" prefWidth="71.0" text="--------" textAlignment="CENTER" wrapText="true" />
-      <Label alignment="CENTER" layoutX="26.0" layoutY="431.0" prefHeight="32.0" prefWidth="71.0" text="Maná:" textAlignment="CENTER" wrapText="true" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="363.0" layoutY="499.0" prefHeight="200.0" prefWidth="125.0" style="-fx-background-color: #9FC9EF;" text="Carta de 1" textAlignment="CENTER" />
+      <TextArea fx:id="lalbelPrueba" layoutX="25.0" layoutY="30.0" prefHeight="100.0" prefWidth="218.0" />
+      <Button fx:id="buttonSendCart" alignment="CENTER" contentDisplay="CENTER" layoutX="661.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleSend" text="SendCart" textAlignment="CENTER" />
+      <Button fx:id="buttonSkipTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="661.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleSkipTurn" prefHeight="40.0" prefWidth="71.0" text="SkipTurn" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="labelTypeConnection" alignment="CENTER" contentDisplay="CENTER" layoutX="742.0" layoutY="711.0" text="--Type--" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="labelNameOtherPlayer" alignment="CENTER" layoutX="65.0" layoutY="154.0" text="--OtherPlayerName--" />
+      <ProgressBar fx:id="progressBarLifeOtherPlayer" disable="true" layoutX="20.0" layoutY="191.0" prefHeight="32.0" prefWidth="210.0" progress="0.43" style="-fx-accent: #eb2217;" />
+      <Label fx:id="labelNameThisPLayer" alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="317.0" text="--Name Player--" textAlignment="CENTER" textFill="#0c0c0c" wrapText="true" />
+      <ProgressBar fx:id="progressBarLifeThisPLayer" disable="true" layoutX="20.0" layoutY="347.0" prefHeight="32.0" prefWidth="210.0" progress="0.44" style="-fx-accent: #eb2217;" />
+      <Label fx:id="labelManaThisPlayer" alignment="CENTER" layoutX="134.0" layoutY="395.0" prefHeight="32.0" prefWidth="71.0" text="--------" textAlignment="CENTER" wrapText="true" />
+      <Label alignment="CENTER" layoutX="27.0" layoutY="395.0" prefHeight="32.0" prefWidth="71.0" text="Maná:" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="labelNumCarts" alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="467.0" prefHeight="32.0" prefWidth="78.0" text="--numCarts--" textAlignment="CENTER" />
+      <StackPane fx:id="stackPaneDeckCart" layoutX="38.0" layoutY="505.0" onMouseClicked="#addCardHandCard" onMouseEntered="#doSenalDeck" onMouseExited="#revertSenalDeck" prefHeight="225.0" prefWidth="175.0" style="-fx-background-color: #E9E9E9;">
+         <children>
+            <ImageView fx:id="cardD1" disable="true" fitHeight="200.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.4;">
+               <image>
+                  <Image url="@../images/ReverseCards.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="cardD0" fitHeight="200.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/ReverseCards.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
