@@ -36,6 +36,7 @@ public class HandCardList {
             newCardNode.setPrevious(this.tail);
             this.tail.setNext(newCardNode);
             this.tail = newCardNode;
+            this.tail.setNext(this.head);
             size++;
         }
     }

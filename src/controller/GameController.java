@@ -7,12 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import model.game.Game;
+import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
 
-import java.text.DecimalFormat;
 
 /**
  *
@@ -25,15 +24,30 @@ public class GameController {
      */
     Game game = Game.getInstance();
 
-    @FXML
-    private TextArea lalbelPrueba;
-
+    /**
+     *
+     */
     @FXML
     private Button buttonSendCart;
 
+    /**
+     *
+     */
     @FXML
     private Button buttonSkipTurn;
 
+    @FXML
+    private TextArea lalbelPrueba;
+
+    /**
+     *
+     */
+    @FXML
+    public Label labelPLayerName;
+
+    /**
+     *
+     */
     @FXML
     private Label labelTypeConnection;
 
@@ -63,6 +77,29 @@ public class GameController {
 
     @FXML
     private ImageView cardD0;
+
+    @FXML
+    private Label handCardLabel;
+
+    @FXML
+    private Button nextCard;
+
+    @FXML
+    private Button previousCard;
+
+    @FXML
+    private void handleNextCard(ActionEvent event){
+        HandCardList list = this.game.getHandCardList();
+        this.handCardLabel.setText(list.displayCard("next").getCategory());
+
+    }
+    @FXML
+    private void handlePreCard(ActionEvent event){
+        HandCardList list = this.game.getHandCardList();
+        this.handCardLabel.setText(list.displayCard("previous").getCategory());
+
+    }
+
 
     /**
      * @param event
@@ -118,6 +155,7 @@ public class GameController {
         this.cardD1.setRotate(0);
     }
 
+
     /**
      * @param event
      */
@@ -125,6 +163,8 @@ public class GameController {
     private void handleSend(ActionEvent event) {
 
         //logica si tiene mana suficiente
+
+
 
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
@@ -221,8 +261,11 @@ public class GameController {
         UpdateInfo info = this.game.getUpdateInfo();
 
         this.game.setWhoFisrt(info.getWhoFirst());
-        ///handcart
+        this.game.first4cards();
+        this.handCardLabel.setText(this.game.getHandCardList().displayCard("current").getCategory());
+
         this.game.initDeck();
+
 
 
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +

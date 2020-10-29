@@ -284,6 +284,10 @@ public class Game {
         this.whoFisrt = updateInfo.getWhoFirst();
     }
 
+    public HandCardList getHandCardList() {
+        return handCardList;
+    }
+
     /**
      * Gets deckStack.
      *
@@ -432,6 +436,42 @@ public class Game {
                         Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
                         this.deckStack.push(newCardSP);
                     }
+                }
+            }
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void first4cards() {
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
+        Card[][] arrayCard;
+
+        try {
+            arrayCard = mapper.readValue(jackson, Card[][].class);
+
+            for (int i = 0; i < 3; i++) {
+
+                switch (arrayCard[i][0].getCategory()) {
+                    case "HENCHEMAN":
+                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardH);
+                        break;
+                    case "SECRET":
+                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardS);
+                        break;
+                    case "SPELL":
+                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
+                        this.handCardList.insertLast(newCardSP);
+                        break;
                 }
             }
         } catch (JsonParseException e) {
