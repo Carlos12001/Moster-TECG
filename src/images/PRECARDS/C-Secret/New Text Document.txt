@@ -1,0 +1,4 @@
+1. Bloque Botom next
+2.Bloque skipTurn
+3.Cambiar quien inicia el siguiente.(setWhoFirts)
+4. Invertido history

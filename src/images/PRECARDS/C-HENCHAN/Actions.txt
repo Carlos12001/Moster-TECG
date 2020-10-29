@@ -1,0 +1,31 @@
+mi vida
+mi mana
+mi cartause
+mi nombre
+quien es primero
+si salte turno
+
+
+yo soy el envio la carta
+yo recibo carta
+
+
+acctioncard(bool isathisplayer)
+switch
+	case:
+	acctionHenchan->(paseCarta)
+
+	case:
+	acctionSecret->(new Scret..)
+
+	case:
+	actionSpell->(new Spell...)
+
+acctionHenchan(Henchman carta, bool isaThisPlayer
+	swich
+		case
+			if(isaThisPlayer)
+				me resto 50
+			else
+				te resto
+
