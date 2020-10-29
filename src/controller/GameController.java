@@ -56,11 +56,13 @@ public class GameController {
     private void handleNextCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("next").getCategory());
+
     }
     @FXML
     private void handlePreCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("previous").getCategory());
+
     }
 
     /**
