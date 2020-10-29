@@ -73,7 +73,10 @@ public class Game {
      */
     private UpdateInfo updateInfo;
 
-    private DeckStack deckStack = new DeckStack();
+    /**
+     *
+     */
+    private DeckStack deckStack = new DeckStack((short)16);
 
     private HandCardList handCardList = new HandCardList();
 
@@ -281,6 +284,19 @@ public class Game {
         this.whoFisrt = updateInfo.getWhoFirst();
     }
 
+    public HandCardList getHandCardList() {
+        return handCardList;
+    }
+
+    /**
+     * Gets deckStack.
+     *
+     * @return Value of deckStack.
+     */
+    public DeckStack getDeckStack() {
+        return deckStack;
+    }
+
     /**
      * Excuete the client
      *
@@ -391,37 +407,46 @@ public class Game {
         return null;
     }
 
-    /**
-     * @param player
-     * @param typeConexion
-     * @return instance
-     */
-    public static Game getInstance(Player player, ConnectionType typeConexion) {
+    public void initDeck() {
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
+        Card[][] arrayCard;
 
-        Game result = instance;
-        if (result != null) {
-            return result;
-        }
-        synchronized (Game.class) {
-            if (instance == null) {
-                instance = new Game(player, typeConexion);
+        try {
+            arrayCard = mapper.readValue(jackson, Card[][].class);
+
+            Random rnd = new Random();
+            for (int i = 0; i < this.getDeckStack().getMaxSize(); i++) {
+
+                int num1 = (int) (rnd.nextDouble() * 2 + 0);
+
+                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+
+                switch (num1) {
+                    case 0-> {
+                        Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardH);
+                    }
+                    case 1 -> {
+                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardS);
+                    }
+                    case 2 -> {
+                        Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
+                        this.deckStack.push(newCardSP);
+                    }
+                }
             }
-            return instance;
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Return the game instance.
-     *
-     * @return Game instance
-     */
-    public static Game getInstance() {
-        return instance;
-    }
-
-    public HandCardList getHandCardList() {
-        return handCardList;
-    }
 
     public void first4cards() {
         ObjectMapper mapper = new ObjectMapper();
@@ -457,33 +482,32 @@ public class Game {
             e.printStackTrace();
         }
     }
-//
-//    /**
-//     * @param player
-//     * @param typeConexion
-//     * @return instance
-//     */
-//    public static Game getInstance(Player player, ConnectionType typeConexion) {
-//
-//        Game result = instance;
-//        if (result != null) {
-//            return result;
-//        }
-//        synchronized(Game.class) {
-//            if (instance == null) {
-//                instance = new Game(player, typeConexion);
-//            }
-//            return instance;
-//        }
-//    }
-//
-//    /** Return the game instance.
-//     * @return Game instance
-//     */
-//    public static Game getInstance() {
-//        return instance;
-//    }
 
+    /**
+     * @param player
+     * @param typeConexion
+     * @return instance
+     */
+    public static Game getInstance(Player player, ConnectionType typeConexion) {
+
+        Game result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(Game.class) {
+            if (instance == null) {
+                instance = new Game(player, typeConexion);
+            }
+            return instance;
+        }
+    }
+
+    /** Return the game instance.
+     * @return Game instance
+     */
+    public static Game getInstance() {
+        return instance;
+    }
 
 
 

@@ -4,10 +4,18 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import model.game.Game;
 import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
 
+
+/**
+ *
+ */
 public class GameController {
 
 
@@ -26,7 +34,7 @@ public class GameController {
      *
      */
     @FXML
-    private Button buttomSkipTurn;
+    private Button buttonSkipTurn;
 
     @FXML
     private TextArea lalbelPrueba;
@@ -35,13 +43,34 @@ public class GameController {
      *
      */
     @FXML
-    public Label labelPLayerName;
-
-    /**
-     *
-     */
-    @FXML
     private Label labelTypeConnection;
+
+    @FXML
+    private Label labelNameOtherPlayer;
+
+    @FXML
+    private ProgressBar progressBarLifeOtherPlayer;
+
+    @FXML
+    private Label labelNameThisPLayer;
+
+    @FXML
+    private ProgressBar progressBarLifeThisPLayer;
+
+    @FXML
+    private Label labelManaThisPlayer;
+
+    @FXML
+    private Label labelNumCarts;
+
+    @FXML
+    private StackPane stackPaneDeckCart;
+
+    @FXML
+    private ImageView cardD1;
+
+    @FXML
+    private ImageView cardD0;
 
     @FXML
     private Label handCardLabel;
@@ -58,12 +87,68 @@ public class GameController {
         this.handCardLabel.setText(list.displayCard("next").getCategory());
 
     }
+
     @FXML
     private void handlePreCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("previous").getCategory());
 
     }
+
+    /**
+     * @param event
+     */
+    @FXML
+    private void addCardHandCard(MouseEvent event) {
+        this.stackPaneDeckCart.setDisable(true);
+        this.cardD0.setStyle("-fx-opacity:  0.4");
+        if((this.game.getDeckStack().getTop()>-1)) {
+            System.out.println(this.game.getDeckStack().pop().getCode());
+            this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1+"");
+
+
+            ///AGREGAR A LA HAND CARD
+
+
+        }
+
+        if (this.game.getDeckStack().getTop()<=-1){
+            this.cardD0.setVisible(false);
+            this.cardD1.setVisible(false);
+            this.cardD0.setDisable(true);
+            this.cardD0.setDisable(true);
+        }
+
+
+    }
+
+    /**
+     * @param event
+     */
+    @FXML
+    private void doSenalDeck(MouseEvent event) {
+
+        if (this.game.getDeckStack().getTop()>-1) {
+            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
+            this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
+
+
+            if (this.game.getDeckStack().getTop() > 0) {
+                this.cardD1.setRotate(10);
+            }
+        }
+    }
+
+    /**
+     * @param event
+     */
+    @FXML
+    private void revertSenalDeck(MouseEvent event) {
+        this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1 +"");
+        this.labelNumCarts.setTextFill(Paint.valueOf("#000000"));
+        this.cardD1.setRotate(0);
+    }
+
 
     /**
      * @param event
@@ -77,22 +162,48 @@ public class GameController {
 
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
-        if  ( game.getWhoFisrt() != this.game.getTypeConexion()) {
-            game.setRound();
+        //ENVIAR LA CARTA AL CENTRO CON DELETECARD
+        if  ( this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+            this.game.setRound();
             //Agrega el historial la jugada
             updateGUI();
         }
-        this.game.sendInfoOtherPlayer("");
+        this.game.sendInfoOtherPlayer("");//obtener current code
         this.game.recibeNewInfo();
         this.recibeMessage(oldInfo);
+    }
+
+    @FXML
+    private void handleSkipTurn(ActionEvent event) {
+
+        //logica si tiene mana suficiente
+
+        UpdateInfo oldInfo = this.game.getUpdateInfo();
+        this.dissableGUI(true);
+        if  ( this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+            this.game.setRound();
+            //Agrega el historial la jugada
+            updateGUI();
+        }
+        this.game.sendInfoOtherPlayer(true);
+        this.game.recibeNewInfo();
+        this.recibeMessage(oldInfo);
+
     }
 
     /**
      * @param setter This is boolean who blocks the GUI.
      */
     private void dissableGUI(boolean setter) {
+        if (setter){
+            this.cardD0.setStyle("-fx-opacity:  0.4");
+        }else {
+            this.cardD0.setStyle("-fx-opacity:  1");
+        }
+
         this.buttonSendCart.setDisable(setter);
-        this.buttomSkipTurn.setDisable(setter);
+        this.buttonSkipTurn.setDisable(setter);
+        this.stackPaneDeckCart.setDisable(setter);
     }
 
     /**
@@ -113,8 +224,12 @@ public class GameController {
         thread.start();
     }
 
+    /**
+     *
+     */
     private void recibeMessageAux(){
         this.dissableGUI(false);
+        //metodos de recibir carta
         this.updateGUI();
     }
 
@@ -130,20 +245,50 @@ public class GameController {
                 this.game.getRound() );
     }
 
+    /**
+     *
+     */
     @FXML
     private void initialize() {
         this.game = Game.getInstance();
-        this.labelPLayerName.setText(this.game.getPlayer().getName());
-        this.labelTypeConnection.setText(this.game.getTypeConexion() + "");
+        Double db;
         UpdateInfo info = this.game.getUpdateInfo();
+
         this.game.setWhoFisrt(info.getWhoFirst());
         this.game.first4cards();
         this.handCardLabel.setText(this.game.getHandCardList().displayCard("current").getCategory());
+
+        this.game.initDeck();
+
+
 
         this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
                 info.getPlayerSendLife() + "\n" +
                 info.getPlayerSendMana() + "\n" +
                 this.game.getRound() );
+
+        this.labelNameOtherPlayer.setText(
+                this.game.getUpdateInfo().getPlayerSendName());
+
+        db= ((double) this.game.getUpdateInfo().getPlayerSendLife())/1000;
+        this.progressBarLifeOtherPlayer.
+                setProgress(db);
+
+        this.labelNameThisPLayer.setText(
+                this.game.getPlayer().getName());
+
+
+        db= ((double) this.game.getPlayer().getLife())/1000;
+        this.progressBarLifeThisPLayer.
+                setProgress(db);
+
+        this.labelManaThisPlayer.setText(
+                this.game.getPlayer().getMana()+"");
+
+        this.labelTypeConnection.setText(
+                this.game.getTypeConexion() + "");
+        this.labelNumCarts.setText(
+                this.game.getDeckStack().getTop()+1 + "");
 
         if  (game.getWhoFisrt() == this.game.getTypeConexion()) {
             this.dissableGUI(false);

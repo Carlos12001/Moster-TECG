@@ -2,16 +2,35 @@ package model.deckcard;
 
 import model.cards.Card;
 
+/**
+ *
+ */
 public class DeckStack {
+    /**
+     *
+     */
     private short maxSize;
+    /**
+     *
+     */
     private Card[] stackArray;
+    /**
+     *
+     */
     private short top;
 
-    public void DeckStack(short max){
+    /** Create a new Stack.
+     * @param max The max of the stack
+     */
+    public DeckStack(short max){
         this.maxSize = max;
         this.top = -1;
+        this.stackArray = new Card[max];
     }
 
+    /** Push the new Card in the stack.
+     * @param newCard The new Card in the stack.
+     */
     public void push(Card newCard){
         if (top < maxSize) {
             this.stackArray[++top] = newCard;
@@ -20,11 +39,38 @@ public class DeckStack {
         }
     }
 
+    /** Get the cart in the top.
+     * @return Get the card in the top and delete in the stack.
+     */
     public Card pop(){
-        return this.stackArray[top--];
+        if (this.top>-1)
+            return this.stackArray[top--];
+        else
+            return null;
     }
 
+    /** Get the cart in the top
+     * @return Get the card in the top
+     */
     public Card peek(){
         return this.stackArray[top];
+    }
+
+    /**
+     * Gets top.
+     *
+     * @return Value of top.
+     */
+    public short getTop() {
+        return top;
+    }
+
+    /**
+     * Gets maxSize.
+     *
+     * @return Value of maxSize.
+     */
+    public short getMaxSize() {
+        return maxSize;
     }
 }
