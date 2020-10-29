@@ -43,12 +43,6 @@ public class GameController {
      *
      */
     @FXML
-    public Label labelPLayerName;
-
-    /**
-     *
-     */
-    @FXML
     private Label labelTypeConnection;
 
     @FXML
@@ -93,13 +87,13 @@ public class GameController {
         this.handCardLabel.setText(list.displayCard("next").getCategory());
 
     }
+
     @FXML
     private void handlePreCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("previous").getCategory());
 
     }
-
 
     /**
      * @param event
