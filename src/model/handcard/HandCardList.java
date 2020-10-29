@@ -77,8 +77,8 @@ public class HandCardList {
         return this.currentDisplay.getCardN();
     }
 
-    public void setCurrentDisplay(){
-        this.currentDisplay = this.currentDisplay.getNext();
+    public void setCurrentDisplayTail(){
+        this.currentDisplay = this.tail;
     }
 
     public Card displayCard(String direction){
@@ -86,14 +86,15 @@ public class HandCardList {
             this.currentDisplay = this.head;
             return this.currentDisplay.getCardN();
         } else {
-            if (direction == "previous") {
-                this.currentDisplay = this.currentDisplay.getPrevious();
-                return this.currentDisplay.getCardN();
-            } else if (direction == "next") {
-                this.currentDisplay = this.currentDisplay.getNext();
-                return this.currentDisplay.getCardN();
-            } else if (direction == "current") {
-                return this.currentDisplay.getCardN();
+            switch (direction) {
+                case "previous":
+                    this.currentDisplay = this.currentDisplay.getPrevious();
+                    return this.currentDisplay.getCardN();
+                case "next":
+                    this.currentDisplay = this.currentDisplay.getNext();
+                    return this.currentDisplay.getCardN();
+                case "current":
+                    return this.currentDisplay.getCardN();
             }
         }
         return null;

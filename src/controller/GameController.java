@@ -102,11 +102,11 @@ public class GameController {
     private void addCardHandCard(MouseEvent event) {
         this.stackPaneDeckCart.setDisable(true);
         this.cardD0.setStyle("-fx-opacity:  0.4");
-        if((this.game.getDeckStack().getTop()>-1)) {
+        if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
             System.out.println(this.game.getDeckStack().pop().getCode());
             this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1+"");
 
-
+            //setCurrent
             ///AGREGAR A LA HAND CARD
 
 
