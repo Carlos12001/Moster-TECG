@@ -2,7 +2,7 @@ package model.game;
 
 /**
  * Esta clase se maneja toda la informacion relacionada con el jugador como el nomrbe, vida y mana
- * @version 1
+ * @version 1.0
  */
 public class Player {
 

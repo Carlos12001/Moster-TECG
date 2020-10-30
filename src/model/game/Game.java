@@ -407,7 +407,7 @@ public class Game {
         return null;
     }
 
-    public void initDeck() {
+    public void initDeckCard() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
         jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
@@ -426,14 +426,17 @@ public class Game {
                 switch (num1) {
                     case 0-> {
                         Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
+                        newCardH.setTheClass(arrayCard[num1][num2]);
                         this.deckStack.push(newCardH);
                     }
                     case 1 -> {
                         Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
+                        newCardS.setTheClass(arrayCard[num1][num2]);
                         this.deckStack.push(newCardS);
                     }
                     case 2 -> {
                         Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
+                        newCardSP.setTheClass(arrayCard[num1][num2]);
                         this.deckStack.push(newCardSP);
                     }
                 }
@@ -447,8 +450,7 @@ public class Game {
         }
     }
 
-
-    public void first4cards() {
+    public void initHandCard() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
         jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
@@ -457,21 +459,29 @@ public class Game {
         try {
             arrayCard = mapper.readValue(jackson, Card[][].class);
 
-            for (int i = 0; i < 3; i++) {
+            Random rnd = new Random();
+            for (int i = 0; i <= 4; i++) {
 
-                switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN":
-                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
+                int num1 = (int) (rnd.nextDouble() * 2 + 0);
+
+                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+
+                switch (num1) {
+                    case 0-> {
+                        Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
+                        newCardH.setTheClass(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardH);
-                        break;
-                    case "SECRET":
-                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
+                    }
+                    case 1 -> {
+                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
+                        newCardS.setTheClass(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardS);
-                        break;
-                    case "SPELL":
-                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
+                    }
+                    case 2 -> {
+                        Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
+                        newCardSP.setTheClass(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardSP);
-                        break;
+                    }
                 }
             }
         } catch (JsonParseException e) {

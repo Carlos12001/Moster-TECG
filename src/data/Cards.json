@@ -12,15 +12,15 @@
       "category": "SECRET",
       "code": "SECRET@0",
       "costCard": 70,
-      "image": "SECRET@0.png"
+      "image": "SECRET@0.jpg"
     }
   ],
   [
     {
       "category": "SPELL",
-      "code": "SPELL@01",
+      "code": "SPELL@0",
       "costCard": 20,
-      "image": "SPELL@0.png"
+      "image": "SPELL@0.jpg"
     }
   ]
 ]

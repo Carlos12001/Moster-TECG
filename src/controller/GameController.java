@@ -4,13 +4,19 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import model.game.Game;
 import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 
 /**
@@ -24,20 +30,14 @@ public class GameController {
      */
     Game game = Game.getInstance();
 
-    /**
-     *
-     */
     @FXML
-    private Button buttonSendCart;
+    private Label labelRound;
 
     /**
      *
      */
     @FXML
     private Button buttonSkipTurn;
-
-    @FXML
-    private TextArea lalbelPrueba;
 
     /**
      *
@@ -67,33 +67,58 @@ public class GameController {
     private StackPane stackPaneDeckCart;
 
     @FXML
-    private ImageView cardD1;
+    private ImageView cardD01;
 
     @FXML
     private ImageView cardD0;
 
     @FXML
-    private Label handCardLabel;
+    private HBox hBoxHandCard;
 
     @FXML
-    private Button nextCard;
+    private Button buttonPreviousCard;
 
     @FXML
-    private Button previousCard;
+    private ImageView cardD02;
 
     @FXML
-    private void handleNextCard(ActionEvent event){
-        HandCardList list = this.game.getHandCardList();
-        this.handCardLabel.setText(list.displayCard("next").getCategory());
-
-    }
+    private Button buttonNextCard;
 
     @FXML
-    private void handlePreCard(ActionEvent event){
-        HandCardList list = this.game.getHandCardList();
-        this.handCardLabel.setText(list.displayCard("previous").getCategory());
+    private VBox vBoxTableCard;
 
-    }
+    @FXML
+    private ImageView cardD03;
+
+    @FXML
+    private ImageView cardD04;
+
+    @FXML
+    private VBox vBoxHistory;
+
+    @FXML
+    private Button buttonPreviousHistory;
+
+    @FXML
+    private Label labelSender;
+
+    @FXML
+    private Label lifeSender;
+
+    @FXML
+    private ImageView cardD05;
+
+    @FXML
+    private Label labelReciber;
+
+    @FXML
+    private Label lifeReciber;
+
+    @FXML
+    private Button buttonNextHistory;
+
+
+
 
     /**
      * @param event
@@ -114,7 +139,7 @@ public class GameController {
 
         if (this.game.getDeckStack().getTop()<=-1){
             this.cardD0.setVisible(false);
-            this.cardD1.setVisible(false);
+            this.cardD01.setVisible(false);
             this.cardD0.setDisable(true);
             this.cardD0.setDisable(true);
         }
@@ -134,7 +159,7 @@ public class GameController {
 
 
             if (this.game.getDeckStack().getTop() > 0) {
-                this.cardD1.setRotate(10);
+                this.cardD01.setRotate(10);
             }
         }
     }
@@ -146,19 +171,27 @@ public class GameController {
     private void revertSenalDeck(MouseEvent event) {
         this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1 +"");
         this.labelNumCarts.setTextFill(Paint.valueOf("#000000"));
-        this.cardD1.setRotate(0);
+        this.cardD01.setRotate(0);
     }
 
+    @FXML
+    private void handlePreCard(ActionEvent event){
+        this.cardD02.setImage(new Image("/images/" +
+                this.game.getHandCardList().displayCard("previous").getImage()));
+    }
+
+    @FXML
+    void selectCard(MouseEvent event) {
+
+    }
 
     /**
      * @param event
      */
     @FXML
-    private void handleSend(ActionEvent event) {
+    private void handleSend(MouseEvent event) {
 
         //logica si tiene mana suficiente
-
-
 
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
@@ -174,34 +207,65 @@ public class GameController {
     }
 
     @FXML
-    private void handleSkipTurn(ActionEvent event) {
+    private void handleNextCard(ActionEvent event){
+        this.cardD02.setImage(new Image("/images/" +
+                this.game.getHandCardList().displayCard("next").getImage()));
+    }
 
-        //logica si tiene mana suficiente
-
-        UpdateInfo oldInfo = this.game.getUpdateInfo();
-        this.dissableGUI(true);
-        if  ( this.game.getWhoFisrt() != this.game.getTypeConexion()) {
-            this.game.setRound();
-            //Agrega el historial la jugada
-            updateGUI();
-        }
-        this.game.sendInfoOtherPlayer(true);
-        this.game.recibeNewInfo();
-        this.recibeMessage(oldInfo);
+    @FXML
+    void unselectCard(MouseEvent event) {
 
     }
+
+    @FXML
+    private void handleSkipTurn(ActionEvent event) {
+
+        if(true) { //logica si tiene mana suficiente
+
+            //Agrega el historial la jugada
+
+            UpdateInfo oldInfo = this.game.getUpdateInfo();
+            this.dissableGUI(true);
+            if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+                this.game.setRound();
+                updateGUI();
+            }
+            this.game.sendInfoOtherPlayer(true);
+            this.game.recibeNewInfo();
+            this.recibeMessage(oldInfo);
+        }else{
+            //sound Nop
+        }
+    }
+
+    @FXML
+    void handlePreHistory(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleNextHistory(ActionEvent event) {
+
+    }
+
+
+
+
 
     /**
      * @param setter This is boolean who blocks the GUI.
      */
     private void dissableGUI(boolean setter) {
+
         if (setter){
             this.cardD0.setStyle("-fx-opacity:  0.4");
+            this.cardD02.setStyle("-fx-opacity: 0.4");
         }else {
             this.cardD0.setStyle("-fx-opacity:  1");
+            this.cardD02.setStyle("-fx-opacity: 1");
         }
 
-        this.buttonSendCart.setDisable(setter);
+        this.hBoxHandCard.setDisable(setter);
         this.buttonSkipTurn.setDisable(setter);
         this.stackPaneDeckCart.setDisable(setter);
     }
@@ -210,6 +274,7 @@ public class GameController {
      *
      */
     private void recibeMessage(UpdateInfo oldInfo) {
+
         Thread thread = new Thread(() -> {
             Runnable updater = this::recibeMessageAux;
             while (true) {
@@ -228,6 +293,7 @@ public class GameController {
      *
      */
     private void recibeMessageAux(){
+
         this.dissableGUI(false);
         //metodos de recibir carta
         this.updateGUI();
@@ -237,35 +303,62 @@ public class GameController {
      *
      */
     private void updateGUI() {
+
+        //Init variables
+        Double db;
         UpdateInfo info = this.game.getUpdateInfo();
+
+        //Set new Information
         this.game.setWhoFisrt(info.getWhoFirst());
-        this.lalbelPrueba.setText(this.game.getPlayerOtherName() + "\n" +
-                this.game.getPlayerOtherLife() + "\n" +
-                this.game.getPlayerOtherMana() + "\n" +
-                this.game.getRound() );
+
+        this.labelRound.setText(this.game.getRound() + "" );
+
+        this.labelNameOtherPlayer.setText(
+                this.game.getUpdateInfo().getPlayerSendName());
+
+        db= ((double) this.game.getUpdateInfo().getPlayerSendLife())/1000;
+        this.progressBarLifeOtherPlayer.
+                setProgress(db);
+
+        this.labelNameThisPLayer.setText(
+                this.game.getPlayer().getName());
+
+
+        db= ((double) this.game.getPlayer().getLife())/1000;
+        this.progressBarLifeThisPLayer.
+                setProgress(db);
+
+        this.labelManaThisPlayer.setText(
+                this.game.getPlayer().getMana()+"");
     }
+
+
 
     /**
      *
      */
     @FXML
     private void initialize() {
-        this.game = Game.getInstance();
+
+        //Init variables
         Double db;
+
+        //Init Atributtes
+        this.game = Game.getInstance();
         UpdateInfo info = this.game.getUpdateInfo();
-
         this.game.setWhoFisrt(info.getWhoFirst());
-        this.game.first4cards();
-        this.handCardLabel.setText(this.game.getHandCardList().displayCard("current").getCategory());
 
-        this.game.initDeck();
+        //Init HandCard, DeckCard and History.
+        this.game.initHandCard();
 
+        this.cardD02.setImage(new Image("/images/" +
+                this.game.getHandCardList().displayCard("current").getImage()));
 
+        this.game.initDeckCard();
 
-        this.lalbelPrueba.setText(info.getPlayerSendName() + "\n" +
-                info.getPlayerSendLife() + "\n" +
-                info.getPlayerSendMana() + "\n" +
-                this.game.getRound() );
+        //  SetsInformation
+
+        this.labelRound.setText(this.game.getRound() + "" );
 
         this.labelNameOtherPlayer.setText(
                 this.game.getUpdateInfo().getPlayerSendName());

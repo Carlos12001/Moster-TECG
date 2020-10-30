@@ -31,7 +31,6 @@ public class Card {
         this.code = code;
         this.category = code.split("@")[0];
         this.numerCode =  Short.parseShort(code.split("@")[1]);
-        this.setInfo();
     }
 
     /**
@@ -64,22 +63,6 @@ public class Card {
 
 
     private void setInfo(){
-        ObjectMapper mapper = new ObjectMapper();
-
-        Card [][] array = new Card[3][1];//jackson
-
-//        switch (this.category){
-//            case "HENCHMAN"{
-//            }
-//            case "SECRET"{
-//            }
-//            case "SPELL"{
-//            }
-//            break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + this.category);
-//        }
-
     }
 
 
@@ -99,5 +82,10 @@ public class Card {
      */
     public String getImage() {
         return image;
+    }
+
+    public void setTheClass(Card card){
+        this.numerCode = card.costCard;
+        this.image = card.image;
     }
 }
