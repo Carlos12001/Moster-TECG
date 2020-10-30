@@ -275,11 +275,12 @@ public class Game {
      * @param category
      * @param code
      */
+
     public void actionCard(String category, String code){
         switch (category){
             case "HENCHEMAN" :
-                Card henchman = new Henchman(code);
-
+                Henchman henchman = new Henchman(code);
+                henchman.actionHenchman(Short.parseShort(code.split("@")[1]));
             case "SECRET" :
                 Card secret = new Secret(code);
 
@@ -289,6 +290,7 @@ public class Game {
 
         }
     }
+
 
     /**
      * This method sets the new information
@@ -478,21 +480,37 @@ public class Game {
         try {
             arrayCard = mapper.readValue(jackson, Card[][].class);
 
-            for (int i = 0; i < 3; i++) {
+            Random rnd = new Random();
+            for (int i = 0; i < 4; i++) {
 
-                switch (arrayCard[i][0].getCategory()) {
-                    case "HENCHEMAN":
-                        Card newCardH = new Henchman(arrayCard[i][0].getCode());
+                int num1 = (int) (rnd.nextDouble() * 3 + 0);
+
+                int num2 = (int) (rnd.nextDouble() * 5 + 0);
+
+                switch (num1) {
+                    case 0 ->{
+                        Henchman newCardH = new Henchman(arrayCard[num1][num2].getCode());
+                        newCardH.setHenchman(Short.parseShort(newCardH.getCode().split("@")[1]));
+                        System.out.println(arrayCard[num1][num2].getCode());
+                        System.out.println(newCardH.getAtack());
+                        System.out.println(newCardH.getImage());
                         this.handCardList.insertLast(newCardH);
                         break;
-                    case "SECRET":
-                        Secret newCardS = new Secret(arrayCard[i][0].getCode());
+                    }
+                    case 1 -> {
+                        Card newCardS = new Secret(arrayCard[num1][num2].getCode());
+
+                        System.out.println(arrayCard[num1][num2].getCode());
                         this.handCardList.insertLast(newCardS);
                         break;
-                    case "SPELL":
-                        Spell newCardSP = new Spell(arrayCard[i][0].getCode());
+                    }
+                    case 2 ->{
+                        Card newCardSP = new Spell(arrayCard[num1][num2].getCode());
+                        System.out.println(arrayCard[num1][num2].getCode());
                         this.handCardList.insertLast(newCardSP);
                         break;
+                    }
+
                 }
             }
         } catch (JsonParseException e) {
