@@ -125,16 +125,22 @@ public class GameController {
      */
     @FXML
     private void addCardHandCard(MouseEvent event) {
-        this.stackPaneDeckCart.setDisable(true);
-        this.cardD0.setStyle("-fx-opacity:  0.4");
+//        this.stackPaneDeckCart.setDisable(true);
+//        this.cardD0.setStyle("-fx-opacity:  0.4");
+
         if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
-            System.out.println(this.game.getDeckStack().pop().getCode());
+
+
+            this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
+
+            this.game.getHandCardList().setCurrentDisplayTail();
+
             this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1+"");
 
-            //setCurrent
-            ///AGREGAR A LA HAND CARD
-
-
+            this.cardD02.setImage(new Image("/images/" +
+                    this.game.getHandCardList().displayCard("current").getImage()));
+        }else{
+            //sonido
         }
 
         if (this.game.getDeckStack().getTop()<=-1){
@@ -143,8 +149,6 @@ public class GameController {
             this.cardD0.setDisable(true);
             this.cardD0.setDisable(true);
         }
-
-
     }
 
     /**
@@ -210,6 +214,7 @@ public class GameController {
     private void handleNextCard(ActionEvent event){
         this.cardD02.setImage(new Image("/images/" +
                 this.game.getHandCardList().displayCard("next").getImage()));
+
     }
 
     @FXML

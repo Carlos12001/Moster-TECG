@@ -419,9 +419,10 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i < this.getDeckStack().getMaxSize(); i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 2 + 0);
+                int num1 = (int) (rnd.nextDouble() * 3 + 0);
 
                 int num2 = (int) (rnd.nextDouble() * 0 + 0);
+
 
                 switch (num1) {
                     case 0-> {
@@ -459,7 +460,7 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i <= 4; i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 2 + 0);
+                int num1 = (int) (rnd.nextDouble() * 3 + 0);
 
                 int num2 = (int) (rnd.nextDouble() * 0 + 0);
 
@@ -469,7 +470,7 @@ public class Game {
                         this.handCardList.insertLast(newCardH);
                     }
                     case 1 -> {
-                        Secret newCardS = new Secret(arrayCard[num1][num2]);
+                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
                         this.handCardList.insertLast(newCardS);
                     }
                     case 2 -> {

@@ -51,17 +51,17 @@ public class HandCardList {
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
                     this.tail.setNext(this.head);
-                    size--;
+                    this.size--;
                 } else if (current == this.tail){
                     this.tail =  previous.getNext();
                     previous.setNext(this.head);
                     this.head.setPrevious(this.tail);
-                    size--;
+                    this.size--;
                 } else {
                     tmp = current.getNext();
                     previous.setNext(current.getNext());
                     tmp.setPrevious(current.getPrevious());
-                    size--;
+                    this.size--;
                 }
                 return current.getCardN();
             }
@@ -71,10 +71,6 @@ public class HandCardList {
             }
         }
         return null;
-    }
-
-    public Card displayCard(){
-        return this.currentDisplay.getCardN();
     }
 
     public void setCurrentDisplayTail(){
@@ -98,5 +94,48 @@ public class HandCardList {
             }
         }
         return null;
+    }
+
+    public void displayListPrint(){
+        StringBuilder result = new StringBuilder("[ ");
+
+        if(!this.isEmpty()) {
+            HandCardNode current = this.head;
+            for (int i = 0; i < this.size; i++) {
+                result.append(current.getCardN().getCode()).append(", ");
+                current = current.getNext();
+            }
+        }
+
+        result.append(" ]");
+
+        System.out.println(result);
+    }
+
+    /**
+     * Gets currentDisplay.
+     *
+     * @return Value of currentDisplay.
+     */
+    public Card getCurrentDisplay() {
+        return currentDisplay.getCardN();
+    }
+
+    /**
+     * Gets tail.
+     *
+     * @return Value of tail.
+     */
+    public Card getTail() {
+        return tail.getCardN();
+    }
+
+    /**
+     * Gets head.
+     *
+     * @return Value of head.
+     */
+    public Card getHead() {
+        return head.getCardN();
     }
 }
