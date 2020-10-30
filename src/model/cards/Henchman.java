@@ -9,4 +9,8 @@ public class Henchman extends Card{
         super(code);
     }
 
+    public Henchman(Card card){
+        super(card);
+    }
+
 }

@@ -7,4 +7,8 @@ public class Secret extends Card {
         super(code);
     }
 
+    public Secret(Card card){
+        super(card);
+    }
+
 }

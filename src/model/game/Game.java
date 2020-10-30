@@ -425,18 +425,15 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
-                        newCardH.setTheClass(arrayCard[num1][num2]);
+                        Card newCardH = new Henchman(arrayCard[num1][num2]);
                         this.deckStack.push(newCardH);
                     }
                     case 1 -> {
-                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
-                        newCardS.setTheClass(arrayCard[num1][num2]);
+                        Secret newCardS = new Secret(arrayCard[num1][num2]);
                         this.deckStack.push(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
-                        newCardSP.setTheClass(arrayCard[num1][num2]);
+                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
                         this.deckStack.push(newCardSP);
                     }
                 }
@@ -468,18 +465,15 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2].getCode());
-                        newCardH.setTheClass(arrayCard[num1][num2]);
+                        Card newCardH = new Henchman(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardH);
                     }
                     case 1 -> {
-                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
-                        newCardS.setTheClass(arrayCard[num1][num2]);
+                        Secret newCardS = new Secret(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][num2].getCode());
-                        newCardSP.setTheClass(arrayCard[num1][num2]);
+                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardSP);
                     }
                 }

@@ -1,6 +1,11 @@
 package model.cards;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class Card {
@@ -27,10 +32,52 @@ public class Card {
     public Card(){
     }
 
-    public Card(String code){
+    public Card(String code) {
+
+
         this.code = code;
         this.category = code.split("@")[0];
-        this.numerCode =  Short.parseShort(code.split("@")[1]);
+        this.numerCode = Short.parseShort(code.split("@")[1]);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        File jackson;
+        jackson = new File(System.getProperty("user.dir") + "/src/data/Cards.json");
+        Card[][] arrayCard;
+
+        try {
+            arrayCard = mapper.readValue(jackson, Card[][].class);
+            Card setter;
+            switch (this.category) {
+                case "HENCHEMAN" -> {
+                    setter = arrayCard[0][this.numerCode];
+                }
+                case "SECRET" -> {
+                    setter = arrayCard[1][this.numerCode];
+                }
+                case "SPELL" -> {
+                    setter = arrayCard[2][this.numerCode];
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + this.category);
+            }
+            this.image = setter.image;
+            this.costCard = setter.costCard;
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Card(Card card){
+        this.code = card.code;
+        this.category = card.code.split("@")[0];
+        this.numerCode =  Short.parseShort(card.code.split("@")[1]);
+        this.numerCode = card.costCard;
+        this.image = card.image;
     }
 
     /**
@@ -84,8 +131,5 @@ public class Card {
         return image;
     }
 
-    public void setTheClass(Card card){
-        this.numerCode = card.costCard;
-        this.image = card.image;
-    }
+
 }

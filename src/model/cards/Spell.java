@@ -9,4 +9,8 @@ public class Spell extends Card{
         super(code);
     }
 
+    public Spell(Card card){
+        super(card);
+    }
+
 }
