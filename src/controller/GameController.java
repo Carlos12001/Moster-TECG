@@ -149,6 +149,7 @@ public class GameController {
 
         if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
 
+            this.hBoxHandCard.setDisable(false);
 
             this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
 
@@ -368,6 +369,18 @@ public class GameController {
 
         this.labelManaThisPlayer.setText(
                 this.game.getPlayer().getMana()+"");
+
+        //Especial Blocks
+
+        if(this.game.getDeckStack().getTop()<=-1){
+            this.stackPaneDeckCart.setDisable(true);
+            this.cardD0.setVisible(false);
+            this.cardD01.setVisible(false);
+        }
+
+        if (this.game.getHandCardList().isEmpty()){
+            this.hBoxHandCard.setDisable(true);
+        }
     }
 
     /**
