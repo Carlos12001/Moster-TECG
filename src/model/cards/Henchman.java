@@ -44,7 +44,6 @@ public class Henchman extends Card{
         }
     }
 
-
     /**
      * Gets atack.
      *
