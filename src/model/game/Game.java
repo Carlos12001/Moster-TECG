@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
-import model.handcard.HandCardNode;
 import model.sockets.*;
 
 import java.io.*;
@@ -53,11 +52,11 @@ public class Game {
     /**
      *
      */
-    private String cartTableOtherPlayer;
+    private String codeOtherCard;
     /**
      *
      */
-    private String cartTablePlayer;
+    private String codeThisPlayer;
     /**
      *
      */
@@ -106,17 +105,17 @@ public class Game {
      *
      * @return Value of cartTableOtherPlayer.
      */
-    public String getCartTableOtherPlayer() {
-        return cartTableOtherPlayer;
+    public String getCodeOtherCard() {
+        return codeOtherCard;
     }
 
     /**
      * Sets new cartTableOtherPlayer.
      *
-     * @param cartTableOtherPlayer New value of cartTableOtherPlayer.
+     * @param codeOtherCard New value of cartTableOtherPlayer.
      */
-    public void setCartTableOtherPlayer(String cartTableOtherPlayer) {
-        this.cartTableOtherPlayer = cartTableOtherPlayer;
+    public void setCodeOtherCard(String codeOtherCard) {
+        this.codeOtherCard = codeOtherCard;
     }
 
     /**
@@ -185,10 +184,10 @@ public class Game {
     /**
      * Sets new cartTablePlayer.
      *
-     * @param cartTablePlayer New value of cartTablePlayer.
+     * @param codeThisPlayer New value of cartTablePlayer.
      */
-    public void setCartTablePlayer(String cartTablePlayer) {
-        this.cartTablePlayer = cartTablePlayer;
+    public void setCodeThisPlayer(String codeThisPlayer) {
+        this.codeThisPlayer = codeThisPlayer;
     }
 
     /**
@@ -205,8 +204,8 @@ public class Game {
      *
      * @return Value of cartTablePlayer.
      */
-    public String getCartTablePlayer() {
-        return cartTablePlayer;
+    public String getCodeThisPlayer() {
+        return codeThisPlayer;
     }
 
     /**
@@ -299,7 +298,7 @@ public class Game {
         this.playerOtherLife = updateInfo.getPlayerSendLife();
         this.playerOtherMana = updateInfo.getPlayerSendMana();
         this.playerOtherName = updateInfo.getPlayerSendName();
-        this.cartTableOtherPlayer = updateInfo.getCodeSendCart();
+        this.codeOtherCard = updateInfo.getCodeSendCart();
         this.whoFisrt = updateInfo.getWhoFirst();
     }
 
@@ -447,9 +446,9 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i < this.getDeckStack().getMaxSize(); i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 3 + 0);
+                int num1 = rnd.nextInt(3);
 
-                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+                int num2 = rnd.nextInt(10);
 
 
                 switch (num1) {
@@ -489,11 +488,11 @@ public class Game {
             arrayCard = mapper.readValue(jackson, Card[][].class);
 
             Random rnd = new Random();
-            for (int i = 0; i <= 4; i++) {
+            for (int i = 0; i <= 3; i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 0 + 0);
+                int num1 = rnd.nextInt(3);
 
-                int num2 = (int) (rnd.nextDouble() * 3 + 0);
+                int num2 = rnd.nextInt(10);
 
                 switch (num1) {
                     case 0-> {

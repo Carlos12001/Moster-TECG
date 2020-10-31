@@ -36,7 +36,7 @@
             <Font size="24.0" />
          </font></Label>
       <ProgressBar fx:id="progressBarLifeThisPLayer" disable="true" layoutX="38.0" layoutY="280.0" prefHeight="32.0" prefWidth="210.0" progress="0.15" style="-fx-accent: #eb2217;" />
-      <Label fx:id="labelManaThisPlayer" alignment="CENTER" layoutX="163.0" layoutY="324.0" prefHeight="35.0" prefWidth="80.0" text="--------" textAlignment="CENTER" textFill="#66d8f2" wrapText="true">
+      <Label fx:id="labelManaThisPlayer" alignment="TOP_LEFT" layoutX="163.0" layoutY="324.0" prefHeight="35.0" prefWidth="150.0" text="--------" textFill="#66d8f2" wrapText="true">
          <font>
             <Font size="24.0" />
          </font></Label>
@@ -55,27 +55,27 @@
                   <Image url="@../images/ReverseCards.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="cardD0" fitHeight="400.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="cardD0" fitHeight="350.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/ReverseCards.png" />
                </image>
             </ImageView>
          </children>
       </StackPane>
-      <HBox fx:id="hBoxHandCard" alignment="CENTER" layoutX="313.0" layoutY="551.0" prefHeight="292.0" prefWidth="375.0" spacing="25.0">
+      <HBox fx:id="hBoxHandCard" alignment="CENTER" layoutX="305.0" layoutY="551.0" prefHeight="350.0" prefWidth="391.0" spacing="25.0">
          <children>
             <Button fx:id="buttonPreviousCard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handlePreCard" prefHeight="35.0" prefWidth="60.0" text="&lt;-" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <ImageView fx:id="cardD02" fitHeight="400.0" fitWidth="250.0" onMouseClicked="#handleSend" onMouseEntered="#selectCard" onMouseExited="#unselectCard" preserveRatio="true">
+            <ImageView fx:id="cardD02" fitHeight="350.0" fitWidth="250.0" onMouseClicked="#handleSend" onMouseEntered="#selectCard" onMouseExited="#unselectCard" preserveRatio="true">
                <image>
                   <Image url="@../images/HENCHEMAN.png" />
                </image>
             </ImageView>
       
-                  <Button fx:id="buttonNextCard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleNextCard" prefHeight="35.0" prefWidth="60.0" text="-&gt;" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="buttonNextCard" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleNextCard" prefHeight="39.0" prefWidth="51.0" text="-&gt;" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>

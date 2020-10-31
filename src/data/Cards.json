@@ -28,37 +28,37 @@
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@4",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@5",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@6",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@7",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@8",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@9",
       "costCard": 10,
-      "image": "HENCHEMAN@0.png"
+      "image": "HENCHEMAN.png"
     }
   ],
   [
@@ -66,61 +66,61 @@
       "category": "SECRET",
       "code": "SECRET@0",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@1",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@2",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@3",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@4",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@5",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@6",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@7",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@8",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@9",
       "costCard": 70,
-      "image": "SECRET@0.jpg"
+      "image": "SECRET.jpg"
     }
   ],
   [
@@ -128,25 +128,25 @@
       "category": "SPELL",
       "code": "SPELL@0",
       "costCard": 20,
-      "image": "SPELL@0.jpg"
+      "image": "SPELL.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@1",
       "costCard": 20,
-      "image": "SPELL@0.jpg"
+      "image": "SPELL.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@2",
       "costCard": 20,
-      "image": "SPELL@0.jpg"
+      "image": "SPELL.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@3",
       "costCard": 20,
-      "image": "SPELL@0.jpg"
+      "image": "SPELL.jpg"
     },
     {
       "category": "SPELL",
