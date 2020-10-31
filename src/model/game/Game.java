@@ -471,7 +471,7 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i <= 3; i++) {
 
-                int num1 = rnd.nextInt(1);
+                int num1 = rnd.nextInt(3);
 
                 int num2 = rnd.nextInt(10);
 
