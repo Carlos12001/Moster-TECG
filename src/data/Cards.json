@@ -10,55 +10,55 @@
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@1",
       "costCard": 10,
-      "image": "HENCHEMAN@1.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@2",
       "costCard": 10,
-      "image": "HENCHEMAN@2.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@3",
       "costCard": 10,
-      "image": "HENCHEMAN@3.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@4",
       "costCard": 10,
-      "image": "HENCHEMAN@4.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@5",
       "costCard": 10,
-      "image": "HENCHEMAN@5.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@6",
       "costCard": 10,
-      "image": "HENCHEMAN@6.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@7",
       "costCard": 10,
-      "image": "HENCHEMAN@7.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@8",
       "costCard": 10,
-      "image": "HENCHEMAN@8.png"
+      "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@9",
       "costCard": 10,
-      "image": "HENCHEMAN@9.png"
+      "image": "HENCHEMAN@0.png"
     }
   ],
   [
@@ -66,61 +66,61 @@
       "category": "SECRET",
       "code": "SECRET@0",
       "costCard": 70,
-      "image": "SECRET@0.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@1",
       "costCard": 70,
-      "image": "SECRET@1.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@2",
       "costCard": 70,
-      "image": "SECRET@2.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@3",
       "costCard": 70,
-      "image": "SECRET@3.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@4",
       "costCard": 70,
-      "image": "SECRET@4.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@5",
       "costCard": 70,
-      "image": "SECRET@5.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@6",
       "costCard": 70,
-      "image": "SECRET@6.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@7",
       "costCard": 70,
-      "image": "SECRET@7.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@8",
       "costCard": 70,
-      "image": "SECRET@8.png"
+      "image": "SECRET@0.jpg"
     },
     {
       "category": "SECRET",
       "code": "SECRET@9",
       "costCard": 70,
-      "image": "SECRET@9.png"
+      "image": "SECRET@0.jpg"
     }
   ],
   [
@@ -128,61 +128,61 @@
       "category": "SPELL",
       "code": "SPELL@0",
       "costCard": 20,
-      "image": "SPELL@0.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@1",
       "costCard": 20,
-      "image": "SPELL@1.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@2",
       "costCard": 20,
-      "image": "SPELL@2.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@3",
       "costCard": 20,
-      "image": "SPELL@3.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@4",
       "costCard": 20,
-      "image": "SPELL@4.png"
+      "image": "SPELL@0.jpg"
     },
     {
     "category": "SPELL",
     "code": "SPELL@5",
     "costCard": 20,
-    "image": "SPELL@5.png"
+    "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@6",
       "costCard": 20,
-      "image": "SPELL@6.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@7",
       "costCard": 20,
-      "image": "SPELL@7.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@8",
       "costCard": 20,
-      "image": "SPELL@8.png"
+      "image": "SPELL@0.jpg"
     },
     {
       "category": "SPELL",
       "code": "SPELL@9",
       "costCard": 20,
-      "image": "SPELL@9.png"
+      "image": "SPELL@0.jpg"
     }
   ]
 ]

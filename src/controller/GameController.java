@@ -11,7 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import model.cards.Card;
 import model.cards.Henchman;
+import model.cards.Secret;
+import model.cards.Spell;
 import model.game.Game;
 import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
@@ -184,7 +187,7 @@ public class GameController {
     }
 
     @FXML
-    void selectCard(MouseEvent event) {
+    private void selectCard(MouseEvent event) {
         if (!this.game.getHandCardList().isEmpty() &&
             (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0))
         {
@@ -231,13 +234,13 @@ public class GameController {
     }
 
     @FXML
-    void unselectCard(MouseEvent event) {
+    private void unselectCard(MouseEvent event) {
         this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "");
         this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
     }
 
     @FXML
-    private void handleNextCard(ActionEvent event){
+    private void handleNextCard(ActionEvent event) {
         this.cardD02.setImage(new Image("/images/" +
                 this.game.getHandCardList().displayCard("next").getImage()));
 
@@ -265,12 +268,12 @@ public class GameController {
     }
 
     @FXML
-    void handlePreHistory(ActionEvent event) {
+    private void handlePreHistory(ActionEvent event) {
 
     }
 
     @FXML
-    void handleNextHistory(ActionEvent event) {
+    private void handleNextHistory(ActionEvent event) {
 
     }
 
@@ -318,7 +321,7 @@ public class GameController {
     /**
      *
      */
-    private void recibeMessageAux(){
+    private void recibeMessageAux() {
 
         this.dissableGUI(false);
         //metodos de recibir carta
@@ -337,7 +340,7 @@ public class GameController {
         //Set new Information
         this.game.setWhoFisrt(info.getWhoFirst());
 
-        this.labelRound.setText(this.game.getRound() + "" );
+        this.labelRound.setText(this.game.getRound() + "");
 
         this.labelNameOtherPlayer.setText(
                 this.game.getUpdateInfo().getPlayerSendName());
@@ -356,6 +359,30 @@ public class GameController {
 
         this.labelManaThisPlayer.setText(
                 this.game.getPlayer().getMana()+"");
+    }
+
+    /**
+     * @param category
+     * @param code
+     */
+    private void actionCard(String category, String code) {
+        switch (category){
+            case "HENCHEMAN" :
+                Henchman henchman = new Henchman(code);
+                this.actionHenchman(henchman);
+            case "SECRET" :
+                Card secret = new Secret(code);
+            case "SPELL" :
+                Card spell = new Spell(code);
+        }
+    }
+
+    /**
+     *
+     */
+    private void actionHenchman(Henchman henchman) {
+        Game game = Game.getInstance();
+        game.getPlayer().decreaseLife(henchman.getAtack());
     }
 
 

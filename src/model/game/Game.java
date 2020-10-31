@@ -58,27 +58,25 @@ public class Game {
      *
      */
     private String cartTablePlayer;
-
     /**
      *
      */
     private Client client;
-
     /**
      *
      */
     private Server server;
-
     /**
      *
      */
     private UpdateInfo updateInfo;
-
     /**
      *
      */
     private DeckStack deckStack = new DeckStack((short)16);
-
+    /**
+     *
+     */
     private HandCardList handCardList = new HandCardList();
 
 
@@ -275,12 +273,10 @@ public class Game {
      * @param category
      * @param code
      */
-
     public void actionCard(String category, String code){
         switch (category){
             case "HENCHEMAN" :
                 Henchman henchman = new Henchman(code);
-                henchman.actionHenchman();
             case "SECRET" :
                 Card secret = new Secret(code);
 
@@ -307,6 +303,9 @@ public class Game {
         this.whoFisrt = updateInfo.getWhoFirst();
     }
 
+    /**
+     * @return
+     */
     public HandCardList getHandCardList() {
         return handCardList;
     }
@@ -348,7 +347,7 @@ public class Game {
     }
 
     /**
-     * TH
+     * T
      */
     public void createConnection() {
         if ((this.server == null) & (this.typeConexion == SERVER)) {
@@ -390,6 +389,9 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
     public void recibeNewInfo() {
         switch (this.getTypeConexion()) {
             case SERVER -> this.server.readSockect();
@@ -430,6 +432,9 @@ public class Game {
         return null;
     }
 
+    /**
+     *
+     */
     public void initDeckCard() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
@@ -471,6 +476,9 @@ public class Game {
         }
     }
 
+    /**
+     *
+     */
     public void initHandCard() {
         ObjectMapper mapper = new ObjectMapper();
         File jackson;
