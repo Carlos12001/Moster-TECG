@@ -139,7 +139,8 @@ public class Player {
      */
 
     public void decreaseLife(int num){
-        if ((this.life - num) <= 0) {
+        int tmp = this.life;
+        if ((tmp - num) <= 0) {
             this.life = 0;
         } else {
             this.life -= num;

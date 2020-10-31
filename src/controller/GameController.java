@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import model.cards.Henchman;
 import model.game.Game;
 import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
@@ -85,14 +86,12 @@ public class GameController {
     private void handleNextCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("next").getCategory());
-//        System.out.println(list.displayCard("current").getImage());
     }
 
     @FXML
     private void handlePreCard(ActionEvent event){
         HandCardList list = this.game.getHandCardList();
         this.handCardLabel.setText(list.displayCard("previous").getCategory());
-//        System.out.println(list.displayCard("current").getImage());
     }
 
     /**

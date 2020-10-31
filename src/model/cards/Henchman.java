@@ -68,31 +68,9 @@ public class Henchman extends Card{
 
 
 
-    public void actionHenchman(short numCard){
+    public void actionHenchman(){
         Game game = Game.getInstance();
-        switch (numCard){
-            case 0:
-                game.getPlayer().decreaseLife(this.atack);
-            case 1:
-                game.getPlayer().decreaseLife(100);
-            case 2:
-                game.getPlayer().decreaseLife(30);
-            case 3:
-                game.getPlayer().decreaseLife(40);
-            case 4:
-                game.getPlayer().decreaseLife(50);
-            case 5:
-                game.getPlayer().decreaseLife(20);
-            case 6:
-                game.getPlayer().decreaseLife(20);
-            case 7:
-                game.getPlayer().decreaseLife(20);
-            case 8:
-                game.getPlayer().decreaseLife(20);
-            case 9:
-                game.getPlayer().decreaseLife(20);
-        }
-
+        game.getPlayer().decreaseLife(this.atack);
     }
 
 }

@@ -280,7 +280,7 @@ public class Game {
         switch (category){
             case "HENCHEMAN" :
                 Henchman henchman = new Henchman(code);
-                henchman.actionHenchman(Short.parseShort(code.split("@")[1]));
+                henchman.actionHenchman();
             case "SECRET" :
                 Card secret = new Secret(code);
 
@@ -485,15 +485,12 @@ public class Game {
 
                 int num1 = (int) (rnd.nextDouble() * 3 + 0);
 
-                int num2 = (int) (rnd.nextDouble() * 5 + 0);
+                int num2 = (int) (rnd.nextDouble() * 10 + 0);
 
                 switch (num1) {
                     case 0 ->{
                         Henchman newCardH = new Henchman(arrayCard[num1][num2].getCode());
                         newCardH.setHenchman(Short.parseShort(newCardH.getCode().split("@")[1]));
-                        System.out.println(arrayCard[num1][num2].getCode());
-                        System.out.println(newCardH.getAtack());
-                        System.out.println(newCardH.getImage());
                         this.handCardList.insertLast(newCardH);
                         break;
                     }
