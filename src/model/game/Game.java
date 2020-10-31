@@ -491,9 +491,9 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i <= 4; i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 3 + 0);
+                int num1 = (int) (rnd.nextDouble() * 0 + 0);
 
-                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+                int num2 = (int) (rnd.nextDouble() * 4 + 0);
 
                 switch (num1) {
                     case 0-> {
