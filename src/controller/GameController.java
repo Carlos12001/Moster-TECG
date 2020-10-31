@@ -180,12 +180,18 @@ public class GameController {
         this.cardD01.setRotate(0);
     }
 
+    /**
+     * @param event
+     */
     @FXML
     private void handlePreCard(ActionEvent event){
         this.cardD02.setImage(new Image("/images/" +
                 this.game.getHandCardList().displayCard("previous").getImage()));
     }
 
+    /**
+     * @param event
+     */
     @FXML
     private void selectCard(MouseEvent event) {
         if (!this.game.getHandCardList().isEmpty() &&
@@ -217,6 +223,9 @@ public class GameController {
 
             this.game.getPlayer().setMana(this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard());
 
+            this.cardD04.setImage(new Image("/images/" +
+                    this.game.getHandCardList().getCurrentDisplay().getImage()));
+
 
             UpdateInfo oldInfo = this.game.getUpdateInfo();
             this.dissableGUI(true);
@@ -233,6 +242,9 @@ public class GameController {
         }
     }
 
+    /**
+     * @param event
+     */
     @FXML
     private void unselectCard(MouseEvent event) {
         this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "");

@@ -31,39 +31,18 @@ public class Henchman extends Card{
      */
     public void setHenchman(short numCode){
         switch (numCode) {
-            case 0:
-                this.setAtack(70);
-                break;
-            case 1:
-                this.setAtack(100);
-                break;
-            case 2:
-                this.setAtack(30);
-                break;
-            case 3:
-                this.setAtack(40);
-                break;
-            case 4:
-                this.setAtack(50);
-                break;
-            case 5:
-                this.setAtack(20);
-                break;
-            case 6:
-                this.setAtack(20);
-                break;
-            case 7:
-                this.setAtack(20);
-                break;
-            case 8:
-                this.setAtack(20);
-                break;
-            case 9:
-                this.setAtack(20);
-                break;
+            case 0 -> this.setAtack(70);
+            case 1 -> this.setAtack(100);
+            case 2 -> this.setAtack(30);
+            case 3 -> this.setAtack(40);
+            case 4 -> this.setAtack(50);
+            case 5 -> this.setAtack(20);
+            case 6 -> this.setAtack(150);
+            case 7 -> this.setAtack(80);
+            case 8 -> this.setAtack(120);
+            case 9 -> this.setAtack(340);
         }
     }
-
 
     /**
      * Gets atack.
