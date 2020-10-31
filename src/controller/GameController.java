@@ -126,6 +126,23 @@ public class GameController {
      * @param event
      */
     @FXML
+    private void doSenalDeck(MouseEvent event) {
+
+        if (this.game.getDeckStack().getTop()>-1) {
+            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
+            this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
+
+
+            if (this.game.getDeckStack().getTop() > 0) {
+                this.cardD01.setRotate(10);
+            }
+        }
+    }
+
+    /**
+     * @param event
+     */
+    @FXML
     private void addCardHandCard(MouseEvent event) {
         this.stackPaneDeckCart.setDisable(true);
         this.cardD0.setStyle("-fx-opacity:  0.4");
@@ -150,23 +167,6 @@ public class GameController {
             this.cardD01.setVisible(false);
             this.cardD0.setDisable(true);
             this.cardD0.setDisable(true);
-        }
-    }
-
-    /**
-     * @param event
-     */
-    @FXML
-    private void doSenalDeck(MouseEvent event) {
-
-        if (this.game.getDeckStack().getTop()>-1) {
-            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
-            this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
-
-
-            if (this.game.getDeckStack().getTop() > 0) {
-                this.cardD01.setRotate(10);
-            }
         }
     }
 
@@ -261,22 +261,19 @@ public class GameController {
     @FXML
     private void handleSkipTurn(ActionEvent event) {
 
-        if(true) { //logica si tiene mana suficiente
+        //logica si tiene mana suficiente
 
-            //Agrega el historial la jugada
+        //Agrega el historial la jugada
 
-            UpdateInfo oldInfo = this.game.getUpdateInfo();
-            this.dissableGUI(true);
-            if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
-                this.game.setRound();
-                updateGUI();
-            }
-            this.game.sendInfoOtherPlayer(true);
-            this.game.recibeNewInfo();
-            this.recibeMessage(oldInfo);
-        }else{
-            //sound Nop
+        UpdateInfo oldInfo = this.game.getUpdateInfo();
+        this.dissableGUI(true);
+        if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+            this.game.setRound();
+            updateGUI();
         }
+        this.game.sendInfoOtherPlayer(true);
+        this.game.recibeNewInfo();
+        this.recibeMessage(oldInfo);
     }
 
     @FXML
