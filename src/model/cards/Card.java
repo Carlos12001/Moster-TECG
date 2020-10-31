@@ -76,7 +76,7 @@ public class Card {
         this.code = card.code;
         this.category = card.code.split("@")[0];
         this.numerCode =  Short.parseShort(card.code.split("@")[1]);
-        this.numerCode = card.costCard;
+        this.costCard = card.costCard;
         this.image = card.image;
     }
 

@@ -125,8 +125,8 @@ public class GameController {
      */
     @FXML
     private void addCardHandCard(MouseEvent event) {
-//        this.stackPaneDeckCart.setDisable(true);
-//        this.cardD0.setStyle("-fx-opacity:  0.4");
+        this.stackPaneDeckCart.setDisable(true);
+        this.cardD0.setStyle("-fx-opacity:  0.4");
 
         if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
 
@@ -186,7 +186,22 @@ public class GameController {
 
     @FXML
     void selectCard(MouseEvent event) {
+        if (!this.game.getHandCardList().isEmpty() &&
+            (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0))
+        {
+            this.labelManaThisPlayer.setText( this.game.getPlayer().getMana() +  "- "+
+                    this.game.getHandCardList().getCurrentDisplay().getCostCard()
+                    + "");
+            this.labelManaThisPlayer.setTextFill(Paint.valueOf("#000000"));
 
+
+        }else if((this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()<0)){
+            this.labelManaThisPlayer.setText("X");
+            this.labelManaThisPlayer.setTextFill(Paint.valueOf("#E06C75"));
+        }else{
+            this.labelManaThisPlayer.setText("X");
+            this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
+        }
     }
 
     /**
@@ -195,30 +210,37 @@ public class GameController {
     @FXML
     private void handleSend(MouseEvent event) {
 
-        //logica si tiene mana suficiente
+        if (!this.game.getHandCardList().isEmpty() &&
+                (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0)) {
 
-        UpdateInfo oldInfo = this.game.getUpdateInfo();
-        this.dissableGUI(true);
-        //ENVIAR LA CARTA AL CENTRO CON DELETECARD
-        if  ( this.game.getWhoFisrt() != this.game.getTypeConexion()) {
-            this.game.setRound();
-            //Agrega el historial la jugada
-            updateGUI();
+            this.game.getPlayer().setMana(this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard());
+
+
+            UpdateInfo oldInfo = this.game.getUpdateInfo();
+            this.dissableGUI(true);
+
+
+            if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+                this.game.setRound();
+                //Agrega el historial la jugada
+                updateGUI();
+            }
+            this.game.sendInfoOtherPlayer("");//obtener current code
+            this.game.recibeNewInfo();
+            this.recibeMessage(oldInfo);
         }
-        this.game.sendInfoOtherPlayer("");//obtener current code
-        this.game.recibeNewInfo();
-        this.recibeMessage(oldInfo);
+    }
+
+    @FXML
+    void unselectCard(MouseEvent event) {
+        this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "");
+        this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
     }
 
     @FXML
     private void handleNextCard(ActionEvent event){
         this.cardD02.setImage(new Image("/images/" +
                 this.game.getHandCardList().displayCard("next").getImage()));
-
-    }
-
-    @FXML
-    void unselectCard(MouseEvent event) {
 
     }
 

@@ -18,7 +18,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="buttonSkipTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="618.0" layoutY="593.0" mnemonicParsing="false" onAction="#handleSkipTurn" prefHeight="40.0" prefWidth="110.0" text="SkipTurn" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="buttonSkipTurn" alignment="CENTER" contentDisplay="CENTER" layoutX="598.0" layoutY="593.0" mnemonicParsing="false" onAction="#handleSkipTurn" prefHeight="40.0" prefWidth="150.0" text="Saltar Turno" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Button>
