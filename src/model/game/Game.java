@@ -493,7 +493,7 @@ public class Game {
 
                 int num1 = (int) (rnd.nextDouble() * 0 + 0);
 
-                int num2 = (int) (rnd.nextDouble() * 4 + 0);
+                int num2 = (int) (rnd.nextDouble() * 3 + 0);
 
                 switch (num1) {
                     case 0-> {

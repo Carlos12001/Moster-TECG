@@ -51,16 +51,19 @@ public class HandCardList {
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
                     this.tail.setNext(this.head);
+                    setCurrentDisplayTail();
                     this.size--;
                 } else if (current == this.tail){
                     this.tail =  previous.getNext();
                     previous.setNext(this.head);
                     this.head.setPrevious(this.tail);
+                    setCurrentDisplayTail();
                     this.size--;
                 } else {
                     tmp = current.getNext();
                     previous.setNext(current.getNext());
                     tmp.setPrevious(current.getPrevious());
+                    setCurrentDisplayTail();
                     this.size--;
                 }
                 return current.getCardN();
