@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import model.cards.Henchman;
 import model.game.Game;
 import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
@@ -116,8 +117,6 @@ public class GameController {
 
     @FXML
     private Button buttonNextHistory;
-
-
 
 
     /**

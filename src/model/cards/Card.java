@@ -23,6 +23,8 @@ public class Card {
      *
      */
     private short costCard;//JSON
+
+
     /**
      *
      */
@@ -131,5 +133,7 @@ public class Card {
         return image;
     }
 
-
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

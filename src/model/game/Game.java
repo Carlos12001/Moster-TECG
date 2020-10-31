@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
+import model.handcard.HandCardNode;
 import model.sockets.*;
 
 import java.io.*;
@@ -268,6 +269,28 @@ public class Game {
     public UpdateInfo getUpdateInfo() {
         return updateInfo;
     }
+
+
+    /**
+     * @param category
+     * @param code
+     */
+
+    public void actionCard(String category, String code){
+        switch (category){
+            case "HENCHEMAN" :
+                Henchman henchman = new Henchman(code);
+                henchman.actionHenchman();
+            case "SECRET" :
+                Card secret = new Secret(code);
+
+
+            case "SPELL" :
+                Card spell = new Spell(code);
+
+        }
+    }
+
 
     /**
      * This method sets the new information
