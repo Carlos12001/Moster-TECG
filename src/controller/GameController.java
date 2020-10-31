@@ -16,11 +16,8 @@ import model.cards.Henchman;
 import model.cards.Secret;
 import model.cards.Spell;
 import model.game.Game;
-import model.handcard.HandCardList;
 import model.sockets.UpdateInfo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 
 /**
@@ -126,14 +123,34 @@ public class GameController {
      * @param event
      */
     @FXML
+    private void doSenalDeck(MouseEvent event) {
+
+        if (this.game.getDeckStack().getTop()>-1) {
+            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
+            this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
+
+
+            if (this.game.getDeckStack().getTop() > 0) {
+                this.cardD01.setRotate(10);
+            }
+        }
+    }
+
+    /**
+     * @param event
+     */
+    @FXML
     private void addCardHandCard(MouseEvent event) {
         this.stackPaneDeckCart.setDisable(true);
         this.cardD0.setStyle("-fx-opacity:  0.4");
 
         if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
 
-
             this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
+
+            this.cardD02.setVisible(true);
+
+            this.hBoxHandCard.setDisable(false);
 
             this.game.getHandCardList().setCurrentDisplayTail();
 
@@ -150,23 +167,6 @@ public class GameController {
             this.cardD01.setVisible(false);
             this.cardD0.setDisable(true);
             this.cardD0.setDisable(true);
-        }
-    }
-
-    /**
-     * @param event
-     */
-    @FXML
-    private void doSenalDeck(MouseEvent event) {
-
-        if (this.game.getDeckStack().getTop()>-1) {
-            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
-            this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
-
-
-            if (this.game.getDeckStack().getTop() > 0) {
-                this.cardD01.setRotate(10);
-            }
         }
     }
 
@@ -220,11 +220,12 @@ public class GameController {
 
         if (!this.game.getHandCardList().isEmpty() &&
                 (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0)) {
+            Card current = this.game.getHandCardList().getCurrentDisplay();
 
-            this.game.getPlayer().setMana(this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard());
+            this.game.getPlayer().setMana(this.game.getPlayer().getMana()- current.getCostCard());
 
             this.cardD04.setImage(new Image("/images/" +
-                    this.game.getHandCardList().getCurrentDisplay().getImage()));
+                   current.getImage()));
 
 
             UpdateInfo oldInfo = this.game.getUpdateInfo();
@@ -236,8 +237,24 @@ public class GameController {
                 //Agrega el historial la jugada
                 updateGUI();
             }
-            this.game.sendInfoOtherPlayer("");//obtener current code
+            //The code card select
+            this.game.sendInfoOtherPlayer(current.getCode());
+
+            //Delete the card of the handCard
+            this.game.getHandCardList().deleteCard(current.getCode());
+
+            //Sets the new image
+
+            if(!this.game.getHandCardList().isEmpty()){
+                this.cardD02.setImage(new Image("/images/" +
+                        this.game.getHandCardList().displayCard("next").getImage()));
+            }else {
+            }
+
+            //Listing the sockets
             this.game.recibeNewInfo();
+
+            //Listing the GUI
             this.recibeMessage(oldInfo);
         }
     }
@@ -261,22 +278,15 @@ public class GameController {
     @FXML
     private void handleSkipTurn(ActionEvent event) {
 
-        if(true) { //logica si tiene mana suficiente
-
-            //Agrega el historial la jugada
-
-            UpdateInfo oldInfo = this.game.getUpdateInfo();
-            this.dissableGUI(true);
-            if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
-                this.game.setRound();
-                updateGUI();
-            }
-            this.game.sendInfoOtherPlayer(true);
-            this.game.recibeNewInfo();
-            this.recibeMessage(oldInfo);
-        }else{
-            //sound Nop
+        UpdateInfo oldInfo = this.game.getUpdateInfo();
+        this.dissableGUI(true);
+        if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+            this.game.setRound();
+            updateGUI();
         }
+        this.game.sendInfoOtherPlayer(true);
+        this.game.recibeNewInfo();
+        this.recibeMessage(oldInfo);
     }
 
     @FXML
@@ -336,8 +346,8 @@ public class GameController {
     private void recibeMessageAux() {
 
         this.dissableGUI(false);
-        //metodos de recibir carta
         this.updateGUI();
+        this.actionCard(this.game.getCodeOtherCard());
     }
 
     /**
@@ -346,7 +356,7 @@ public class GameController {
     private void updateGUI() {
 
         //Init variables
-        Double db;
+        double db;
         UpdateInfo info = this.game.getUpdateInfo();
 
         //Set new Information
@@ -371,21 +381,44 @@ public class GameController {
 
         this.labelManaThisPlayer.setText(
                 this.game.getPlayer().getMana()+"");
+
+        //Especial Blocks
+
+        if(this.game.getDeckStack().getTop()<=-1){
+            this.stackPaneDeckCart.setDisable(true);
+            this.cardD0.setVisible(false);
+            this.cardD01.setVisible(false);
+        }
+
+        if (this.game.getHandCardList().isEmpty()){
+            this.hBoxHandCard.setDisable(true);
+            this.cardD02.setVisible(false);
+        }
     }
 
     /**
-     * @param category
      * @param code
      */
-    private void actionCard(String category, String code) {
-        switch (category){
+    private void actionCard(String code) {
+        this.cardD03.setVisible(true);
+        switch (code.split("@")[0]){
             case "HENCHEMAN" :
                 Henchman henchman = new Henchman(code);
-                this.actionHenchman(henchman);
+                this.cardD03.setImage( new Image("/images/" + henchman.getImage()));
+//                this.actionHenchman(henchman);
+                break;
             case "SECRET" :
-                Card secret = new Secret(code);
+                Secret secret = new Secret(code);
+                this.cardD03.setImage( new Image("/images/" + secret.getImage()));
+//                eventos
+                break;
             case "SPELL" :
-                Card spell = new Spell(code);
+                Spell spell = new Spell(code);
+                this.cardD03.setImage( new Image("/images/" + spell.getImage()));
+//                eventos
+                break;
+            default:
+                this.cardD03.setVisible(false);
         }
     }
 
@@ -406,7 +439,7 @@ public class GameController {
     private void initialize() {
 
         //Init variables
-        Double db;
+        double db;
 
         //Init Atributtes
         this.game = Game.getInstance();
