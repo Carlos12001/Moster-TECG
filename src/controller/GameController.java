@@ -29,7 +29,7 @@ public class GameController {
     /**
      *
      */
-    Game game = Game.getInstance();
+    private Game game = Game.getInstance();
 
     @FXML
     private Label labelRound;
@@ -243,8 +243,10 @@ public class GameController {
             //Delete the card of the handCard
             this.game.getHandCardList().deleteCard(current.getCode());
 
-            //Sets the new image
+            //Do the acttion Card
+            this.actionCard(current.getCode(), true);
 
+            //Sets the new image
             if(!this.game.getHandCardList().isEmpty()){
                 this.cardD02.setImage(new Image("/images/" +
                         this.game.getHandCardList().displayCard("next").getImage()));
@@ -344,10 +346,9 @@ public class GameController {
      *
      */
     private void recibeMessageAux() {
-
         this.dissableGUI(false);
         this.updateGUI();
-        this.actionCard(this.game.getCodeOtherCard());
+        this.actionCard(this.game.getCodeOtherCard(), false);
     }
 
     /**
@@ -399,35 +400,72 @@ public class GameController {
     /**
      * @param code
      */
-    private void actionCard(String code) {
+    private void actionCard(String code, boolean sender) {
         this.cardD03.setVisible(true);
-        switch (code.split("@")[0]){
-            case "HENCHEMAN" :
+        switch (code.split("@")[0]) {
+            case "HENCHEMAN" -> {
                 Henchman henchman = new Henchman(code);
-                this.cardD03.setImage( new Image("/images/" + henchman.getImage()));
-//                this.actionHenchman(henchman);
-                break;
-            case "SECRET" :
+                if (!sender) this.cardD03.setImage(new Image("/images/" + henchman.getImage()));
+                this.actionHenchman(henchman, sender);
+            }
+            case "SECRET" -> {
                 Secret secret = new Secret(code);
-                this.cardD03.setImage( new Image("/images/" + secret.getImage()));
-//                eventos
-                break;
-            case "SPELL" :
+                if (!sender) this.cardD03.setImage(new Image("/images/" + secret.getImage()));
+            }
+            case "SPELL" -> {
                 Spell spell = new Spell(code);
-                this.cardD03.setImage( new Image("/images/" + spell.getImage()));
-//                eventos
-                break;
-            default:
-                this.cardD03.setVisible(false);
+                if (!sender) this.cardD03.setImage(new Image("/images/" + spell.getImage()));
+            }
+            default -> this.cardD03.setVisible(false);
         }
+
+        this.GAMEOVER();
     }
 
     /**
      *
      */
-    private void actionHenchman(Henchman henchman) {
+    private void actionHenchman(Henchman henchman, boolean sender) {
         Game game = Game.getInstance();
-        game.getPlayer().decreaseLife(henchman.getAtack());
+        System.out.println(henchman.getAtack());
+        if(sender) {
+            double life = ((double) game.getPlayerOtherLife() - henchman.getAtack())/ 1000;
+            this.progressBarLifeOtherPlayer.setProgress(life);
+        }else {
+            game.getPlayer().decreaseLife(henchman.getAtack());
+            double life = ((double) game.getPlayer().getLife()) / 1000;
+            this.progressBarLifeThisPLayer.setProgress(life);
+        }
+    }
+
+    private void actionSecret(Henchman henchman, boolean sender) {
+    }
+
+    private void actionSpell(Henchman henchman, boolean sender) {
+    }
+
+    private void GAMEOVER(){
+        int me  = this.game.getPlayer().getLife();
+        int other = this.game.getPlayerOtherLife();
+
+        if (me<=0){
+            this.game.finishConexion();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("¡GAME OVER!");
+            alert.setContentText("Has perdido contra: " + this.game.getPlayerOtherName());
+            alert.showAndWait();
+        }else if(other<=0){
+            this.game.finishConexion();
+            this.game.finishConexion();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("¡GAME OVER!");
+            alert.setContentText("¡Has gandado contra!: " + this.game.getPlayerOtherName());
+            alert.showAndWait();
+        }else {
+            //NO PASA NADA
+        }
     }
 
 

@@ -43,9 +43,19 @@ public class Client extends Thread {
             this.inputSocketInD = new DataInputStream(this.clientSocket.getInputStream());
             this.clientOutD = new DataOutputStream(this.clientSocket.getOutputStream());
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            System.out.println("Error in constructor Client");
+            try {
+                this.clientSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in constructor Client");
+            try {
+                this.clientSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -78,7 +88,13 @@ public class Client extends Thread {
             this.clientOutD.writeUTF(jacksonStr);
             this.clientSocket.setKeepAlive(true);
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            System.out.println("Error in writeSocket Client");
+            try {
+                this.clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -101,14 +117,31 @@ public class Client extends Thread {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (SocketException e) {
-                e.printStackTrace();
+                System.out.println("Error in readSocket Client");
+                try {
+                    this.clientSocket.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error in readSocket Client");
+                try {
+                    this.clientSocket.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                };
             }
         });
         thread.setDaemon(true);
         thread.start();
     }
 
+    private void closeConexion(){
+        try {
+            this.clientSocket.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
 

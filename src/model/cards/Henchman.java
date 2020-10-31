@@ -17,6 +17,7 @@ public class Henchman extends Card{
      */
     public Henchman(String code) {
         super(code);
+        setHenchman(this.getNumerCode());
     }
 
     /**
@@ -24,6 +25,7 @@ public class Henchman extends Card{
      */
     public Henchman(Card card) {
         super(card);
+        setHenchman(this.getNumerCode());
     }
 
     /**

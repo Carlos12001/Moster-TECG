@@ -269,25 +269,6 @@ public class Game {
 
 
     /**
-     * @param category
-     * @param code
-     */
-    public void actionCard(String category, String code){
-        switch (category){
-            case "HENCHEMAN" :
-                Henchman henchman = new Henchman(code);
-            case "SECRET" :
-                Card secret = new Secret(code);
-
-
-            case "SPELL" :
-                Card spell = new Spell(code);
-
-        }
-    }
-
-
-    /**
      * This method sets the new information
      *
      * @param updateInfo New Json
@@ -490,7 +471,7 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i <= 3; i++) {
 
-                int num1 = rnd.nextInt(3);
+                int num1 = rnd.nextInt(1);
 
                 int num2 = rnd.nextInt(10);
 
@@ -517,6 +498,16 @@ public class Game {
             e.printStackTrace();
         }
     }
+
+    public void finishConexion ()throws IllegalStateException{
+
+        switch (this.getTypeConexion()) {
+            case SERVER -> this.server.readSockect();
+            case CLIENT -> this.client.readSockect();
+            default -> throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
+        }
+    }
+
 
     /**
      * @param player

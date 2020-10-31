@@ -66,7 +66,12 @@ public class Server {
 
             this.socketClient.setKeepAlive(true);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in write Socket");
+            try {
+                this.socketClient.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -102,7 +107,12 @@ public class Server {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error in read Socket");
+                try {
+                    this.socketClient.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         thread.setDaemon(true);
@@ -169,6 +179,14 @@ public class Server {
         });
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void closeConexion(){
+        try {
+            this.socketClient.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
