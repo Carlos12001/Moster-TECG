@@ -40,7 +40,7 @@ public class HandCardList {
             size++;
         }
     }
-
+    //REVISARR!!
     public Card deleteCard(String id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;

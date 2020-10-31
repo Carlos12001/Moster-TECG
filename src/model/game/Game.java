@@ -446,9 +446,9 @@ public class Game {
             Random rnd = new Random();
             for (int i = 0; i < this.getDeckStack().getMaxSize(); i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 3 + 0);
+                int num1 = rnd.nextInt(3);
 
-                int num2 = (int) (rnd.nextDouble() * 0 + 0);
+                int num2 = rnd.nextInt(10);
 
 
                 switch (num1) {
@@ -488,11 +488,11 @@ public class Game {
             arrayCard = mapper.readValue(jackson, Card[][].class);
 
             Random rnd = new Random();
-            for (int i = 0; i <= 4; i++) {
+            for (int i = 0; i <= 3; i++) {
 
-                int num1 = (int) (rnd.nextDouble() * 0 + 0);
+                int num1 = rnd.nextInt(3);
 
-                int num2 = (int) (rnd.nextDouble() * 4 + 0);
+                int num2 = rnd.nextInt(10);
 
                 switch (num1) {
                     case 0-> {
