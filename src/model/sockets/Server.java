@@ -178,7 +178,6 @@ public class Server {
             this.server.close();
             this.socketClient.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
