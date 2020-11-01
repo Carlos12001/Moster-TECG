@@ -29,7 +29,7 @@ public class Player {
     public Player(String name){
         this.name = name;
         this.mana = 600;
-        this.life = 800;
+        this.life = 1000;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Player {
 
     public void decreaseMana(int num){
         if ((this.mana - num) <= 0) {
-            this.mana = 0;
+            this.mana = 50;
         } else {
             this.mana -= num;
         }

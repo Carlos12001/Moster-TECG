@@ -157,32 +157,32 @@
     {
     "category": "SPELL",
     "code": "SPELL@5",
-    "costCard": 20,
-    "image": "SPELL.jpg"
+    "costCard": 400,
+    "image": "SPELL@5.png"
     },
     {
       "category": "SPELL",
       "code": "SPELL@6",
-      "costCard": 20,
-      "image": "SPELL.jpg"
+      "costCard": 650,
+      "image": "SPELL@6.png"
     },
     {
       "category": "SPELL",
       "code": "SPELL@7",
-      "costCard": 20,
-      "image": "SPELL.jpg"
+      "costCard": 750,
+      "image": "SPELL@7.png"
     },
     {
       "category": "SPELL",
       "code": "SPELL@8",
       "costCard": 20,
-      "image": "SPELL.jpg"
+      "image": "SPELL@8.png"
     },
     {
       "category": "SPELL",
       "code": "SPELL@9",
-      "costCard": 20,
-      "image": "SPELL.jpg"
+      "costCard": 0,
+      "image": "SPELL@9.png"
     }
   ]
 ]

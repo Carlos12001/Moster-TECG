@@ -456,12 +456,12 @@ public class GameController {
     private void actionHenchman(Henchman henchman, boolean sender) {
         Game game = Game.getInstance();
         if(sender) {
-            double life = ((double) game.getPlayerOtherLife() - henchman.getAtack())/ 1000;
-            this.progressBarLifeOtherPlayer.setProgress(life);
+
+            this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() - henchman.getAtack()));
+            this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
         }else {
             game.getPlayer().decreaseLife(henchman.getAtack());
-            double life = ((double) game.getPlayer().getLife()) / 1000;
-            this.progressBarLifeThisPLayer.setProgress(life);
+            this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
         }
     }
 
@@ -488,11 +488,12 @@ public class GameController {
             case 1 -> {
                 if(sender) {
                     game.getPlayer().increaseLife(spell.getHealth());
-                    double life = ((double) game.getPlayer().getLife()) / 1000;
-                    this.progressBarLifeThisPLayer.setProgress(life);
+                    this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+
                 }else {
-                    double life = ((double) game.getPlayerOtherLife() + spell.getHealth())/ 1000;
-                    this.progressBarLifeOtherPlayer.setProgress(life);
+
+                    this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() + spell.getHealth()));
+                    this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
                 }
             }
             case 2 -> {
@@ -529,46 +530,74 @@ public class GameController {
                 }
             }
             case 4 -> {
-//                if(sender){
-//                    int rest = (int) (0.4*this.game.getPlayer().getLife());
-//                    this.game.getPlayer().increaseMana(1200);
-//                    this.
-//                }else{
-//                }
+                if(sender){
+                    this.game.getPlayer().increaseMana(1200);
+
+                    game.getPlayer().decreaseLife((int) (0.4 * this.game.getPlayer().getLife()));
+                    this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+                }else{
+                    this.game.setPlayerOtherMana(1000);
+
+                    this.game.setPlayerOtherLife(game.getPlayerOtherLife() - (int) (0.4 * this.game.getPlayerOtherLife()));
+                    this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
+                }
             }
             case 5 -> {
-                if(sender){
+                this.game.setPlayerOtherLife((int) ((double)game.getPlayerOtherLife() - (double)game.getPlayerOtherLife()*0.3));
+                this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
 
-                }else{
 
-                }
+                game.getPlayer().decreaseLife((int) (this.game.getPlayer().getLife()*0.3));
+                this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
             }
             case 6 -> {
+                double more;
                 if(sender){
 
-                }else{
+                    more = (double) game.getPlayerOtherLife() * 0.2;
 
+                    //Me sumo la vida
+                    game.getPlayer().increaseLife((int) more);
+                    this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+
+                    //Le quito la vida
+                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife()-more));
+
+
+                }else{
+                    more = (double) game.getPlayer().getLife() * 0.2;
+
+                    //Me quito la vida que me quito el otro
+                    game.getPlayer().decreaseLife((int) more);
+                    this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+
+                    //Le sumo la vida que me quito el otro jugador
+                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife()+more));
                 }
+                this.progressBarLifeOtherPlayer.setProgress( (double) (this.game.getPlayerOtherLife())/1000);
             }
             case 7 -> {
-                if(sender){
-
-                }else{
-
+                if (sender) {
+                    this.game.getPlayer().setMultiplier(0.3);
                 }
             }
             case 8 -> {
                 if(sender){
-
-                }else{
-
+                    this.game.finishConexion();
+                    this.game.finishConexion();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Mana del otro Jugador");
+                    alert.setContentText("El ahorita tiene un mana de " + this.game.getPlayerOtherMana());
+                    alert.showAndWait();
                 }
             }
             case 9 -> {
                 if(sender){
-
+                    this.game.getPlayer().increaseMana(40);
+                    this.labelManaThisPlayer.setText(String.valueOf(this.game.getPlayer().getMana()));
                 }else{
-
+                    this.game.setPlayerOtherMana(this.game.getPlayerOtherMana()+40);
                 }
             }
         }

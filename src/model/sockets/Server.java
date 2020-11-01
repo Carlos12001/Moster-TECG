@@ -103,7 +103,6 @@ public class Server {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (IOException e) {
-                System.out.println("Error in read Socket");
                 closeConexion();
             }
         });

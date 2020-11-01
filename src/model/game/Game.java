@@ -441,7 +441,7 @@ public class Game {
                         this.deckStack.push(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][3]);
+                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
                         this.deckStack.push(newCardSP);
                     }
                 }
@@ -484,7 +484,7 @@ public class Game {
                         this.handCardList.insertLast(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][3]);
+                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardSP);
                     }
                 }

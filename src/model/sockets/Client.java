@@ -44,7 +44,7 @@ public class Client extends Thread {
             this.clientOutD = new DataOutputStream(this.clientSocket.getOutputStream());
         } catch (UnknownHostException e) {
            closeConexion();
-        } catch (IOException e) {
+        } catch (Exception e) {
             closeConexion();
         }
     }

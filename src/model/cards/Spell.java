@@ -44,13 +44,6 @@ public class Spell extends Card{
             case 0 -> this.setShifts(1);
             case 1 -> this.setHealth(300);
             case 2 -> this.setShifts(3);
-            case 3 -> this.setAtack(40);
-            case 4 -> this.setAtack(50);
-            case 5 -> this.setAtack(20);
-            case 6 -> this.setAtack(150);
-            case 7 -> this.setAtack(80);
-            case 8 -> this.setAtack(120);
-            case 9 -> this.setAtack(340);
         }
     }
 
