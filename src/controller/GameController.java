@@ -242,13 +242,16 @@ public class GameController {
 
             //Delete the card of the handCard
             this.game.getHandCardList().deleteCard(current.getCode());
+            this.game.getHandCardList().setDisplayCard();
 
             //Sets the new image
 
             if(!this.game.getHandCardList().isEmpty()){
                 this.cardD02.setImage(new Image("/images/" +
-                        this.game.getHandCardList().displayCard("next").getImage()));
+                        this.game.getHandCardList().displayCard("current").getImage()));
             }else {
+                this.cardD02.setImage(new Image("/images/" +
+                        "ReverseCards.png"));
             }
 
             //Listing the sockets
@@ -256,6 +259,9 @@ public class GameController {
 
             //Listing the GUI
             this.recibeMessage(oldInfo);
+        }else {
+            this.cardD02.setImage(new Image("/images/" +
+                    "ReverseCards.png"));
         }
     }
 
