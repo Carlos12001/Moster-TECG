@@ -29,9 +29,11 @@ public class Henchman extends Card{
     }
 
     /**
-     * @param numCode
+     *Set the card features.
+     *
+     * @param numCode The card number.
      */
-    public void setHenchman(short numCode){
+    private void setHenchman(short numCode){
         switch (numCode) {
             case 0 -> this.setAtack(70);
             case 1 -> this.setAtack(100);
