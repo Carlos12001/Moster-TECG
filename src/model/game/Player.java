@@ -18,19 +18,18 @@ public class Player {
      *
      */
     private int life;
-
     /**
      *
      */
-    private int percentaje;
+    private double multiplier = 0.25;
 
     /**
      *
      */
     public Player(String name){
         this.name = name;
-        this.mana = 200;
-        this.life = 1000;
+        this.mana = 600;
+        this.life = 800;
     }
 
     /**
@@ -89,15 +88,15 @@ public class Player {
     /**
      * This method increase 25% of the mana
      */
-    public void increase25() {
-        percentaje = (int) (0.25 * this.mana);
+    public void increaseManaTurn() {
+        int percentaje = (int) (this.multiplier * this.mana);
 
         if (this.mana >= 1000){
             this.mana = 1000;
         } else if ((this.mana + percentaje) >= 1000){
             this.mana = 1000;
         } else {
-            this.mana += percentaje;
+            this.mana += percentaje ;
         }
     }
 
@@ -139,12 +138,25 @@ public class Player {
      */
 
     public void decreaseLife(int num){
-        int tmp = this.life;
-        if ((tmp - num) <= 0) {
-            this.life = 0;
-        } else {
-            this.life -= num;
-        }
+        this.life -= num;
+    }
+
+    /**
+     * Sets new multiplier.
+     *
+     * @param multiplier New value of multiplier.
+     */
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    /**
+     * Gets multiplier.
+     *
+     * @return Value of multiplier.
+     */
+    public double getMultiplier() {
+        return multiplier;
     }
 }
 

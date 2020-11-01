@@ -431,7 +431,6 @@ public class Game {
 
                 int num2 = rnd.nextInt(10);
 
-
                 switch (num1) {
                     case 0-> {
                         Card newCardH = new Henchman(arrayCard[num1][num2]);
@@ -442,7 +441,7 @@ public class Game {
                         this.deckStack.push(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
+                        Spell newCardSP = new Spell(arrayCard[num1][3]);
                         this.deckStack.push(newCardSP);
                     }
                 }
@@ -481,11 +480,11 @@ public class Game {
                         this.handCardList.insertLast(newCardH);
                     }
                     case 1 -> {
-                        Secret newCardS = new Secret(arrayCard[num1][num2].getCode());
+                        Secret newCardS = new Secret(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardS);
                     }
                     case 2 -> {
-                        Spell newCardSP = new Spell(arrayCard[num1][num2]);
+                        Spell newCardSP = new Spell(arrayCard[num1][3]);
                         this.handCardList.insertLast(newCardSP);
                     }
                 }

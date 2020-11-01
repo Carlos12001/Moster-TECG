@@ -18,6 +18,7 @@ import model.cards.Spell;
 import model.game.Game;
 import model.sockets.UpdateInfo;
 
+import java.util.Random;
 
 
 /**
@@ -31,6 +32,11 @@ public class GameController {
      */
     private Game game = Game.getInstance();
 
+    private int dissableTurn = 0;
+
+    /**
+     *
+     */
     @FXML
     private Label labelRound;
 
@@ -222,21 +228,29 @@ public class GameController {
                 (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0)) {
             Card current = this.game.getHandCardList().getCurrentDisplay();
 
-            this.game.getPlayer().setMana(this.game.getPlayer().getMana()- current.getCostCard());
+            this.game.getPlayer().decreaseMana( current.getCostCard());
 
             this.cardD04.setImage(new Image("/images/" +
                    current.getImage()));
 
+            //Increase Mana
+            this.game.getPlayer().increaseManaTurn();
 
             UpdateInfo oldInfo = this.game.getUpdateInfo();
             this.dissableGUI(true);
 
 
-            if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+
+            if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn<=1) {
                 this.game.setRound();
-                //Agrega el historial la jugada
-                updateGUI();
             }
+
+            //Actualiza la interfaz.
+            updateGUI();
+
+
+
+
             //The code card select
             this.game.sendInfoOtherPlayer(current.getCode());
 
@@ -280,12 +294,17 @@ public class GameController {
     @FXML
     private void handleSkipTurn(ActionEvent event) {
 
+        //Increase Mana
+        this.game.getPlayer().increaseManaTurn();
+
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
-        if (this.game.getWhoFisrt() != this.game.getTypeConexion()) {
+        if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn<=1) {
             this.game.setRound();
-            updateGUI();
         }
+
+
+        updateGUI();
         this.game.sendInfoOtherPlayer(true);
         this.game.recibeNewInfo();
         this.recibeMessage(oldInfo);
@@ -349,6 +368,7 @@ public class GameController {
         this.dissableGUI(false);
         this.updateGUI();
         this.actionCard(this.game.getCodeOtherCard(), false);
+        this.blockTurn();
     }
 
     /**
@@ -389,11 +409,18 @@ public class GameController {
             this.stackPaneDeckCart.setDisable(true);
             this.cardD0.setVisible(false);
             this.cardD01.setVisible(false);
+        }else{
+            this.stackPaneDeckCart.setDisable(false);
+            this.cardD0.setVisible(true);
+            this.cardD01.setVisible(true);
         }
 
         if (this.game.getHandCardList().isEmpty()){
             this.hBoxHandCard.setDisable(true);
             this.cardD02.setVisible(false);
+        }else{
+            this.hBoxHandCard.setDisable(!true);
+            this.cardD02.setVisible(!false);
         }
     }
 
@@ -415,6 +442,7 @@ public class GameController {
             case "SPELL" -> {
                 Spell spell = new Spell(code);
                 if (!sender) this.cardD03.setImage(new Image("/images/" + spell.getImage()));
+                this.actionSpell(spell, sender);
             }
             default -> this.cardD03.setVisible(false);
         }
@@ -427,7 +455,6 @@ public class GameController {
      */
     private void actionHenchman(Henchman henchman, boolean sender) {
         Game game = Game.getInstance();
-        System.out.println(henchman.getAtack());
         if(sender) {
             double life = ((double) game.getPlayerOtherLife() - henchman.getAtack())/ 1000;
             this.progressBarLifeOtherPlayer.setProgress(life);
@@ -438,10 +465,121 @@ public class GameController {
         }
     }
 
-    private void actionSecret(Henchman henchman, boolean sender) {
+
+    /**
+     * @param secret
+     * @param sender
+     */
+    private void actionSecret(Secret secret, boolean sender) {
     }
 
-    private void actionSpell(Henchman henchman, boolean sender) {
+    /**
+     * @param spell
+     * @param sender
+     */
+    private void actionSpell(Spell spell, boolean sender) {
+        short numCode = spell.getNumerCode();
+        switch (numCode) {
+            case 0 -> {
+                if (!sender) {
+                    this.dissableTurn = spell.getShifts();
+                }
+            }
+            case 1 -> {
+                if(sender) {
+                    game.getPlayer().increaseLife(spell.getHealth());
+                    double life = ((double) game.getPlayer().getLife()) / 1000;
+                    this.progressBarLifeThisPLayer.setProgress(life);
+                }else {
+                    double life = ((double) game.getPlayerOtherLife() + spell.getHealth())/ 1000;
+                    this.progressBarLifeOtherPlayer.setProgress(life);
+                }
+            }
+            case 2 -> {
+                if (!sender) {
+                    this.dissableTurn = spell.getShifts();
+                }
+            }
+            case 3 -> {
+                if(sender){
+                    if((this.game.getHandCardList().getSize()<=10)) {
+                        Random rnd = new Random();
+                        Card cd;
+
+                        switch (rnd.nextInt(3)) {
+                            case 0 -> cd = new Henchman("HENCHMAN@"+rnd.nextInt(10));
+                            case 1 -> cd = new Secret("SPELL@"+rnd.nextInt(10));
+                            case 2 -> cd = new Spell("SPELL@"+rnd.nextInt(10));
+                            default -> throw new IllegalStateException("Unexpected value: " + rnd.nextInt(3));
+                        }
+                        this.game.getHandCardList().insertLast(cd);
+
+                        this.game.getHandCardList().setCurrentDisplayTail();
+
+                        this.cardD02.setImage(new Image("/images/" +
+                                this.game.getHandCardList().displayCard("current").getImage()));
+                    }
+                }else{
+                    if((this.game.getDeckStack().getTop()>-1)) {
+                        this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
+                        this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1 +"");
+                        this.labelNumCarts.setTextFill(Paint.valueOf("#000000"));
+                        this.cardD01.setRotate(0);
+                    }
+                }
+            }
+            case 4 -> {
+//                if(sender){
+//                    int rest = (int) (0.4*this.game.getPlayer().getLife());
+//                    this.game.getPlayer().increaseMana(1200);
+//                    this.
+//                }else{
+//                }
+            }
+            case 5 -> {
+                if(sender){
+
+                }else{
+
+                }
+            }
+            case 6 -> {
+                if(sender){
+
+                }else{
+
+                }
+            }
+            case 7 -> {
+                if(sender){
+
+                }else{
+
+                }
+            }
+            case 8 -> {
+                if(sender){
+
+                }else{
+
+                }
+            }
+            case 9 -> {
+                if(sender){
+
+                }else{
+
+                }
+            }
+        }
+    }
+
+
+    private void blockTurn(){
+        if(this.dissableTurn>0){
+            this.handleSkipTurn(new ActionEvent());
+            --this.dissableTurn;
+        }
     }
 
     private void GAMEOVER(){

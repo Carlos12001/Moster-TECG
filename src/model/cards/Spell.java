@@ -42,8 +42,8 @@ public class Spell extends Card{
     private void setSpell(short numCode){
         switch (numCode) {
             case 0 -> this.setShifts(1);
-            case 1 -> this.setAtack(100);
-            case 2 -> this.setAtack(30);
+            case 1 -> this.setHealth(300);
+            case 2 -> this.setShifts(3);
             case 3 -> this.setAtack(40);
             case 4 -> this.setAtack(50);
             case 5 -> this.setAtack(20);
