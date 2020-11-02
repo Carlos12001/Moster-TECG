@@ -1,5 +1,7 @@
 package model.cards;
 
+import controller.GameController;
+
 public class Secret extends Card {
 
 
@@ -10,5 +12,4 @@ public class Secret extends Card {
     public Secret(Card card){
         super(card);
     }
-
 }

@@ -324,10 +324,6 @@ public class GameController {
 
     }
 
-
-
-
-
     /**
      * @param setter This is boolean who blocks the GUI.
      */
@@ -443,6 +439,7 @@ public class GameController {
             case "SECRET" -> {
                 Secret secret = new Secret(code);
                 if (!sender) this.cardD03.setImage(new Image("/images/" + secret.getImage()));
+                this.actionSecret(secret, sender);
             }
             case "SPELL" -> {
                 Spell spell = new Spell(code);
@@ -470,13 +467,6 @@ public class GameController {
         }
     }
 
-
-    /**
-     * @param secret
-     * @param sender
-     */
-    private void actionSecret(Secret secret, boolean sender) {
-    }
 
     /**
      * @param spell
@@ -604,6 +594,61 @@ public class GameController {
                 }
             }
         }
+    private void actionSecret(Secret secret, boolean sender) {
+        Game game = Game.getInstance();
+        Short numCode = Short.parseShort(secret.getCode().split("@")[1]);
+        int round = game.getRound();
+        switch (numCode){
+            case 0:
+                if (!sender){
+                    while (round == game.getRound()){
+                        this.cardD01.setOpacity(0.05);
+                    }
+                    this.cardD01.setOpacity(1);
+                }
+                //logica no puede ver cartas
+            case 1:
+                //buscar otra carta
+            case 2:
+                if (!sender){
+                    while (round == game.getRound()){
+                        this.vBoxHistory.setRotate(180);
+                    }
+                    this.vBoxHistory.setRotate(0);
+                }
+                // logica historial invertido
+            case 3:
+                if (!sender){
+                    while (round == game.getRound()){
+                        this.buttonNextCard.setDisable(true);
+                    }
+                    this.buttonNextCard.setDisable(false);
+                }
+                // logica bloquear next
+            case 4:
+                if (!sender){
+                    while (round == game.getRound()){
+                        this.buttonSkipTurn.setDisable(true);
+                    }
+                    this.buttonSkipTurn.setDisable(false);
+                }
+                // logica bloquear skip
+                // si el oponente no puede comprar no se bloquea <-----------------
+            case 5:
+                // cambia quien inicia la siguiente ronda
+            case 6:
+                //
+            case 7:
+                //
+            case 8:
+                //
+            case 9:
+                //
+        }
+
+
+
+
     }
 
 
