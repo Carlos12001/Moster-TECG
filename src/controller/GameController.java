@@ -131,7 +131,7 @@ public class GameController {
     @FXML
     private void doSenalDeck(MouseEvent event) {
 
-        if (this.game.getDeckStack().getTop()>-1) {
+        if (this.game.getDeckStack().getTop() > -1) {
             this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "-1");
             this.labelNumCarts.setTextFill(Paint.valueOf("#E06C75"));
 
@@ -150,7 +150,7 @@ public class GameController {
         this.stackPaneDeckCart.setDisable(true);
         this.cardD0.setStyle("-fx-opacity:  0.4");
 
-        if((this.game.getDeckStack().getTop()>-1)&&(this.game.getHandCardList().getSize()<=10)) {
+        if ((this.game.getDeckStack().getTop() > -1) && (this.game.getHandCardList().getSize() <= 10)) {
 
             this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
 
@@ -160,15 +160,15 @@ public class GameController {
 
             this.game.getHandCardList().setCurrentDisplayTail();
 
-            this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1+"");
+            this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "");
 
             this.cardD02.setImage(new Image("/images/" +
                     this.game.getHandCardList().displayCard("current").getImage()));
-        }else{
+        } else {
             //sonido
         }
 
-        if (this.game.getDeckStack().getTop()<=-1){
+        if (this.game.getDeckStack().getTop() <= -1) {
             this.cardD0.setVisible(false);
             this.cardD01.setVisible(false);
             this.cardD0.setDisable(true);
@@ -181,7 +181,7 @@ public class GameController {
      */
     @FXML
     private void revertSenalDeck(MouseEvent event) {
-        this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1 +"");
+        this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "");
         this.labelNumCarts.setTextFill(Paint.valueOf("#000000"));
         this.cardD01.setRotate(0);
     }
@@ -190,7 +190,7 @@ public class GameController {
      * @param event
      */
     @FXML
-    private void handlePreCard(ActionEvent event){
+    private void handlePreCard(ActionEvent event) {
         this.cardD02.setImage(new Image("/images/" +
                 this.game.getHandCardList().displayCard("previous").getImage()));
     }
@@ -201,18 +201,17 @@ public class GameController {
     @FXML
     private void selectCard(MouseEvent event) {
         if (!this.game.getHandCardList().isEmpty() &&
-            (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0))
-        {
-            this.labelManaThisPlayer.setText( this.game.getPlayer().getMana() +  "- "+
+                (this.game.getPlayer().getMana() - this.game.getHandCardList().getCurrentDisplay().getCostCard() >= 0)) {
+            this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "- " +
                     this.game.getHandCardList().getCurrentDisplay().getCostCard()
                     + "");
             this.labelManaThisPlayer.setTextFill(Paint.valueOf("#000000"));
 
 
-        }else if((this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()<0)){
+        } else if ((this.game.getPlayer().getMana() - this.game.getHandCardList().getCurrentDisplay().getCostCard() < 0)) {
             this.labelManaThisPlayer.setText("X");
             this.labelManaThisPlayer.setTextFill(Paint.valueOf("#E06C75"));
-        }else{
+        } else {
             this.labelManaThisPlayer.setText("X");
             this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
         }
@@ -225,13 +224,13 @@ public class GameController {
     private void handleSend(MouseEvent event) {
 
         if (!this.game.getHandCardList().isEmpty() &&
-                (this.game.getPlayer().getMana()-this.game.getHandCardList().getCurrentDisplay().getCostCard()>=0)) {
+                (this.game.getPlayer().getMana() - this.game.getHandCardList().getCurrentDisplay().getCostCard() >= 0)) {
             Card current = this.game.getHandCardList().getCurrentDisplay();
 
-            this.game.getPlayer().decreaseMana( current.getCostCard());
+            this.game.getPlayer().decreaseMana(current.getCostCard());
 
             this.cardD04.setImage(new Image("/images/" +
-                   current.getImage()));
+                    current.getImage()));
 
             //Increase Mana
             this.game.getPlayer().increaseManaTurn();
@@ -240,8 +239,7 @@ public class GameController {
             this.dissableGUI(true);
 
 
-
-            if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn<=1) {
+            if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
                 this.game.setRound();
             }
 
@@ -260,10 +258,10 @@ public class GameController {
             this.actionCard(current.getCode(), true);
 
             //Sets the new image
-            if(!this.game.getHandCardList().isEmpty()){
+            if (!this.game.getHandCardList().isEmpty()) {
                 this.cardD02.setImage(new Image("/images/" +
                         this.game.getHandCardList().displayCard("current").getImage()));
-            }else {
+            } else {
                 this.cardD02.setImage(new Image("/images/" +
                         "ReverseCards.png"));
             }
@@ -273,7 +271,7 @@ public class GameController {
 
             //Listing the GUI
             this.recibeMessage(oldInfo);
-        }else {
+        } else {
 //            this.cardD02.setImage(new Image("/images/" +
 //                    "ReverseCards.png"));
         }
@@ -303,7 +301,7 @@ public class GameController {
 
         UpdateInfo oldInfo = this.game.getUpdateInfo();
         this.dissableGUI(true);
-        if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn<=1) {
+        if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
             this.game.setRound();
         }
 
@@ -329,10 +327,10 @@ public class GameController {
      */
     private void dissableGUI(boolean setter) {
 
-        if (setter){
+        if (setter) {
             this.cardD0.setStyle("-fx-opacity:  0.4");
             this.cardD02.setStyle("-fx-opacity: 0.4");
-        }else {
+        } else {
             this.cardD0.setStyle("-fx-opacity:  1");
             this.cardD02.setStyle("-fx-opacity: 1");
         }
@@ -351,7 +349,7 @@ public class GameController {
         Thread thread = new Thread(() -> {
             Runnable updater = this::recibeMessageAux;
             while (true) {
-                if (!oldInfo.equals(Game.getInstance().getUpdateInfo())){
+                if (!oldInfo.equals(Game.getInstance().getUpdateInfo())) {
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
                     break;
@@ -372,6 +370,7 @@ public class GameController {
         this.blockTurn();
     }
 
+
     /**
      *
      */
@@ -389,7 +388,7 @@ public class GameController {
         this.labelNameOtherPlayer.setText(
                 this.game.getUpdateInfo().getPlayerSendName());
 
-        db= ((double) this.game.getUpdateInfo().getPlayerSendLife())/1000;
+        db = ((double) this.game.getUpdateInfo().getPlayerSendLife()) / 1000;
         this.progressBarLifeOtherPlayer.
                 setProgress(db);
 
@@ -397,29 +396,29 @@ public class GameController {
                 this.game.getPlayer().getName());
 
 
-        db= ((double) this.game.getPlayer().getLife())/1000;
+        db = ((double) this.game.getPlayer().getLife()) / 1000;
         this.progressBarLifeThisPLayer.
                 setProgress(db);
 
         this.labelManaThisPlayer.setText(
-                this.game.getPlayer().getMana()+"");
+                this.game.getPlayer().getMana() + "");
 
         //Especial Blocks
 
-        if(this.game.getDeckStack().getTop()<=-1){
+        if (this.game.getDeckStack().getTop() <= -1) {
             this.stackPaneDeckCart.setDisable(true);
             this.cardD0.setVisible(false);
             this.cardD01.setVisible(false);
-        }else{
+        } else {
             this.stackPaneDeckCart.setDisable(false);
             this.cardD0.setVisible(true);
             this.cardD01.setVisible(true);
         }
 
-        if (this.game.getHandCardList().isEmpty()){
+        if (this.game.getHandCardList().isEmpty()) {
             this.hBoxHandCard.setDisable(true);
             this.cardD02.setVisible(false);
-        }else{
+        } else {
             this.hBoxHandCard.setDisable(!true);
             this.cardD02.setVisible(!false);
         }
@@ -457,11 +456,11 @@ public class GameController {
      */
     private void actionHenchman(Henchman henchman, boolean sender) {
         Game game = Game.getInstance();
-        if(sender) {
+        if (sender) {
 
             this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() - henchman.getAtack()));
-            this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
-        }else {
+            this.progressBarLifeOtherPlayer.setProgress(((double) game.getPlayerOtherLife()) / 1000);
+        } else {
             game.getPlayer().decreaseLife(henchman.getAtack());
             this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
         }
@@ -481,14 +480,14 @@ public class GameController {
                 }
             }
             case 1 -> {
-                if(sender) {
+                if (sender) {
                     game.getPlayer().increaseLife(spell.getHealth());
                     this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
 
-                }else {
+                } else {
 
                     this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() + spell.getHealth()));
-                    this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
+                    this.progressBarLifeOtherPlayer.setProgress(((double) game.getPlayerOtherLife()) / 1000);
                 }
             }
             case 2 -> {
@@ -497,15 +496,15 @@ public class GameController {
                 }
             }
             case 3 -> {
-                if(sender){
-                    if((this.game.getHandCardList().getSize()<=10)) {
+                if (sender) {
+                    if ((this.game.getHandCardList().getSize() <= 10)) {
                         Random rnd = new Random();
                         Card cd;
 
                         switch (rnd.nextInt(3)) {
-                            case 0 -> cd = new Henchman("HENCHMAN@"+rnd.nextInt(10));
-                            case 1 -> cd = new Secret("SPELL@"+rnd.nextInt(10));
-                            case 2 -> cd = new Spell("SPELL@"+rnd.nextInt(10));
+                            case 0 -> cd = new Henchman("HENCHMAN@" + rnd.nextInt(10));
+                            case 1 -> cd = new Secret("SPELL@" + rnd.nextInt(10));
+                            case 2 -> cd = new Spell("SPELL@" + rnd.nextInt(10));
                             default -> throw new IllegalStateException("Unexpected value: " + rnd.nextInt(3));
                         }
                         this.game.getHandCardList().insertLast(cd);
@@ -515,39 +514,39 @@ public class GameController {
                         this.cardD02.setImage(new Image("/images/" +
                                 this.game.getHandCardList().displayCard("current").getImage()));
                     }
-                }else{
-                    if((this.game.getDeckStack().getTop()>-1)) {
+                } else {
+                    if ((this.game.getDeckStack().getTop() > -1)) {
                         this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
-                        this.labelNumCarts.setText(this.game.getDeckStack().getTop()+1 +"");
+                        this.labelNumCarts.setText(this.game.getDeckStack().getTop() + 1 + "");
                         this.labelNumCarts.setTextFill(Paint.valueOf("#000000"));
                         this.cardD01.setRotate(0);
                     }
                 }
             }
             case 4 -> {
-                if(sender){
+                if (sender) {
                     this.game.getPlayer().increaseMana(1200);
 
                     game.getPlayer().decreaseLife((int) (0.4 * this.game.getPlayer().getLife()));
                     this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
-                }else{
+                } else {
                     this.game.setPlayerOtherMana(1000);
 
                     this.game.setPlayerOtherLife(game.getPlayerOtherLife() - (int) (0.4 * this.game.getPlayerOtherLife()));
-                    this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
+                    this.progressBarLifeOtherPlayer.setProgress(((double) game.getPlayerOtherLife()) / 1000);
                 }
             }
             case 5 -> {
-                this.game.setPlayerOtherLife((int) ((double)game.getPlayerOtherLife() - (double)game.getPlayerOtherLife()*0.3));
-                this.progressBarLifeOtherPlayer.setProgress(((double)game.getPlayerOtherLife() )/ 1000);
+                this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() - (double) game.getPlayerOtherLife() * 0.3));
+                this.progressBarLifeOtherPlayer.setProgress(((double) game.getPlayerOtherLife()) / 1000);
 
 
-                game.getPlayer().decreaseLife((int) (this.game.getPlayer().getLife()*0.3));
+                game.getPlayer().decreaseLife((int) (this.game.getPlayer().getLife() * 0.3));
                 this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
             }
             case 6 -> {
                 double more;
-                if(sender){
+                if (sender) {
 
                     more = (double) game.getPlayerOtherLife() * 0.2;
 
@@ -556,10 +555,10 @@ public class GameController {
                     this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
 
                     //Le quito la vida
-                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife()-more));
+                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife() - more));
 
 
-                }else{
+                } else {
                     more = (double) game.getPlayer().getLife() * 0.2;
 
                     //Me quito la vida que me quito el otro
@@ -567,9 +566,9 @@ public class GameController {
                     this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
 
                     //Le sumo la vida que me quito el otro jugador
-                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife()+more));
+                    this.game.setPlayerOtherLife((int) (this.game.getPlayerOtherLife() + more));
                 }
-                this.progressBarLifeOtherPlayer.setProgress( (double) (this.game.getPlayerOtherLife())/1000);
+                this.progressBarLifeOtherPlayer.setProgress((double) (this.game.getPlayerOtherLife()) / 1000);
             }
             case 7 -> {
                 if (sender) {
@@ -577,7 +576,7 @@ public class GameController {
                 }
             }
             case 8 -> {
-                if(sender){
+                if (sender) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
                     alert.setTitle("Mana del otro Jugador");
@@ -586,51 +585,40 @@ public class GameController {
                 }
             }
             case 9 -> {
-                if(sender){
+                if (sender) {
                     this.game.getPlayer().increaseMana(40);
                     this.labelManaThisPlayer.setText(String.valueOf(this.game.getPlayer().getMana()));
-                }else{
-                    this.game.setPlayerOtherMana(this.game.getPlayerOtherMana()+40);
+                } else {
+                    this.game.setPlayerOtherMana(this.game.getPlayerOtherMana() + 40);
                 }
             }
         }
-    private void actionSecret(Secret secret, boolean sender) {
+    }
+    private void actionSecret (Secret secret,boolean sender){
         Game game = Game.getInstance();
         Short numCode = Short.parseShort(secret.getCode().split("@")[1]);
         int round = game.getRound();
-        switch (numCode){
+        switch (numCode) {
             case 0:
-                if (!sender){
-                    while (round == game.getRound()){
-                        this.cardD01.setOpacity(0.05);
-                    }
-                    this.cardD01.setOpacity(1);
+                if (!sender) {
+                    this.cardD01.setOpacity(0.05);
                 }
                 //logica no puede ver cartas
             case 1:
                 //buscar otra carta
             case 2:
-                if (!sender){
-                    while (round == game.getRound()){
-                        this.vBoxHistory.setRotate(180);
-                    }
-                    this.vBoxHistory.setRotate(0);
+                if (!sender) {
+                    this.vBoxHistory.setRotate(180);
                 }
                 // logica historial invertido
             case 3:
-                if (!sender){
-                    while (round == game.getRound()){
-                        this.buttonNextCard.setDisable(true);
-                    }
-                    this.buttonNextCard.setDisable(false);
+                if (!sender) {
+                    this.buttonNextCard.setDisable(true);
                 }
                 // logica bloquear next
             case 4:
-                if (!sender){
-                    while (round == game.getRound()){
-                        this.buttonSkipTurn.setDisable(true);
-                    }
-                    this.buttonSkipTurn.setDisable(false);
+                if (!sender) {
+                    this.buttonSkipTurn.setDisable(true);
                 }
                 // logica bloquear skip
                 // si el oponente no puede comprar no se bloquea <-----------------
@@ -646,31 +634,28 @@ public class GameController {
                 //
         }
 
-
-
-
     }
 
 
-    private void blockTurn(){
-        if(this.dissableTurn>0){
+    private void blockTurn () {
+        if (this.dissableTurn > 0) {
             this.handleSkipTurn(new ActionEvent());
             --this.dissableTurn;
         }
     }
 
-    private void GAMEOVER(){
-        int me  = this.game.getPlayer().getLife();
+    private void GAMEOVER () {
+        int me = this.game.getPlayer().getLife();
         int other = this.game.getPlayerOtherLife();
 
-        if (me<=0){
+        if (me <= 0) {
             this.game.finishConexion();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("¡GAME OVER!");
             alert.setContentText("Has perdido contra: " + this.game.getPlayerOtherName());
             alert.showAndWait();
-        }else if(other<=0){
+        } else if (other <= 0) {
             this.game.finishConexion();
             this.game.finishConexion();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -678,18 +663,17 @@ public class GameController {
             alert.setTitle("¡GAME OVER!");
             alert.setContentText("¡Has gandado contra!: " + this.game.getPlayerOtherName());
             alert.showAndWait();
-        }else {
+        } else {
             //NO PASA NADA
         }
     }
 
 
-
-    /**
-     *
-     */
+/**
+*
+*/
     @FXML
-    private void initialize() {
+    private void initialize () {
 
         //Init variables
         double db;
@@ -709,12 +693,12 @@ public class GameController {
 
         //  SetsInformation
 
-        this.labelRound.setText(this.game.getRound() + "" );
+        this.labelRound.setText(this.game.getRound() + "");
 
         this.labelNameOtherPlayer.setText(
                 this.game.getUpdateInfo().getPlayerSendName());
 
-        db= ((double) this.game.getUpdateInfo().getPlayerSendLife())/1000;
+        db = ((double) this.game.getUpdateInfo().getPlayerSendLife()) / 1000;
         this.progressBarLifeOtherPlayer.
                 setProgress(db);
 
@@ -722,25 +706,24 @@ public class GameController {
                 this.game.getPlayer().getName());
 
 
-        db= ((double) this.game.getPlayer().getLife())/1000;
+        db = ((double) this.game.getPlayer().getLife()) / 1000;
         this.progressBarLifeThisPLayer.
                 setProgress(db);
 
         this.labelManaThisPlayer.setText(
-                this.game.getPlayer().getMana()+"");
+                this.game.getPlayer().getMana() + "");
 
         this.labelTypeConnection.setText(
                 this.game.getTypeConexion() + "");
         this.labelNumCarts.setText(
-                this.game.getDeckStack().getTop()+1 + "");
+                this.game.getDeckStack().getTop() + 1 + "");
 
-        if  (game.getWhoFisrt() == this.game.getTypeConexion()) {
+        if (game.getWhoFisrt() == this.game.getTypeConexion()) {
             this.dissableGUI(false);
-        } else{
+        } else {
             this.dissableGUI(true);
             this.recibeMessage(this.game.getUpdateInfo());
             this.game.recibeNewInfo();
         }
     }
-
 }
