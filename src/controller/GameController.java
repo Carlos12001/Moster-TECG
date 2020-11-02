@@ -249,8 +249,6 @@ public class GameController {
             updateGUI();
 
 
-
-
             //The code card select
             this.game.sendInfoOtherPlayer(current.getCode());
 
@@ -276,8 +274,8 @@ public class GameController {
             //Listing the GUI
             this.recibeMessage(oldInfo);
         }else {
-            this.cardD02.setImage(new Image("/images/" +
-                    "ReverseCards.png"));
+//            this.cardD02.setImage(new Image("/images/" +
+//                    "ReverseCards.png"));
         }
     }
 
@@ -343,6 +341,7 @@ public class GameController {
             this.cardD02.setStyle("-fx-opacity: 1");
         }
 
+        this.cardD02.setDisable(setter);
         this.hBoxHandCard.setDisable(setter);
         this.buttonSkipTurn.setDisable(setter);
         this.stackPaneDeckCart.setDisable(setter);
