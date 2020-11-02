@@ -21,6 +21,7 @@ public class HandCardList {
         return this.head == null;
     }
 
+
     public int getSize(){
         return this.size;
     }
@@ -32,11 +33,13 @@ public class HandCardList {
             this.head = this.tail = newCardNode;
             size++;
         } else {
-            this.head.setPrevious(newCardNode);
-            newCardNode.setPrevious(this.tail);
             this.tail.setNext(newCardNode);
+            newCardNode.setPrevious(this.tail);
+            newCardNode.setNext(this.head);
             this.tail = newCardNode;
-            this.tail.setNext(this.head);
+            this.head.setPrevious(this.tail);
+
+            //this.tail.setNext(this.head);
             size++;
         }
     }
@@ -47,14 +50,17 @@ public class HandCardList {
         HandCardNode tmp;
         while (current != null){
             if (current.getCardN().getCode().equals(id)){ // hacer este emtodo en clase carta
-                if (current == this.head){
+                if (current == this.head && current == this.tail){
+                    this.head = this.tail = null;
+                    this.size--;
+                } else if (current == this.head){
                     this.head = current.getNext();
                     this.head.setPrevious(this.tail);
                     this.tail.setNext(this.head);
                     this.size--;
                 } else if (current == this.tail){
-                    this.tail =  previous.getNext();
-                    previous.setNext(this.head);
+                    this.tail =  previous;
+                    this.tail.setNext(this.head);
                     this.head.setPrevious(this.tail);
                     this.size--;
                 } else {
@@ -71,6 +77,14 @@ public class HandCardList {
             }
         }
         return null;
+    }
+
+    public void setDisplayCard(){
+        if (this.isEmpty()){
+            this.currentDisplay = null;
+        } else{
+            this.currentDisplay = this.currentDisplay.getNext();
+        }
     }
 
     public void setCurrentDisplayTail(){
@@ -138,4 +152,5 @@ public class HandCardList {
     public Card getHead() {
         return head.getCardN();
     }
+
 }
