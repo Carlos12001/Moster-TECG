@@ -276,8 +276,8 @@ public class GameController {
             //Listing the GUI
             this.recibeMessage(oldInfo);
         }else {
-            this.cardD02.setImage(new Image("/images/" +
-                    "ReverseCards.png"));
+//            this.cardD02.setImage(new Image("/images/" +
+//                    "ReverseCards.png"));
         }
     }
 
