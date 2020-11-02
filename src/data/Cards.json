@@ -3,62 +3,62 @@
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@0",
-      "costCard": 10,
+      "costCard": 100,
       "image": "HENCHEMAN@0.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@1",
-      "costCard": 10,
+      "costCard": 150,
       "image": "HENCHEMAN@1.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@2",
-      "costCard": 10,
+      "costCard": 80,
       "image": "HENCHEMAN@2.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@3",
-      "costCard": 10,
+      "costCard": 60,
       "image": "HENCHEMAN@3.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@4",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 90,
+      "image": "HENCHEMAN@4.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@5",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 80,
+      "image": "HENCHEMAN@5.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@6",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 100,
+      "image": "HENCHEMAN@6.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@7",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 170,
+      "image": "HENCHEMAN@7.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@8",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 500,
+      "image": "HENCHEMAN@8.png"
     },
     {
       "category": "HENCHEMAN",
       "code": "HENCHEMAN@9",
-      "costCard": 10,
-      "image": "HENCHEMAN.png"
+      "costCard": 225,
+      "image": "HENCHEMAN@9.png"
     }
   ],
   [

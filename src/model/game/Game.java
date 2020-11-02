@@ -28,7 +28,7 @@ public class Game {
     /**
      *
      */
-    private final ConnectionType typeConexion;
+    private ConnectionType typeConexion;
     /**
      *
      */
@@ -216,6 +216,15 @@ public class Game {
     }
 
     /**
+     * Sets new typeConexion.
+     *
+     * @param typeConexion New value of typeConexion.
+     */
+    public void setTypeConexion(ConnectionType typeConexion) {
+        this.typeConexion = typeConexion;
+    }
+
+    /**
      * Gets typeConexion.
      *
      * @return Value of typeConexion.
@@ -307,22 +316,28 @@ public class Game {
      */
     public void createConnection(int port, String ip) {
         if ((this.client == null) & (this.typeConexion == CLIENT)) {
-            this.client = new Client(port, ip);
+            try {
+                this.client = new Client(port, ip);
 
-            //Choice the random
-            Random rnd = new Random();
-            int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
-            switch (ramdomNum) {
-                case 1 -> this.whoFisrt = SERVER;
-                case 2 -> this.whoFisrt = CLIENT;
-                default -> throw new IllegalStateException("Unexpected value: " + ramdomNum);
+                //Choice the random
+                Random rnd = new Random();
+                int ramdomNum = (int) (rnd.nextDouble() * 2 + 1);
+                switch (ramdomNum) {
+                    case 1 -> this.whoFisrt = SERVER;
+                    case 2 -> this.whoFisrt = CLIENT;
+                    default -> throw new IllegalStateException("Unexpected value: " + ramdomNum);
+                }
+
+                this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
+                this.updateInfo.setPlayerSendMana(this.player.getMana());
+                this.updateInfo.setPlayerSendLife(this.player.getLife());
+                this.updateInfo.setCodeSendCart("");
+                this.client.writeSocket(this.generateJackson());
+            }catch (Exception e){
+                this.client =null;
+                this.typeConexion = null;
             }
 
-            this.updateInfo = new UpdateInfo(this.player.getName(), this.whoFisrt);
-            this.updateInfo.setPlayerSendMana(this.player.getMana());
-            this.updateInfo.setPlayerSendLife(this.player.getLife());
-            this.updateInfo.setCodeSendCart("");
-            this.client.writeSocket(this.generateJackson());
         }
     }
 

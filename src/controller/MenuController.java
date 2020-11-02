@@ -82,6 +82,7 @@ public class MenuController {
     private void handleCreateServer(ActionEvent event) {
 
         this.game = Game.getInstance(new Player(this.textFieldName.getText()), ConnectionType.SERVER);
+        this.game.setTypeConexion(ConnectionType.SERVER);
 
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
@@ -103,6 +104,7 @@ public class MenuController {
     private void handleJoinServer(ActionEvent event) {
 
         this.game = Game.getInstance(new Player(this.textFieldName.getText()), ConnectionType.CLIENT);
+        this.game.setTypeConexion(ConnectionType.CLIENT);
 
         this.vBoxSelect.setVisible(false);
         this.vBoxSelect.setDisable(true);
@@ -120,10 +122,23 @@ public class MenuController {
         int port;
         try {
             port = Integer.parseInt(this.textFieldPuerto.getText());
-            this.game.createConnection(port,this.textFieldIp.getText());
-            this.updateGUIMessage();
-            // agregar metodo de mano de cartas
-            this.game.recibeNewInfo();
+            try {
+                this.game.createConnection(port,this.textFieldIp.getText());
+                this.updateGUIMessage();
+                this.game.recibeNewInfo();
+            }catch (Exception e){
+                this.buttonInit.setDisable(false);
+                this.vBoxJoin.setDisable(true);
+                this.vBoxJoin.setVisible(false);
+                this.vBoxSelect.setVisible(true);
+                this.vBoxSelect.setDisable(false);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("No existe la partida");
+                alert.setContentText("Has tratado unirte a una partida que no existe, vuelve a intentarlo. ");
+                alert.showAndWait();
+            }
+
         }catch (NumberFormatException ex) {
             ex.printStackTrace();
         }

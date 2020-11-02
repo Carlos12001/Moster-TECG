@@ -583,8 +583,6 @@ public class GameController {
             }
             case 8 -> {
                 if(sender){
-                    this.game.finishConexion();
-                    this.game.finishConexion();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
                     alert.setTitle("Mana del otro Jugador");
