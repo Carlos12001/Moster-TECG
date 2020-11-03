@@ -617,13 +617,14 @@ public class GameController {
                 }
                 // logica bloquear next
             case 4:
+                // cambia quien inicia la siguiente ronda
+
+            case 5:
                 if (!sender) {
                     this.buttonSkipTurn.setDisable(true);
                 }
                 // logica bloquear skip
                 // si el oponente no puede comprar no se bloquea <-----------------
-            case 5:
-                // cambia quien inicia la siguiente ronda
             case 6:
                 //
             case 7:
