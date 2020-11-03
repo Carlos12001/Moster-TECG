@@ -21,7 +21,6 @@ public class HandCardList {
         return this.head == null;
     }
 
-
     public int getSize(){
         return this.size;
     }
@@ -31,19 +30,17 @@ public class HandCardList {
 
         if (this.isEmpty()){
             this.head = this.tail = newCardNode;
-            size++;
         } else {
             this.tail.setNext(newCardNode);
             newCardNode.setPrevious(this.tail);
             newCardNode.setNext(this.head);
             this.tail = newCardNode;
             this.head.setPrevious(this.tail);
-
             //this.tail.setNext(this.head);
-            size++;
         }
+        this.size++;
     }
-    //REVISARR!!
+
     public Card deleteCard(String id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;

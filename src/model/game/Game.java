@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
+import model.history.HistoryList;
+import model.history.HistoryNode;
 import model.sockets.*;
 
 import java.io.*;
@@ -78,6 +80,10 @@ public class Game {
      */
     private HandCardList handCardList = new HandCardList();
 
+    /**
+     *
+     */
+    private HistoryList historyList = new HistoryList();
 
     /**
      * This is the constructor
@@ -89,7 +95,6 @@ public class Game {
         this.typeConexion = typeConexion;
         this.updateInfo = new UpdateInfo(this.player.getName(), typeConexion);
     }
-
 
     /**
      * Sets new whoFisrt.
@@ -306,6 +311,13 @@ public class Game {
      */
     public DeckStack getDeckStack() {
         return deckStack;
+    }
+
+    /**
+     * @return
+     */
+    public HistoryList getHistoryList() {
+        return historyList;
     }
 
     /**

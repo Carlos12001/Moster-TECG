@@ -16,6 +16,8 @@ import model.cards.Henchman;
 import model.cards.Secret;
 import model.cards.Spell;
 import model.game.Game;
+import model.history.HistoryList;
+import model.history.HistoryNode;
 import model.sockets.UpdateInfo;
 
 import java.util.Random;
@@ -314,12 +316,28 @@ public class GameController {
 
     @FXML
     private void handlePreHistory(ActionEvent event) {
+        Game game = Game.getInstance();
+        HistoryList historyList = game.getHistoryList();
+        HistoryNode historyNode = historyList.displayHistory("previous");
 
+        this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
+        this.labelSender.setText(historyNode.getsenderName());
+        this.lifeSender.setText(String.valueOf(historyNode.getsenderLife()));
+        this.labelReciber.setText(historyNode.getreciberName());
+        this.labelReciber.setText(String.valueOf(historyNode.getreciberLife()));
     }
 
     @FXML
     private void handleNextHistory(ActionEvent event) {
+        Game game = Game.getInstance();
+        HistoryList historyList = game.getHistoryList();
+        HistoryNode historyNode = historyList.displayHistory("next");
 
+        this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
+        this.labelSender.setText(historyNode.getsenderName());
+        this.lifeSender.setText(String.valueOf(historyNode.getsenderLife()));
+        this.labelReciber.setText(historyNode.getreciberName());
+        this.labelReciber.setText(String.valueOf(historyNode.getreciberLife()));
     }
 
     /**
@@ -594,6 +612,7 @@ public class GameController {
             }
         }
     }
+
     private void actionSecret (Secret secret,boolean sender){
         Game game = Game.getInstance();
         Short numCode = Short.parseShort(secret.getCode().split("@")[1]);
