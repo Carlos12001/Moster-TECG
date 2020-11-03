@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 /**
  * This class
  */
-public class Client extends Thread {
+public class Client  {
     /**
      *
      */
@@ -110,7 +110,7 @@ public class Client extends Thread {
         thread.start();
     }
 
-    private void closeConexion(){
+    public void closeConexion(){
         try {
             this.clientSocket.close();
         } catch (IOException ex) {

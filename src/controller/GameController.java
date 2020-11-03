@@ -430,18 +430,11 @@ public class GameController {
             this.stackPaneDeckCart.setDisable(true);
             this.cardD0.setVisible(false);
             this.cardD01.setVisible(false);
-        } else {
-            this.stackPaneDeckCart.setDisable(false);
-            this.cardD0.setVisible(true);
-            this.cardD01.setVisible(true);
         }
 
         if (this.game.getHandCardList().isEmpty()) {
             this.hBoxHandCard.setDisable(true);
             this.cardD02.setVisible(false);
-        } else {
-            this.hBoxHandCard.setDisable(!true);
-            this.cardD02.setVisible(!false);
         }
     }
 

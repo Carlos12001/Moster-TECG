@@ -14,8 +14,6 @@ import java.net.*;
  */
 public class Server {
 
-    private static boolean firstConexion= false;
-
     /**
      *
      */
@@ -111,15 +109,6 @@ public class Server {
     }
 
     /**
-     * Gets server.
-     *
-     * @return Value of server.
-     */
-    public ServerSocket getServer() {
-        return server;
-    }
-
-    /**
      * This method returns the port number
      *
      * @return Value of port
@@ -172,7 +161,7 @@ public class Server {
         thread.start();
     }
 
-    private void closeConexion(){
+    public void closeConexion(){
         try {
             this.server.close();
             this.socketClient.close();

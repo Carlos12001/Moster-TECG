@@ -172,7 +172,7 @@ public class MenuController {
     /**
      *
      */
-    public void openGameView() {
+    private void openGameView() {
         try {
             ((Stage) this.labelIPServer.getScene().getWindow()).
                     setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/GameView.fxml"))));
