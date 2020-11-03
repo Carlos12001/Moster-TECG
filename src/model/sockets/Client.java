@@ -110,7 +110,7 @@ public class Client  {
         thread.start();
     }
 
-    private void closeConexion(){
+    public void closeConexion(){
         try {
             this.clientSocket.close();
         } catch (IOException ex) {

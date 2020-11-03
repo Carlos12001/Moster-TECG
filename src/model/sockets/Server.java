@@ -161,7 +161,7 @@ public class Server {
         thread.start();
     }
 
-    private void closeConexion(){
+    public void closeConexion(){
         try {
             this.server.close();
             this.socketClient.close();
