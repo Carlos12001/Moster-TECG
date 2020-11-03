@@ -58,10 +58,6 @@ public class Game {
     /**
      *
      */
-    private String codeThisPlayer;
-    /**
-     *
-     */
     private Client client;
     /**
      *
@@ -186,14 +182,6 @@ public class Game {
         return whoFisrt;
     }
 
-    /**
-     * Sets new cartTablePlayer.
-     *
-     * @param codeThisPlayer New value of cartTablePlayer.
-     */
-    public void setCodeThisPlayer(String codeThisPlayer) {
-        this.codeThisPlayer = codeThisPlayer;
-    }
 
     /**
      * Gets playerOtherMana.
@@ -204,14 +192,6 @@ public class Game {
         return playerOtherMana;
     }
 
-    /**
-     * Gets cartTablePlayer.
-     *
-     * @return Value of cartTablePlayer.
-     */
-    public String getCodeThisPlayer() {
-        return codeThisPlayer;
-    }
 
     /**
      * Sets new round

@@ -14,8 +14,6 @@ import java.net.*;
  */
 public class Server {
 
-    private static boolean firstConexion= false;
-
     /**
      *
      */
@@ -108,15 +106,6 @@ public class Server {
         });
         thread.setDaemon(true);
         thread.start();
-    }
-
-    /**
-     * Gets server.
-     *
-     * @return Value of server.
-     */
-    public ServerSocket getServer() {
-        return server;
     }
 
     /**

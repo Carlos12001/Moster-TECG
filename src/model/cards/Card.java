@@ -110,11 +110,6 @@ public class Card {
     }
 
 
-
-    private void setInfo(){
-    }
-
-
     /**
      * Gets numerCode.
      *
@@ -131,9 +126,5 @@ public class Card {
      */
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

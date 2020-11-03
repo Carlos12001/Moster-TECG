@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
 /**
  * This class
  */
-public class Client extends Thread {
+public class Client  {
     /**
      *
      */

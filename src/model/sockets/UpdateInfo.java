@@ -179,18 +179,6 @@ public class UpdateInfo {
         return skipTurn;
     }
 
-    @Override
-    public String toString() {
-        return "UpdateInfo{" +
-                "playerSendName='" + playerSendName + '\'' +
-                ", whoFirst=" + whoFirst +
-                ", playerSendMana=" + playerSendMana +
-                ", playerSendLife=" + playerSendLife +
-                ", codeSendCart=" + codeSendCart +
-                ", round=" + round +
-                ", skipTurn=" + skipTurn +
-                '}';
-    }
 
 }
 
