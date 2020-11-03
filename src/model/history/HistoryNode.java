@@ -10,18 +10,24 @@ public class HistoryNode {
     private String reciberName;
     private int senderLife;
     private int reciberLife;
-    private String cardImage;
+    private String cardcode;
+    private Card card;
 
-    public HistoryNode(String senderName, String reciberName, int senderLife, int reciberLife, String cardImage){
+
+    public HistoryNode(String senderName, String reciberName, int senderLife, int reciberLife, String cardcode){
         this.next = null;
         this.previous = null;
         this.senderName = senderName;
         this.reciberName = reciberName;
         this.senderLife = senderLife;
         this.reciberLife = reciberLife;
-        this.cardImage = cardImage;
+        this.card = new Card(cardcode);
     }
 
+
+    public Card getCard() {
+        return card;
+    }
 
     /**
      * Gets senderName.
@@ -56,7 +62,7 @@ public class HistoryNode {
      * @return Value of cardImage.
      */
     public String getCardImage() {
-        return cardImage;
+        return card.getImage();
     }
 
     /**

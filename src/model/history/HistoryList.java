@@ -26,6 +26,7 @@ public class HistoryList {
 
         if (this.isEmpty()){
             this.head = this.tail = newHistoryNode;
+
         } else {
             newHistoryNode.setPrevious(this.tail);
             this.tail.setNext(newHistoryNode);

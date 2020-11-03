@@ -237,6 +237,9 @@ public class GameController {
             //Increase Mana
             this.game.getPlayer().increaseManaTurn();
 
+            this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
+                    this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), current.getCode());
+
             UpdateInfo oldInfo = this.game.getUpdateInfo();
             this.dissableGUI(true);
 
