@@ -7,9 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import model.cards.Card;
 import model.cards.Henchman;
@@ -18,8 +16,12 @@ import model.cards.Spell;
 import model.game.Game;
 import model.history.HistoryList;
 import model.history.HistoryNode;
+import model.sockets.ConnectionType;
 import model.sockets.UpdateInfo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -154,7 +156,7 @@ public class GameController {
         this.stackPaneDeckCart.setDisable(true);
         this.cardD0.setStyle("-fx-opacity:  0.4");
 
-        if ((this.game.getDeckStack().getTop() > -1) && (this.game.getHandCardList().getSize() <= 10)) {
+        if ((this.game.getDeckStack().getTop() > -1) && (this.game.getHandCardList().getSize() < 10)) {
 
             this.game.getHandCardList().insertLast(this.game.getDeckStack().pop());
 
@@ -329,9 +331,9 @@ public class GameController {
                 this.cardD05.setImage(new Image("/images/ReverseCards.png"));
             }
             this.labelSender.setText(historyNode.getsenderName());
-            this.labelLifeSender.setText(String.valueOf(historyNode.getsenderLife()));
+            this.labelLifeSender.setText("Vida: " + String.valueOf(historyNode.getsenderLife()));
             this.labelReciber.setText(historyNode.getreciberName());
-            this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
+            this.labelLifeReciber.setText("Vida: " + String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
         }
     }
@@ -533,7 +535,7 @@ public class GameController {
             }
             case 3 -> {
                 if (sender) {
-                    if ((this.game.getHandCardList().getSize() <= 10)) {
+                    if ((this.game.getHandCardList().getSize() < 10)) {
                         Random rnd = new Random();
                         Card cd;
 
@@ -639,7 +641,7 @@ public class GameController {
                     this.cardD02.setStyle("-fx-opacity: 0.05");
                 }
                 break;
-                //logica no puede ver cartas
+
             case 1:
                 if (sender){
                     if (game.getDeckStack().getTop() + 1 <= 14 ){
@@ -648,37 +650,185 @@ public class GameController {
                     }
                 }
                 break;
-                // agregar 2 cartas
+
             case 2:
                 if (!sender) {
                     this.vBoxHistory.setRotate(180);
                 }
                 break;
-                // logica historial invertido
             case 3:
                 if (!sender) {
                     this.buttonNextCard.setDisable(true);
                 }
                 break;
-                // logica bloquear next
-            case 4:
-                // cambia quien inicia la siguiente ronda
 
+            case 4:
+                if (sender){
+                    game.setWhoFisrt(game.getTypeConexion());
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Nuevo orden!");
+                    alert.setContentText("La proxima ronda inicia usted!");
+                    alert.showAndWait();
+
+                } else {
+                    if (game.getTypeConexion() == ConnectionType.CLIENT){
+                        game.setWhoFisrt(ConnectionType.SERVER);
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Nuevo orden!");
+                        alert.setContentText("La siguente ronda inicia: " + this.game.getPlayerOtherName());
+                        alert.showAndWait();
+                    } else {
+                        game.setWhoFisrt(ConnectionType.CLIENT);
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Nuevo orden!");
+                        alert.setContentText("La siguente ronda inicia: " + this.game.getPlayerOtherName());
+                        alert.showAndWait();
+                    }
+
+                }
+                break;
             case 5:
                 if (!sender) {
                     this.buttonSkipTurn.setDisable(true);
                 }
                 break;
-                // logica bloquear skip
-                // si el oponente no puede comprar no se bloquea <-----------------
             case 6:
-                //
+                if (!sender){
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Chuck Norris aprueba esto");
+                    Random rnd = new Random();
+                    int num1 = rnd.nextInt(11);
+                    int num2 = rnd.nextInt(8);
+                    dialog.setHeaderText("La siguiente multiplicación " + num1 +" por" + num2 + " tiene como resultado:");
+                    dialog.setContentText("El resultado es:  ");
+
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()){
+                        int resultint;
+                        try {
+                            resultint = Integer.parseInt(result.get());
+                        } catch (Exception e){
+                            resultint = -10;
+                        }
+                        if (resultint == (num1 * num2)){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setTitle("Chuck Norris aprueba esto");
+                            alert.setContentText("Evitaste el ataque!!");
+                            alert.showAndWait();
+                        } else {
+                            game.getPlayer().decreaseLife(200);
+                            this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setTitle("Chuck Norris aprueba esto");
+                            alert.setContentText("Te atacaron!!");
+                            alert.showAndWait();
+                        }
+                    }
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Chuck Norris aprueba esto");
+                    alert.setContentText("Tu ataque se verá reflejado en la siguente ronda!");
+                    alert.showAndWait();
+                }
+                break;
             case 7:
-                //
+                if (sender){
+                    if (game.getPlayer().getLife() < 200){
+                        game.getPlayer().increaseLife(400);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Oye tranquilo viejo");
+                        alert.setContentText("Estabas en apuros, ten 400 puntos de vida");
+                        alert.showAndWait();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Oye tranquilo viejo");
+                        alert.setContentText("Te calma aun es pronto para pedir un favor!");
+                        alert.showAndWait();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Oye tranquilo viejo");
+                    alert.setContentText("Tu oponente esta recuperando vida!");
+                    alert.showAndWait();
+                }
+                break;
             case 8:
-                //
+                if (!sender){
+                    List<String> choices = new ArrayList<>();
+                    choices.add("Jeff Bezos");
+                    choices.add("Larry Page");
+                    choices.add("Elon Musk");
+
+                    ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
+                    dialog.setTitle("Google quiz!");
+                    dialog.setHeaderText("Seleccione uno de los fundadores de Google");
+                    dialog.setContentText("Su respuesta es: ");
+
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()){
+                        if (result.get().equals("Larry Page")){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setTitle("Google quiz");
+                            alert.setContentText("Evitaste el ataque!");
+                            alert.showAndWait();
+                        } else {
+                            game.getPlayer().decreaseLife(200);
+                            this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setTitle("Google quiz");
+                            alert.setContentText("Te atacaron!!");
+                            alert.showAndWait();
+                        }
+
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Google quiz");
+                    alert.setContentText("Tu ataque se verá reflejado en la siguente ronda!");
+                    alert.showAndWait();
+                }
+                break;
             case 9:
-                //
+                if (sender){
+                    if (game.getPlayer().getMana() < 300){
+                        game.getPlayer().increaseMana(1000);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Ricky Ultratumba");
+                        alert.setContentText("Tu maná resucitó de la tumba, ten 1000 puntos de maná!!");
+                        alert.showAndWait();
+                    } else {
+                        game.getPlayer().decreaseMana(200);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setTitle("Ricky Ultratumba");
+                        alert.setContentText("Aun tenias suficiente maná, Ricky se llevó 200 puntos de maná a la tumba");
+                        alert.showAndWait();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Ricky Ultratumba");
+                    alert.setContentText("Tu oponente le esta pidiendo un favor a la tumba!!");
+                    alert.showAndWait();
+                }
+                break;
         }
 
     }
@@ -712,8 +862,6 @@ public class GameController {
             alert.setContentText("¡Has gandado contra!: " + this.game.getPlayerOtherName());
             alert.showAndWait();
             this.dissableGUI(true);
-        } else {
-            //NO PASA NADA
         }
     }
 

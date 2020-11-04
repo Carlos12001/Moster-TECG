@@ -31,7 +31,6 @@ public class HistoryList {
             this.tail.setNext(newHistoryNode);
             this.tail = newHistoryNode;
         }
-//        this.setCurrentDisplay();
         this.size++;
     }
 
@@ -51,16 +50,13 @@ public class HistoryList {
             switch (direction) {
                 case "previous":
                     this.currentDisplay = this.currentDisplay.getPrevious();
-                    System.out.println("anterior");
                     return this.currentDisplay;
 
                 case "next":
                     this.currentDisplay = this.currentDisplay.getNext();
-                    System.out.println("siguiente");
                     return this.currentDisplay;
 
                 case "current":
-                    System.out.println("current");
                     return this.currentDisplay;
 
             }
