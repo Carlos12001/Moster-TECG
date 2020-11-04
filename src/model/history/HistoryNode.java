@@ -10,18 +10,25 @@ public class HistoryNode {
     private String reciberName;
     private int senderLife;
     private int reciberLife;
+    private short round;
     private String cardcode;
     private Card card;
 
 
-    public HistoryNode(String senderName, String reciberName, int senderLife, int reciberLife, String cardcode){
+    public HistoryNode(String senderName, String reciberName, int senderLife, int reciberLife, String cardcode, short round){
         this.next = null;
         this.previous = null;
         this.senderName = senderName;
         this.reciberName = reciberName;
         this.senderLife = senderLife;
         this.reciberLife = reciberLife;
-        this.card = new Card(cardcode);
+        this.round = round;
+        if (cardcode.equals("")){
+            this.card = null;
+        } else {
+            this.card = new Card(cardcode);
+        }
+
     }
 
 
@@ -108,5 +115,23 @@ public class HistoryNode {
      */
     public void setPrevious(HistoryNode previous) {
         this.previous = previous;
+    }
+
+    /**
+     * Sets new round.
+     *
+     * @param round New value of round.
+     */
+    public void setRound(short round) {
+        this.round = round;
+    }
+
+    /**
+     * Gets round.
+     *
+     * @return Value of round.
+     */
+    public short getRound() {
+        return round;
     }
 }

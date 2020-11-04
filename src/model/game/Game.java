@@ -276,7 +276,6 @@ public class Game {
         this.codeOtherCard = updateInfo.getCodeSendCart();
         this.whoFisrt = updateInfo.getWhoFirst();
 
-        historyList.insertLast(this.getPlayerOtherName(), this.getPlayer().getName(), this.getPlayerOtherLife(), this.getPlayer().getLife(), this.codeOtherCard);
     }
 
     /**

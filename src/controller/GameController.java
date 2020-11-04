@@ -112,7 +112,7 @@ public class GameController {
     private Label labelSender;
 
     @FXML
-    private Label lifeSender;
+    private Label labelLifeSender;
 
     @FXML
     private ImageView cardD05;
@@ -121,11 +121,13 @@ public class GameController {
     private Label labelReciber;
 
     @FXML
-    private Label lifeReciber;
+    private Label labelLifeReciber;
 
     @FXML
     private Button buttonNextHistory;
 
+    @FXML
+    private Label labelRoundHistory;
 
     /**
      * @param event
@@ -236,13 +238,9 @@ public class GameController {
 
             //Increase Mana
             this.game.getPlayer().increaseManaTurn();
-
-            this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
-                    this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), current.getCode());
+            
 
             UpdateInfo oldInfo = this.game.getUpdateInfo();
-            this.dissableGUI(true);
-
 
             if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
                 this.game.setRound();
@@ -251,6 +249,7 @@ public class GameController {
             //Actualiza la interfaz.
             updateGUI();
 
+            this.dissableGUI(true);
 
             //The code card select
             this.game.sendInfoOtherPlayer(current.getCode());
@@ -305,13 +304,14 @@ public class GameController {
         this.game.getPlayer().increaseManaTurn();
 
         UpdateInfo oldInfo = this.game.getUpdateInfo();
-        this.dissableGUI(true);
+
         if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
             this.game.setRound();
         }
 
+        this.updateGUI();
+        this.dissableGUI(true);
 
-        updateGUI();
         this.game.sendInfoOtherPlayer(true);
         this.game.recibeNewInfo();
         this.recibeMessage(oldInfo);
@@ -322,12 +322,18 @@ public class GameController {
         Game game = Game.getInstance();
         HistoryList historyList = game.getHistoryList();
         HistoryNode historyNode = historyList.displayHistory("previous");
-
-        this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
-        this.labelSender.setText(historyNode.getsenderName());
-        this.lifeSender.setText(String.valueOf(historyNode.getsenderLife()));
-        this.labelReciber.setText(historyNode.getreciberName());
-        this.labelReciber.setText(String.valueOf(historyNode.getreciberLife()));
+        if (historyNode != null){
+            if (historyNode.getCard() != null){
+                this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
+            } else{
+                this.cardD05.setImage(new Image("/images/ReverseCards.png"));
+            }
+            this.labelSender.setText(historyNode.getsenderName());
+            this.labelLifeSender.setText(String.valueOf(historyNode.getsenderLife()));
+            this.labelReciber.setText(historyNode.getreciberName());
+            this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
+            this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        }
     }
 
     @FXML
@@ -335,12 +341,19 @@ public class GameController {
         Game game = Game.getInstance();
         HistoryList historyList = game.getHistoryList();
         HistoryNode historyNode = historyList.displayHistory("next");
+        if (historyNode != null){
+            if (historyNode.getCard() != null){
+                this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
+            } else{
+                this.cardD05.setImage(new Image("/images/ReverseCards.png"));
+            }
+            this.labelSender.setText(historyNode.getsenderName());
+            this.labelLifeSender.setText(String.valueOf(historyNode.getsenderLife()));
+            this.labelReciber.setText(historyNode.getreciberName());
+            this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
+            this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        }
 
-        this.cardD05.setImage(new Image("/images/" + historyNode.getCardImage()));
-        this.labelSender.setText(historyNode.getsenderName());
-        this.lifeSender.setText(String.valueOf(historyNode.getsenderLife()));
-        this.labelReciber.setText(historyNode.getreciberName());
-        this.labelReciber.setText(String.valueOf(historyNode.getreciberLife()));
     }
 
     /**
@@ -356,6 +369,8 @@ public class GameController {
             this.cardD02.setStyle("-fx-opacity: 1");
         }
 
+        this.buttonNextCard.setDisable(setter);
+        this.buttonSkipTurn.setDisable(setter);
         this.cardD02.setDisable(setter);
         this.hBoxHandCard.setDisable(setter);
         this.buttonSkipTurn.setDisable(setter);
@@ -424,6 +439,10 @@ public class GameController {
         this.labelManaThisPlayer.setText(
                 this.game.getPlayer().getMana() + "");
 
+        // Set default
+        this.cardD05.setStyle("-fx-opacity: 1");
+        this.vBoxHistory.setRotate(0);
+
         //Especial Blocks
 
         if (this.game.getDeckStack().getTop() <= -1) {
@@ -462,6 +481,9 @@ public class GameController {
             default -> this.cardD03.setVisible(false);
         }
 
+        this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
+                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), code, this.game.getRound());
+        
         this.GAMEOVER();
     }
 
@@ -611,25 +633,33 @@ public class GameController {
 
     private void actionSecret (Secret secret,boolean sender){
         Game game = Game.getInstance();
-        Short numCode = Short.parseShort(secret.getCode().split("@")[1]);
-        int round = game.getRound();
-        switch (numCode) {
+        switch (secret.getNumerCode()) {
             case 0:
                 if (!sender) {
-                    this.cardD01.setOpacity(0.05);
+                    this.cardD02.setStyle("-fx-opacity: 0.05");
                 }
+                break;
                 //logica no puede ver cartas
             case 1:
-                //buscar otra carta
+                if (sender){
+                    if (game.getDeckStack().getTop() + 1 <= 14 ){
+                        game.getDeckStack().push(new Henchman("HENCHEMAN@3"));
+                        game.getDeckStack().push(new Henchman("HENCHEMAN@6"));
+                    }
+                }
+                break;
+                // agregar 2 cartas
             case 2:
                 if (!sender) {
                     this.vBoxHistory.setRotate(180);
                 }
+                break;
                 // logica historial invertido
             case 3:
                 if (!sender) {
                     this.buttonNextCard.setDisable(true);
                 }
+                break;
                 // logica bloquear next
             case 4:
                 // cambia quien inicia la siguiente ronda
@@ -638,6 +668,7 @@ public class GameController {
                 if (!sender) {
                     this.buttonSkipTurn.setDisable(true);
                 }
+                break;
                 // logica bloquear skip
                 // si el oponente no puede comprar no se bloquea <-----------------
             case 6:
@@ -671,6 +702,7 @@ public class GameController {
             alert.setTitle("¡GAME OVER!");
             alert.setContentText("Has perdido contra: " + this.game.getPlayerOtherName());
             alert.showAndWait();
+            this.dissableGUI(true);
         } else if (other <= 0) {
             this.game.finishConexion();
             this.game.finishConexion();
@@ -679,6 +711,7 @@ public class GameController {
             alert.setTitle("¡GAME OVER!");
             alert.setContentText("¡Has gandado contra!: " + this.game.getPlayerOtherName());
             alert.showAndWait();
+            this.dissableGUI(true);
         } else {
             //NO PASA NADA
         }

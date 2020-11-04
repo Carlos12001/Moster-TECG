@@ -21,17 +21,17 @@ public class HistoryList {
         return this.size;
     }
 
-    public void insertLast(String opponentName, String playerName, int opponentLife, int playerLife, String cardImage){
-        HistoryNode newHistoryNode = new HistoryNode(opponentName, playerName, opponentLife, playerLife, cardImage);
+    public void insertLast(String opponentName, String playerName, int opponentLife, int playerLife, String cardImage, short round){
+        HistoryNode newHistoryNode = new HistoryNode(opponentName, playerName, opponentLife, playerLife, cardImage, round);
 
         if (this.isEmpty()){
             this.head = this.tail = newHistoryNode;
-
         } else {
             newHistoryNode.setPrevious(this.tail);
             this.tail.setNext(newHistoryNode);
             this.tail = newHistoryNode;
         }
+//        this.setCurrentDisplay();
         this.size++;
     }
 
@@ -39,7 +39,7 @@ public class HistoryList {
         if (this.isEmpty()){
             this.currentDisplay = null;
         } else {
-
+            this.currentDisplay = this.tail;
         }
     }
 
@@ -51,12 +51,18 @@ public class HistoryList {
             switch (direction) {
                 case "previous":
                     this.currentDisplay = this.currentDisplay.getPrevious();
+                    System.out.println("anterior");
                     return this.currentDisplay;
+
                 case "next":
                     this.currentDisplay = this.currentDisplay.getNext();
+                    System.out.println("siguiente");
                     return this.currentDisplay;
+
                 case "current":
+                    System.out.println("current");
                     return this.currentDisplay;
+
             }
         }
         return null;
