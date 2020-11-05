@@ -452,7 +452,7 @@ public class GameController {
             this.labelLifeReciber.setText("Vida: " + String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
         } else {
-            historyList.setCurrentDisplay();
+            historyList.setCurrentDisplayHead();
         }
     }
 
@@ -479,7 +479,7 @@ public class GameController {
             this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
         } else {
-            historyList.setCurrentDisplay();
+            historyList.setCurrentDisplayTail();
         }
     }
 

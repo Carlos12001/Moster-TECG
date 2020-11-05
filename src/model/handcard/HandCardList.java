@@ -3,27 +3,28 @@ package model.handcard;
 import model.cards.Card;
 
 /**
- *
+ * This is a circular double linked list, which contains the hand card nodes.
+ * The user can navigate through it in vevery direction.
  */
 public class HandCardList {
 
     /**
-     * this id the head of the handcard list
+     * this is the head of the handcard list.
      */
     private HandCardNode head;
 
     /**
-     * this is the end of the handcard list
+     * this is the end of the handcard list.
      */
     private HandCardNode tail;
 
     /**
-     * this is the current card that is displayed
+     * this is the current card that is displayed.
      */
     private HandCardNode currentDisplay;
 
     /**
-     * This is the size of the list
+     * This is the size of the list.
      */
     private int size;
 

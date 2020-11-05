@@ -18,7 +18,7 @@ public class HandCardNode {
     private HandCardNode previous;
 
     /**
-     * this is the saves the card object.
+     * this saves the card object.
      */
     private Card cardN;
 
