@@ -11,7 +11,7 @@ public class Hencheman extends Card{
     private int atack;
 
     /**
-     * This creator obtains the methods and atributtes from the class card and set the attack using the code of
+     * This creator obtains the methods and attributes from the class card and set the attack using the code of
      * the card
      *
      * @param code String id of the card.
@@ -22,7 +22,7 @@ public class Hencheman extends Card{
     }
 
     /**
-     * This creator obtains the methods and atributtes from the class card and set the attack. Using the card
+     * This creator obtains the methods and attributes from the class card and set the attack. Using the card
      *
      * @param card Card
      */
