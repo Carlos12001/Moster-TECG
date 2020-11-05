@@ -418,6 +418,8 @@ public class GameController {
         if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
             this.game.setRound();
         }
+        this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
+                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), oldInfo.getCodeSendCart(), this.game.getRound());
 
         this.updateGUI();
         this.dissableGUI(true);
@@ -449,6 +451,8 @@ public class GameController {
             this.labelReciber.setText(historyNode.getreciberName());
             this.labelLifeReciber.setText("Vida: " + String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        } else {
+            historyList.setCurrentDisplay();
         }
     }
 
@@ -474,6 +478,8 @@ public class GameController {
             this.labelReciber.setText(historyNode.getreciberName());
             this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        } else {
+            historyList.setCurrentDisplay();
         }
     }
 

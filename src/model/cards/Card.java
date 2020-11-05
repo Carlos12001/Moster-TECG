@@ -38,6 +38,9 @@ public class Card {
      */
     private String image;
 
+    public Card(){
+    }
+
     /**
      * This creator is used when the card is not created yet. It only needs the code of the card and then it sets all
      * the information from the JSON
