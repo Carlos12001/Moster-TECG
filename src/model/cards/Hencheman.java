@@ -1,19 +1,20 @@
 package model.cards;
 
-import model.game.Game;
-
 /**
- *
+ * This class sets characteristics of hencheman type cards.
  */
 public class Hencheman extends Card{
 
     /**
-     *
+     * This is the points of attack of each card.
      */
     private int atack;
 
     /**
-     * @param code
+     * This creator obtains the methods and atributtes from the class card and set the attack using the code of
+     * the card
+     *
+     * @param code String id of the card.
      */
     public Hencheman(String code) {
         super(code);
@@ -21,7 +22,9 @@ public class Hencheman extends Card{
     }
 
     /**
-     * @param card
+     * This creator obtains the methods and atributtes from the class card and set the attack. Using the card
+     *
+     * @param card Card
      */
     public Hencheman(Card card) {
         super(card);
@@ -29,7 +32,7 @@ public class Hencheman extends Card{
     }
 
     /**
-     *Set the card features.
+     * Set the card features.
      *
      * @param numCode The card number.
      */
