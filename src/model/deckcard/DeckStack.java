@@ -5,7 +5,7 @@ import model.cards.Card;
 /**
  *
  */
-public class DeckStack {
+public class SizdeDeckStack {
     /**
      *
      */
