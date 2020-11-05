@@ -10,28 +10,31 @@ import java.net.*;
 
 
 /**
- * This class handles the server connection
+ * This class handles the server connection.
  */
 public class Server {
 
     /**
-     *
+     * This socket waits for a connection in the network
      */
     private ServerSocket server;
+
     /**
-     *
+     * This is the port number, which begins at 1024.
      */
     private int port = 1024;
+
     /**
-     *
+     * This is the socket that is trying to connect to the server
      */
     private Socket socketClient;
+
     /**
-     *
+     * This lets the aplication read primitive Java data types.
      */
     private DataInputStream serverInD;
     /**
-     *
+     * This lets tje application write primitive Java data type.
      */
     private DataOutputStream serverOutD;
 
