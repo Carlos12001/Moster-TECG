@@ -17,66 +17,77 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- *This class controller all the MenuView of the game
- * @author Carlos Andrés Mata Calderón
+ *This class controller all the MenuView of the game.
+ *
  * @version 1.0
  */
 public class MenuController {
 
 
     /**
-     * The isinstance for the game.
+     * game is the singleton, the game is only created once.
      */
     private  Game game;
-    /**Value injected by FXMLLoader
-     * fx:id="vBoxselect"
+
+    /**
+     * This is a FXML VBox of the menuview that contains the firt view of the menu.
      */
     @FXML
     private VBox vBoxSelect;
-    /**Value injected by FXMLLoader
-     * fx:id="textFieldName"
-     */
-    @FXML
-    private TextField textFieldName;
-    /**Value injected by FXMLLoader
-     * fx:id="vBoxCreate"
+
+    /**
+     * This is a FXML VBox of the menuview that shows when the player select to create a game.
      */
     @FXML
     private VBox vBoxCreate;
-    /**Value injected by FXMLLoader
-     * fx:id="labelPortServer"
-     */
-    @FXML
-    private Label labelPortServer;
-    /**Value injected by FXMLLoader
-     * fx:id="labelIPServer"
-     */
-    @FXML
-    private Label labelIPServer;
-    /**Value injected by FXMLLoader
-     * fx:id="vBoxJoin"
+
+    /**
+     * This is a FXML VBox of the menuview that shows when the player select to join a game.
      */
     @FXML
     private VBox vBoxJoin;
-    /**Value injected by FXMLLoader
-     * fx:id="textFieldIp"
+
+    /**
+     * This is a FXML label of the menuview that shows the port of the server.
+     */
+    @FXML
+    private Label labelPortServer;
+
+    /**
+     * This is a FXML label of the menuview that shows the IP of the server.
+     */
+    @FXML
+    private Label labelIPServer;
+
+    /**
+     * This is a FXML TextField of the menuview that is the input of the IP in the client.
      */
     @FXML
     private TextField textFieldIp;
-    /**Value injected by FXMLLoader
-     * fx:id="textFieldPuerto"
+
+    /**
+     * This is a FXML TextField of the menuview that is the input of the playe's name.
+     */
+    @FXML
+    private TextField textFieldName;
+
+    /**
+     * This is a FXML TextField of the menuview that is the input of the port number.
      */
     @FXML
     private TextField textFieldPuerto;
-    /** Value injected by FXMLLoader
-     * fx:id="buttomInit"
+
+    /**
+     * This is a FXML Button of the menuview that initiates the game.
      */
     @FXML
     private Button buttonInit;
 
 
     /**
-     * @param event
+     * When the player select to create a game, this method will create the server and wait for a client.
+     *
+     * @param event type ActionEvent
      */
     @FXML
     private void handleCreateServer(ActionEvent event) {
@@ -97,7 +108,8 @@ public class MenuController {
     }
 
     /**
-     * This method is in charge of instantiating the Game, of the Client type.
+     * When the player select to join a game, this method will connect to the server.
+     *
      * @param event The event button for to joinGame
      */
     @FXML
@@ -113,8 +125,10 @@ public class MenuController {
     }
 
     /**
+     * When the client press the init button, this method will create the first connection and verifies if the game
+     * exist.
      *
-     * @param event
+     * @param event type ActionEvent
      */
     @FXML
     private void handleInitGame(ActionEvent event) {
@@ -145,14 +159,14 @@ public class MenuController {
     }
 
     /**
-     *
+     * This method is a thread tha waits for the connection of the client. It compares the old information with the new
+     * one.
      */
     private void updateGUIMessage() {
         Thread thread = new Thread(() -> {
             Runnable updater = () -> {
                 openGameView();
                 if(Game.getInstance().getTypeConexion()==ConnectionType.SERVER){
-                    //metodos de escritura sockets en Game
                     Game.getInstance().sendInfoOtherPlayer("");
                 }
             };
@@ -170,7 +184,7 @@ public class MenuController {
     }
 
     /**
-     *
+     * This methos opens the gameView.fxml
      */
     private void openGameView() {
         try {
@@ -181,8 +195,8 @@ public class MenuController {
         }
     }
 
-    /** This method is called by the FXMLLoader when initialization is complete
-     *
+    /**
+     * This method is called by the FXMLLoader when initialization is complete
      */
     @FXML
     private void initialize() {
