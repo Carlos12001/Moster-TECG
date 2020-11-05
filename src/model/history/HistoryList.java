@@ -104,7 +104,7 @@ public class HistoryList {
      * This method set the current display and returns the hisoryNode in that position.
      *
      * @param direction String indicating the direction.
-     * @return current HistoryNode 
+     * @return current HistoryNode
      */
     public HistoryNode displayHistory(String direction){
         if (currentDisplay == null){

@@ -54,8 +54,9 @@ public class Server {
 
 
     /**
-     * This method connect to the client and send the jackson
-     * @param jacksonStr New jackson String
+     * This method connect to the client and send the jackson.
+     *
+     * @param jacksonStr New jackson String.
      */
     public void writeSocket(String jacksonStr) {
         try {
@@ -70,7 +71,7 @@ public class Server {
     }
 
     /**
-     *  This method read the message that client sends
+     *  This method waits for an client and if there is one client it read the information with an auxliar method.
      */
     public void readSockect() {
         if(this.socketClient==null) {
@@ -81,7 +82,7 @@ public class Server {
     }
 
     /**
-     *
+     * This method reads the information that is passed through the socket.
      */
     private void readSocketAux(){
         ObjectMapper mapper = new ObjectMapper();
@@ -109,27 +110,27 @@ public class Server {
     }
 
     /**
-     * This method returns the port number
+     * This method returns the port number.
      *
-     * @return Value of port
+     * @return Value of port.
      */
     public int getPort() {
         return this.port;
     }
 
     /**
-     * This method set the port number
+     * This method set the port number.
      *
-     * @param num New value of port
+     * @param num New value of port.
      */
     private void setPort(int num) {
         this.port = num;
     }
 
     /**
-     * This method returns the IP
+     * This method returns the IP.
      *
-     * @return Ip number
+     * @return Ip number.
      */
     public String getIp() {
         try {
@@ -141,7 +142,7 @@ public class Server {
     }
 
     /**
-     *  This method is a thread listeng the firts
+     *  This method is a thread listening the first client.
      */
     private void waitJoinClient() {
         Thread thread = new Thread(() -> {
@@ -161,6 +162,9 @@ public class Server {
         thread.start();
     }
 
+    /**
+     * This method ends the connection between the client and the server.
+     */
     public void closeConexion(){
         try {
             this.server.close();

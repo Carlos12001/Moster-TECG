@@ -1,5 +1,8 @@
 package model.sockets;
 
+/**
+ * This class updates the info in the other player game.
+ */
 public class UpdateInfo {
 
     /**
@@ -38,14 +41,14 @@ public class UpdateInfo {
     private boolean skipTurn;
 
     /**
-     *
+     * This constructor is used by the jackson in order to deserialize.
      */
     public UpdateInfo(){}
 
     /**
-     * Sets new Playername and new whoFirst who send the  information..
-     * @param playerSendName  New value of Player name who send the  information..
-     * @param whoFirst New value of PLayer name who start..
+     * Sets new Playername and new whoFirst who send the  information.
+     * @param playerSendName  New value of Player name who send the  information.
+     * @param whoFirst New value of PLayer name who start.
      */
     public UpdateInfo(String playerSendName, ConnectionType whoFirst){
         this.playerSendName = playerSendName;
@@ -54,126 +57,126 @@ public class UpdateInfo {
 
 
     /**
-     * Sets new Cart type to sent the other player..
+     * Sets new Cart type to sent the other player.
      *
-     * @param codeSendCart New value of Cart type to sent the other player..
+     * @param codeSendCart New value of Cart type to sent the other player.
      */
     public void setCodeSendCart(String codeSendCart) {
         this.codeSendCart = codeSendCart;
     }
 
     /**
-     * Sets new Player life who send the information..
+     * Sets new Player life who send the information.
      *
-     * @param playerSendLife New value of Player life who send the information..
+     * @param playerSendLife New value of Player life who send the information.
      */
     public void setPlayerSendLife(int playerSendLife) {
         this.playerSendLife = playerSendLife;
     }
 
     /**
-     * Gets Player life who send the information..
+     * Gets Player life who send the information.
      *
-     * @return Value of Player life who send the information..
+     * @return Value of Player life who send the information.
      */
     public int getPlayerSendLife() {
         return playerSendLife;
     }
 
     /**
-     * Sets new The round in the game..
+     * Sets new The round in the game.
      *
-     * @param round New value of The round in the game..
+     * @param round New value of The round in the game.
      */
     public void setRound(short round) {
         this.round = round;
     }
 
     /**
-     * Gets Player mana who send the information..
+     * Gets Player mana who send the information.
      *
-     * @return Value of Player mana who send the information..
+     * @return Value of Player mana who send the information.
      */
     public int getPlayerSendMana() {
         return playerSendMana;
     }
 
     /**
-     * Sets new Player name who send the  information..
+     * Sets new Player name who send the  information.
      *
-     * @param playerSendName New value of Player name who send the  information..
+     * @param playerSendName New value of Player name who send the  information.
      */
     public void setPlayerSendName(String playerSendName) {
         this.playerSendName = playerSendName;
     }
 
     /**
-     * Gets Cart type to sent the other player..
+     * Gets Cart type to sent the other player.
      *
-     * @return Value of Cart type to sent the other player..
+     * @return Value of Cart type to sent the other player.
      */
     public String getCodeSendCart() {
         return codeSendCart;
     }
 
     /**
-     * Gets The round in the game..
+     * Gets The round in the game.
      *
-     * @return Value of The round in the game..
+     * @return Value of The round in the game.
      */
     public short getRound() {
         return round;
     }
 
     /**
-     * Sets new Player mana who send the information..
+     * Sets new Player mana who send the information.
      *
-     * @param playerSendMana New value of Player mana who send the information..
+     * @param playerSendMana New value of Player mana who send the information.
      */
     public void setPlayerSendMana(int playerSendMana) {
         this.playerSendMana = playerSendMana;
     }
 
     /**
-     * Gets Player name who send the  information..
+     * Gets Player name who send the  information.
      *
-     * @return Value of Player name who send the  information..
+     * @return Value of Player name who send the  information.
      */
     public String getPlayerSendName() {
         return playerSendName;
     }
 
     /**
-     * Gets PLayer name who start..
+     * Gets PLayer name who start.
      *
-     * @return Value of PLayer name who start..
+     * @return Value of PLayer name who start.
      */
     public ConnectionType getWhoFirst() {
         return whoFirst;
     }
 
     /**
-     * Sets new Says if the other player skips the turn..
+     * Sets new Says if the other player skips the turn.
      *
-     * @param skipTurn New value of Says if the other player skips the turn..
+     * @param skipTurn New value of Says if the other player skips the turn.
      */
     public void setSkipTurn(boolean skipTurn) {
         this.skipTurn = skipTurn;
     }
 
     /**
-     * Sets new PLayer name who start..
+     * Sets new PLayer name who start.
      *
-     * @param whoFirst New value of PLayer name who start..
+     * @param whoFirst New value of PLayer name who start.
      */
     public void setWhoFirst(ConnectionType whoFirst) {
         this.whoFirst = whoFirst;
     }
 
     /**
-     * Gets Says if the other player skips the turn..
+     * Gets Says if the other player skips the turn.
      *
-     * @return Value of Says if the other player skips the turn..
+     * @return Value of Says if the other player skips the turn.
      */
     public boolean isSkipTurn() {
         return skipTurn;
