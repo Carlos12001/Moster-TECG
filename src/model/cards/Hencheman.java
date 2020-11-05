@@ -5,7 +5,7 @@ import model.game.Game;
 /**
  *
  */
-public class Henchman extends Card{
+public class Hencheman extends Card{
 
     /**
      *
@@ -15,7 +15,7 @@ public class Henchman extends Card{
     /**
      * @param code
      */
-    public Henchman(String code) {
+    public Hencheman(String code) {
         super(code);
         setHenchman(this.getNumerCode());
     }
@@ -23,7 +23,7 @@ public class Henchman extends Card{
     /**
      * @param card
      */
-    public Henchman(Card card) {
+    public Hencheman(Card card) {
         super(card);
         setHenchman(this.getNumerCode());
     }

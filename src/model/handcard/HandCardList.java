@@ -2,14 +2,35 @@ package model.handcard;
 
 import model.cards.Card;
 
+/**
+ *
+ */
 public class HandCardList {
 
+    /**
+     *
+     */
     private HandCardNode head;
+
+    /**
+     *
+     */
     private HandCardNode tail;
+
+    /**
+     *
+     */
     private HandCardNode currentDisplay;
+
+    /**
+     *
+     */
     private int size;
 
 
+    /**
+     *
+     */
     public HandCardList(){
         this.head = null;
         this.tail = null;
@@ -17,14 +38,18 @@ public class HandCardList {
         this.size = 0;
     }
 
+    /**
+     * @return
+     */
     public boolean isEmpty(){
         return this.head == null;
     }
 
-    public int getSize(){
-        return this.size;
-    }
 
+
+    /**
+     * @param handCardNode
+     */
     public void insertLast(Card handCardNode){
         HandCardNode newCardNode = new HandCardNode(handCardNode);
 
@@ -41,6 +66,10 @@ public class HandCardList {
         this.size++;
     }
 
+    /**
+     * @param id
+     * @return
+     */
     public Card deleteCard(String id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;
@@ -76,6 +105,9 @@ public class HandCardList {
         return null;
     }
 
+    /**
+     *
+     */
     public void setDisplayCard(){
         if (this.isEmpty()){
             this.currentDisplay = null;
@@ -84,10 +116,17 @@ public class HandCardList {
         }
     }
 
+    /**
+     *
+     */
     public void setCurrentDisplayTail(){
         this.currentDisplay = this.tail;
     }
 
+    /**
+     * @param direction
+     * @return
+     */
     public Card displayCard(String direction){
         if (currentDisplay == null){
             this.currentDisplay = this.head;
@@ -150,4 +189,12 @@ public class HandCardList {
         return head.getCardN();
     }
 
+    /**
+     * Gets size.
+     *
+     * @return Value of size.
+     */
+    public int getSize() {
+        return size;
+    }
 }

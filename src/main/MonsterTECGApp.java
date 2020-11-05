@@ -10,14 +10,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- *
+ * This is the main class which extends from javaFX application,
+ * this is the first class that is executed.
  */
 public class MonsterTECGApp extends Application {
 
 
 
     /**
-     * Es la Ventana del programa, cuando inicie el programa hace un set en start.
+     * This is the main stage.
      */
     private Stage window;
 
@@ -26,6 +27,11 @@ public class MonsterTECGApp extends Application {
         launch(args);
     }
 
+    /**
+     * This method creates the stage and scene of the menu.
+     *
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
 
@@ -55,8 +61,9 @@ public class MonsterTECGApp extends Application {
     }
 
     /**
-     * This method returns the program window
-     * @return Ventana del programa
+     * Gets the window.
+     *
+     * @return window
      */
     public Stage getWindow() {
         return this.window;

@@ -8,7 +8,6 @@ import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
 import model.history.HistoryList;
-import model.history.HistoryNode;
 import model.sockets.*;
 
 import java.io.*;
@@ -441,7 +440,7 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2]);
+                        Card newCardH = new Hencheman(arrayCard[num1][num2]);
                         this.deckStack.push(newCardH);
                     }
                     case 1 -> {
@@ -484,7 +483,7 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2]);
+                        Card newCardH = new Hencheman(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardH);
                     }
                     case 1 -> {
