@@ -63,12 +63,8 @@ public class Card {
             arrayCard = mapper.readValue(jackson, Card[][].class);
             Card setter;
             switch (this.category) {
-                case "HENCHEMAN" -> {
-                    setter = arrayCard[0][this.numerCode];
-                }
-                case "SECRET" -> {
-                    setter = arrayCard[1][this.numerCode];
-                }
+                case "HENCHEMAN" -> setter = arrayCard[0][this.numerCode];
+                case "SECRET" -> setter = arrayCard[1][this.numerCode];
                 case "SPELL" -> {
                     setter = arrayCard[2][this.numerCode];
                 }

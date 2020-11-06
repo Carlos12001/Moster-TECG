@@ -129,7 +129,7 @@ public class Client  {
     public void closeConexion(){
         try {
             this.clientSocket.close();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
     }
 }

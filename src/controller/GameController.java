@@ -419,7 +419,7 @@ public class GameController {
             this.game.setRound();
         }
         this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
-                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), oldInfo.getCodeSendCart(), this.game.getRound());
+                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), "", this.game.getRound());
 
         this.updateGUI();
         this.dissableGUI(true);
@@ -620,8 +620,14 @@ public class GameController {
             default -> this.cardD03.setVisible(false);
         }
 
-        this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
-                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), code, this.game.getRound());
+        if(sender) {
+
+            this.game.getHistoryList().insertLast(this.game.getPlayer().getName(), this.game.getPlayerOtherName(),
+                    this.game.getPlayer().getLife(), this.game.getPlayerOtherLife(), code, this.game.getRound());
+        }else{
+            this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
+                    this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), code, this.game.getRound());
+        }
         
         this.GAMEOVER();
     }

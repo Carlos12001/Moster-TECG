@@ -154,7 +154,16 @@ public class MenuController {
             }
 
         }catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            this.buttonInit.setDisable(false);
+            this.vBoxJoin.setDisable(true);
+            this.vBoxJoin.setVisible(false);
+            this.vBoxSelect.setVisible(true);
+            this.vBoxSelect.setDisable(false);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("No existe la partida");
+            alert.setContentText("Has tratado unirte a una partida que no existe, vuelve a intentarlo. ");
+            alert.showAndWait();
         }
     }
 
