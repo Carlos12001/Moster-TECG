@@ -27,11 +27,6 @@ public class MonsterTECGApp extends Application {
         launch(args);
     }
 
-    /**
-     * This method creates the stage and scene of the menu.
-     *
-     * @param primaryStage
-     */
     @Override
     public void start(Stage primaryStage) {
 
@@ -42,7 +37,7 @@ public class MonsterTECGApp extends Application {
             loader.setLocation(MonsterTECGApp.class.getResource("/view/MenuView.fxml"));
 
             // Cargo la ventana
-            Pane ventana = (Pane) loader.load();
+            Pane ventana = loader.load();
 
             // Cargo el scene
             Scene scene = new Scene(ventana);
@@ -55,8 +50,7 @@ public class MonsterTECGApp extends Application {
             this.window.show();
 
 
-        } catch (IOException e) {
-            e.getMessage();
+        } catch (IOException ignored) {
         }
     }
 

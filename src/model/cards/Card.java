@@ -65,9 +65,7 @@ public class Card {
             switch (this.category) {
                 case "HENCHEMAN" -> setter = arrayCard[0][this.numerCode];
                 case "SECRET" -> setter = arrayCard[1][this.numerCode];
-                case "SPELL" -> {
-                    setter = arrayCard[2][this.numerCode];
-                }
+                case "SPELL" -> setter = arrayCard[2][this.numerCode];
                 default -> throw new IllegalStateException("Unexpected value: " + this.category);
             }
             this.image = setter.image;

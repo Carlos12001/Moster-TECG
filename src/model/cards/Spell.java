@@ -32,7 +32,7 @@ public class Spell extends Card{
     /**
      * This creator obtains the methods and attributes from the class card and set the shifts using the card
      *
-     * @param card
+     * @param card The card to get basic information.
      */
     public Spell(Card card){
         super(card);

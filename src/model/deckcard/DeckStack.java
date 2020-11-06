@@ -41,8 +41,6 @@ public class DeckStack {
     public void push(Card newCard){
         if (top < maxSize) {
             this.stackArray[++top] = newCard;
-        } else {
-            System.out.println("pila llena"); // agregar al logger
         }
     }
 

@@ -211,7 +211,6 @@ public class MenuController {
     private void initialize() {
         try {
             this.textFieldIp.setPromptText(InetAddress.getLocalHost().getHostAddress());
-            this.textFieldPuerto.setText(1024+"");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

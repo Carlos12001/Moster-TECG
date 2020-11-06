@@ -68,7 +68,6 @@ public class Server {
 
             this.socketClient.setKeepAlive(true);
         } catch (IOException e) {
-            System.out.println("Error in write Socket");
             closeConexion();
         }
     }
@@ -172,7 +171,7 @@ public class Server {
         try {
             this.server.close();
             this.socketClient.close();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
     }
 

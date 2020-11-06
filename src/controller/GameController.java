@@ -447,9 +447,9 @@ public class GameController {
                 this.cardD05.setImage(new Image("/images/ReverseCards.png"));
             }
             this.labelSender.setText(historyNode.getsenderName());
-            this.labelLifeSender.setText("Vida: " + String.valueOf(historyNode.getsenderLife()));
+            this.labelLifeSender.setText("Vida: " + historyNode.getsenderLife());
             this.labelReciber.setText(historyNode.getreciberName());
-            this.labelLifeReciber.setText("Vida: " + String.valueOf(historyNode.getreciberLife()));
+            this.labelLifeReciber.setText("Vida: " + historyNode.getreciberLife());
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
         } else {
             historyList.setCurrentDisplayHead();
