@@ -2,14 +2,36 @@ package model.handcard;
 
 import model.cards.Card;
 
+/**
+ * This is a circular double linked list, which contains the hand card nodes.
+ * The user can navigate through it in vevery direction.
+ */
 public class HandCardList {
 
+    /**
+     * this is the head of the handcard list.
+     */
     private HandCardNode head;
+
+    /**
+     * this is the end of the handcard list.
+     */
     private HandCardNode tail;
+
+    /**
+     * this is the current card that is displayed.
+     */
     private HandCardNode currentDisplay;
+
+    /**
+     * This is the size of the list.
+     */
     private int size;
 
 
+    /**
+     * this is the creator of the list.
+     */
     public HandCardList(){
         this.head = null;
         this.tail = null;
@@ -17,14 +39,21 @@ public class HandCardList {
         this.size = 0;
     }
 
+    /**
+     * This method verify if the list is empty.
+     *
+     * @return boolean
+     */
     public boolean isEmpty(){
         return this.head == null;
     }
 
-    public int getSize(){
-        return this.size;
-    }
 
+
+    /**
+     * This method insert a new card at the end of the list.
+     * @param handCardNode Card
+     */
     public void insertLast(Card handCardNode){
         HandCardNode newCardNode = new HandCardNode(handCardNode);
 
@@ -36,11 +65,16 @@ public class HandCardList {
             newCardNode.setNext(this.head);
             this.tail = newCardNode;
             this.head.setPrevious(this.tail);
-            //this.tail.setNext(this.head);
         }
         this.size++;
     }
 
+    /**
+     * This method deletes the current card and return it.
+     *
+     * @param id String that identifies the card
+     * @return the card tha is deleted.
+     */
     public Card deleteCard(String id){
         HandCardNode current = this.head;
         HandCardNode previous = this.head;
@@ -76,6 +110,9 @@ public class HandCardList {
         return null;
     }
 
+    /**
+     * This method set the to the next node.
+     */
     public void setDisplayCard(){
         if (this.isEmpty()){
             this.currentDisplay = null;
@@ -84,10 +121,19 @@ public class HandCardList {
         }
     }
 
+    /**
+     * This method set the currentDisplay to the tail.
+     */
     public void setCurrentDisplayTail(){
         this.currentDisplay = this.tail;
     }
 
+    /**
+     * This method set the current display and returns the card in that position.
+     *
+     * @param direction String indicating the direction.
+     * @return the current card.
+     */
     public Card displayCard(String direction){
         if (currentDisplay == null){
             this.currentDisplay = this.head;
@@ -107,6 +153,9 @@ public class HandCardList {
         return null;
     }
 
+    /**
+     * This method is used to display the list.
+     */
     public void displayListPrint(){
         StringBuilder result = new StringBuilder("[ ");
 
@@ -117,9 +166,7 @@ public class HandCardList {
                 current = current.getNext();
             }
         }
-
         result.append(" ]");
-
         System.out.println(result);
     }
 
@@ -150,4 +197,12 @@ public class HandCardList {
         return head.getCardN();
     }
 
+    /**
+     * Gets size.
+     *
+     * @return Value of size.
+     */
+    public int getSize() {
+        return size;
+    }
 }

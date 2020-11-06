@@ -13,27 +13,39 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 /**
- * This class
+ * This class handles the client connection.
  */
 public class Client  {
     /**
-     *
+     *  This is the port number, which begins at 1024.
      */
     private int port;
+
     /**
-     *
+     * String containing the IP of the computer that the client is going connect.
      */
     private String IPserver;
+
     /**
-     *
+     * This is the socket that is used to transfer information between computers.
      */
     private Socket clientSocket;
+
+    /**
+     * This lets the aplication read primitive Java data types.
+     */
     private DataInputStream inputSocketInD;
+
+    /**
+     * This lets tje application write primitive Java data type.
+     */
     private DataOutputStream clientOutD;
 
     /**
-     * @param newPort
-     * @param newIPserver
+     * This is the constructor, it finds the server and connects to it.
+     *
+     * @param newPort int.
+     * @param newIPserver String.
      */
     public Client(int newPort, String newIPserver) {
         this.port = newPort;
@@ -51,27 +63,27 @@ public class Client  {
 
 
     /**
-     * This method returns the port number
+     * This method returns the port number.
      *
-     * @return Value of port
+     * @return Value of port.
      */
     public int getPort() {
         return this.port;
     }
 
     /**
-     * This method returns the IP of the server
+     * This method returns the IP of the server.
      *
-     * @return value of IPserver
+     * @return value of IPserver.
      */
     public String getIPserver() {
         return this.IPserver;
     }
 
     /**
-     * This method connect to the server and send the jackson
+     * This method connect to the server and send the jackson.
      *
-     * @param jacksonStr New jackson String
+     * @param jacksonStr New jackson String.
      */
     public void writeSocket(String jacksonStr) {
         try {
@@ -83,7 +95,8 @@ public class Client  {
     }
 
     /**
-     *
+     * This method waits for the server and if there is one server it read the information and update the
+     * information.
      */
     public void readSockect() {
         ObjectMapper mapper = new ObjectMapper();
@@ -110,6 +123,9 @@ public class Client  {
         thread.start();
     }
 
+    /**
+     * This method closes the connection between the server and the client.
+     */
     public void closeConexion(){
         try {
             this.clientSocket.close();

@@ -3,23 +3,28 @@ package model.deckcard;
 import model.cards.Card;
 
 /**
- *
+ * This class is an stack, here is saved all the card from deck
  */
-public class SizdeDeckStack {
+public class DeckStack {
+
     /**
-     *
+     * This is a number that indicates the maximum size the stack can have.
      */
     private short maxSize;
+
     /**
-     *
+     * This is the array that is used to stack all the cards
      */
     private Card[] stackArray;
+
     /**
-     *
+     * This is a number tha indicates where the top is.
      */
     private short top;
 
-    /** Create a new Stack.
+    /**
+     * Create a new Stack.
+     *
      * @param max The max of the stack
      */
     public DeckStack(short max){
@@ -28,7 +33,9 @@ public class SizdeDeckStack {
         this.stackArray = new Card[max];
     }
 
-    /** Push the new Card in the stack.
+    /**
+     * Push the new Card in the stack.
+     *
      * @param newCard The new Card in the stack.
      */
     public void push(Card newCard){
@@ -39,7 +46,9 @@ public class SizdeDeckStack {
         }
     }
 
-    /** Get the cart in the top.
+    /**
+     * Get the cart in the top.
+     *
      * @return Get the card in the top and delete in the stack.
      */
     public Card pop(){
@@ -49,7 +58,9 @@ public class SizdeDeckStack {
             return null;
     }
 
-    /** Get the cart in the top
+    /**
+     * Get the cart in the top
+     *
      * @return Get the card in the top
      */
     public Card peek(){

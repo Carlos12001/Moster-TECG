@@ -7,24 +7,27 @@ package model.game;
 public class Player {
 
     /**
-     *
+     * This is the name of the player.
      */
     private final String name;
+
     /**
-     *
+     * The mana is used to buy cards, the maximum is 1000.
      */
     private int mana;
+
     /**
-     *
+     * this is the playe's life, the maximun is 1000.
      */
     private int life;
+
     /**
-     *
+     * This is a percentage that is used on increaseLife Turn.
      */
     private double multiplier = 0.25;
 
     /**
-     *
+     * This is the constructor, it sets the mana, name and life.
      */
     public Player(String name){
         this.name = name;
@@ -33,7 +36,8 @@ public class Player {
     }
 
     /**
-     * This method returns the name of the player
+     * This method returns the name of the player.
+     *
      * @return String name
      */
     public String getName() {
@@ -41,7 +45,8 @@ public class Player {
     }
 
     /**
-     * This method returns the mana of the player
+     * This method returns the mana of the player.
+     *
      * @return Value of mana
      */
     public int getMana() {
@@ -49,7 +54,8 @@ public class Player {
     }
 
     /**
-     * This method set the mana
+     * This method set the mana.
+     *
      * @param mana New value of num
      */
     public void setMana(int mana) {
@@ -60,7 +66,8 @@ public class Player {
     }
 
     /**
-     * This method sum points of mana
+     * This method sum points of mana.
+     *
      * @param num New value of num
      */
 
@@ -73,7 +80,8 @@ public class Player {
     }
 
     /**
-     * This method rest points of mana
+     * This method rest points of mana.
+     *
      * @param num int points of mana to decrease
      */
 
@@ -86,7 +94,7 @@ public class Player {
     }
 
     /**
-     * This method increase 25% of the mana
+     * This method increase 25% of the mana.
      */
     public void increaseManaTurn() {
         int percentaje = (int) (this.multiplier * this.mana);
@@ -101,7 +109,8 @@ public class Player {
     }
 
     /**
-     * Este metodo retorna la vida del jugador
+     * This method retunrs the player's life.
+     *
      * @return Value of life
      */
     public int getLife() {
@@ -109,7 +118,8 @@ public class Player {
     }
 
     /**
-     * This method set playes's life
+     * This method set playes's life.
+     *
      * @param life int new points of life
      */
     public void setLife(int life) {
@@ -120,7 +130,8 @@ public class Player {
     }
 
     /**
-     * This method sum points of life
+     * This method sum points of life.
+     *
      * @param num New value of num
      */
 
@@ -133,7 +144,8 @@ public class Player {
     }
 
     /**
-     * This method rest points of life
+     * This method rest points of life.
+     *
      * @param num New value of num
      */
 

@@ -2,19 +2,65 @@ package model.history;
 
 import model.cards.Card;
 
+/**
+ * This class creates nodes for the linked list of history, it contains all the information necessary to
+ * show the recent play
+ */
 public class HistoryNode {
 
+    /**
+     * This is the pointer of the next history
+     */
     private HistoryNode next;
+
+    /**
+     * This is the pointer of the previous history
+     */
     private HistoryNode previous;
+
+    /**
+     * This string contains the name of the person who sent the card.
+     */
     private String senderName;
+
+    /**
+     * This string contains the name of the person who receive the card.
+     */
     private String reciberName;
+
+    /**
+     * This int contains the points of life the person who sent the card has.
+     */
     private int senderLife;
+
+    /**
+     * This int contains the points of life the person who receive the card has.
+     */
     private int reciberLife;
+
+    /**
+     * This number contains the number of the round.
+     */
     private short round;
+
     private String cardcode;
+
+    /**
+     * Here is the card object.
+     */
     private Card card;
 
 
+    /**
+     * This is the creator method where it builds a node with all the information necessary to show the recent play.
+     *
+     * @param senderName String
+     * @param reciberName String
+     * @param senderLife int
+     * @param reciberLife int
+     * @param cardcode String
+     * @param round short
+     */
     public HistoryNode(String senderName, String reciberName, int senderLife, int reciberLife, String cardcode, short round){
         this.next = null;
         this.previous = null;
@@ -31,7 +77,11 @@ public class HistoryNode {
 
     }
 
-
+    /**
+     * Gets card.
+     *
+     * @return Card object.
+     */
     public Card getCard() {
         return card;
     }

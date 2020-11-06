@@ -8,7 +8,6 @@ import model.cards.*;
 import model.deckcard.DeckStack;
 import model.handcard.HandCardList;
 import model.history.HistoryList;
-import model.history.HistoryNode;
 import model.sockets.*;
 
 import java.io.*;
@@ -20,69 +19,83 @@ import static model.sockets.ConnectionType.SERVER;
 public class Game {
 
     /**
-     *
+     * This is the instance of the game.
      */
     private static volatile Game instance;
+
     /**
-     *
+     * This is the instance of the player.
      */
     private final Player player;
+
     /**
-     *
+     * This attribute indicates the type of the connection.
      */
     private ConnectionType typeConexion;
+
     /**
-     *
+     * This attribute indicates who is the fist playing.
      */
     private ConnectionType whoFisrt;
+
     /**
-     *
+     * This String contains the name of the opponent.
      */
     private String playerOtherName;
+
     /**
-     *
+     * This is the mana of the opponent.
      */
     private int playerOtherMana;
+
     /**
-     *
+     * This is the life of the opponent.
      */
     private int playerOtherLife;
+
     /**
-     *
+     * This is the number of the round.
      */
     private short round = 1;
+
     /**
-     *
+     * Here is the code of the opponets card.
      */
     private String codeOtherCard;
+
     /**
-     *
+     * This is the instance of the client.
      */
     private Client client;
+
     /**
-     *
+     * This instance is the server.
      */
     private Server server;
+
     /**
-     *
+     * Here is the newest info that is sent.
      */
     private UpdateInfo updateInfo;
+
     /**
-     *
+     * Here is created the deck of cards.
      */
     private DeckStack deckStack = new DeckStack((short)16);
+
     /**
-     *
+     * Here is created the hand card list.
      */
     private HandCardList handCardList = new HandCardList();
 
     /**
-     *
+     * Here is created the history list.
      */
     private HistoryList historyList = new HistoryList();
 
     /**
      * This is the constructor
+     *
      * @param player New player object
      * @param typeConexion New connectionType
      */
@@ -182,7 +195,6 @@ public class Game {
         return whoFisrt;
     }
 
-
     /**
      * Gets playerOtherMana.
      *
@@ -192,9 +204,8 @@ public class Game {
         return playerOtherMana;
     }
 
-
     /**
-     * Sets new round
+     * Sets new round.
      */
     public void setRound() {
         ++this.round;
@@ -228,7 +239,7 @@ public class Game {
     }
 
     /**
-     * This method return the server class
+     * This method return the server class.
      * @return server class
      */
     public Server getServer() {
@@ -240,7 +251,7 @@ public class Game {
     }
 
     /**
-     * This method returns the client class
+     * This method returns the client class.
      *
      * @return client class
      */
@@ -253,7 +264,7 @@ public class Game {
     }
 
     /**
-     * This method returns the info
+     * This method returns the info.
      *
      * @return info
      */
@@ -261,9 +272,8 @@ public class Game {
         return updateInfo;
     }
 
-
     /**
-     * This method sets the new information
+     * This method sets the new information.
      *
      * @param updateInfo New Json
      */
@@ -279,13 +289,6 @@ public class Game {
     }
 
     /**
-     * @return
-     */
-    public HandCardList getHandCardList() {
-        return handCardList;
-    }
-
-    /**
      * Gets deckStack.
      *
      * @return Value of deckStack.
@@ -295,14 +298,25 @@ public class Game {
     }
 
     /**
-     * @return
+     * Gets the history list.
+     *
+     * @return Value of Here is created the history list..
      */
     public HistoryList getHistoryList() {
         return historyList;
     }
 
     /**
-     * Excuete the client
+     * Gets Here is created the hand card list..
+     *
+     * @return Value of Here is created the hand card list..
+     */
+    public HandCardList getHandCardList() {
+        return handCardList;
+    }
+
+    /**
+     * Excuete the client.
      *
      * @param port New int
      * @param ip   New String
@@ -335,7 +349,7 @@ public class Game {
     }
 
     /**
-     * T
+     * This method creates the server if the conection type is SERVER.
      */
     public void createConnection() {
         if ((this.server == null) & (this.typeConexion == SERVER)) {
@@ -345,7 +359,9 @@ public class Game {
     }
 
     /**
-     * @param skipTurn
+     * This method sends the information to the opponent.
+     *
+     * @param skipTurn boolean
      */
     public void sendInfoOtherPlayer(boolean skipTurn) {
         this.updateInfo.setPlayerSendName(player.getName());
@@ -362,7 +378,9 @@ public class Game {
     }
 
     /**
-     * @param codeCart
+     * This method sends the information of the player to the opponent.
+     *
+     * @param codeCart String code of the card
      */
     public void sendInfoOtherPlayer(String codeCart) {
         this.updateInfo.setPlayerSendName(player.getName());
@@ -378,7 +396,7 @@ public class Game {
     }
 
     /**
-     *
+     * This method reads the information from the socket.
      */
     public void recibeNewInfo() {
         switch (this.getTypeConexion()) {
@@ -389,6 +407,8 @@ public class Game {
     }
 
     /**
+     * this method reads the jackson and generates a JSON.
+     *
      * @return jsonRead
      */
     private String generateJackson() {
@@ -421,7 +441,7 @@ public class Game {
     }
 
     /**
-     *
+     * This method creates the full deck stack, with random cards.
      */
     public void initDeckCard() {
         ObjectMapper mapper = new ObjectMapper();
@@ -441,7 +461,7 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2]);
+                        Card newCardH = new Hencheman(arrayCard[num1][num2]);
                         this.deckStack.push(newCardH);
                     }
                     case 1 -> {
@@ -464,7 +484,7 @@ public class Game {
     }
 
     /**
-     *
+     * This method creates the first hand card with four cards. The cards are randomly selected.
      */
     public void initHandCard() {
         ObjectMapper mapper = new ObjectMapper();
@@ -484,7 +504,7 @@ public class Game {
 
                 switch (num1) {
                     case 0-> {
-                        Card newCardH = new Henchman(arrayCard[num1][num2]);
+                        Card newCardH = new Hencheman(arrayCard[num1][num2]);
                         this.handCardList.insertLast(newCardH);
                     }
                     case 1 -> {
@@ -506,20 +526,26 @@ public class Game {
         }
     }
 
-    public void finishConexion ()throws IllegalStateException{
+    /**
+     * This method ends the connection between the server and the client.
+     *
+     * @throws IllegalStateException when it has a bad connection type.
+     */
+    public void finishConexion () throws IllegalStateException{
 
         switch (this.getTypeConexion()) {
-            case SERVER -> this.server.readSockect();
-            case CLIENT -> this.client.readSockect();
+            case SERVER -> this.server.closeConexion();
+            case CLIENT -> this.client.closeConexion();
             default -> throw new IllegalStateException("Unexpected value: " + this.getTypeConexion());
         }
     }
 
-
     /**
-     * @param player
-     * @param typeConexion
-     * @return instance
+     * This is the Singleton, if the instance is created the it won't create a new instance.
+     *
+     * @param player Player object.
+     * @param typeConexion Type of connection this game has.
+     * @return instance game instance.
      */
     public static Game getInstance(Player player, ConnectionType typeConexion) {
 
@@ -535,13 +561,13 @@ public class Game {
         }
     }
 
-    /** Return the game instance.
+    /**
+     * Return the game instance.
+     *
      * @return Game instance
      */
     public static Game getInstance() {
         return instance;
     }
-
-
 
 }

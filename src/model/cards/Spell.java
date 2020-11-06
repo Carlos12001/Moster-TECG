@@ -19,7 +19,10 @@ public class Spell extends Card{
     private int shifts;
 
     /**
-     * @param code
+     * This creator obtains the methods and attributes from the class card using the code of
+     * the card
+     *
+     * @param code String
      */
     public Spell(String code) {
         super(code);
@@ -27,6 +30,8 @@ public class Spell extends Card{
     }
 
     /**
+     * This creator obtains the methods and attributes from the class card and set the shifts using the card
+     *
      * @param card
      */
     public Spell(Card card){

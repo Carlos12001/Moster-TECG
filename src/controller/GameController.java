@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import model.cards.Card;
-import model.cards.Henchman;
+import model.cards.Hencheman;
 import model.cards.Secret;
 import model.cards.Spell;
 import model.game.Game;
@@ -26,113 +26,196 @@ import java.util.Random;
 
 
 /**
+ * In this class is the combination of the game logic and the interface logic.
+ * this class handles the actions of the FXML view.
  * @version 7.0
  */
 public class GameController {
 
-
     /**
-     *
+     * game is the singleton, the game is only created once.
      */
     private Game game = Game.getInstance();
 
+    /**
+     * this atribute counts all the turns that the player are not going to play due skip or the event of a card.
+     */
     private int dissableTurn = 0;
 
     /**
-     *
+     * This is a FXML label of the gameview that shows the current round.
      */
     @FXML
     private Label labelRound;
 
     /**
-     *
+     * This is a FXML label of the gameview that shows the connection type that the player is using.
+     */
+    @FXML
+    private Label labelTypeConnection;
+
+    /**
+     * This is a FXML label of the gameview that shows the name of the opponent.
+     */
+    @FXML
+    private Label labelNameOtherPlayer;
+
+    /**
+     * This is a FXML label of the gameview that shows the name of the current player.
+     */
+    @FXML
+    private Label labelNameThisPLayer;
+
+    /**
+     * This is a FXML label of the gameview that shows the maná of the current player.
+     */
+    @FXML
+    private Label labelManaThisPlayer;
+
+    /**
+     * This is a FXML label of the gameview that shows the number of cards that the player has.
+     */
+    @FXML
+    private Label labelNumCarts;
+
+    /**
+     * This is a FXML Label of the gameview that shows the name of the person who send the card.
+     */
+    @FXML
+    private Label labelSender;
+
+    /**
+     * This is a FXML Label of the gameview that shows the life of the person who send the card.
+     */
+    @FXML
+    private Label labelLifeSender;
+
+    /**
+     * This is a FXML Label of the gameview that shows the name of the person who recibe the card.
+     */
+    @FXML
+    private Label labelReciber;
+
+    /**
+     * This is a FXML Label of the gameview that shows the life of the person who recibe the card.
+     */
+    @FXML
+    private Label labelLifeReciber;
+
+    /**
+     * This is a FXML Label of the gameview that shows the number of the round that the card was send.
+     */
+    @FXML
+    private Label labelRoundHistory;
+
+    /**
+     * This is a FXML button of the gameview that handle the logic of a skip turn.
      */
     @FXML
     private Button buttonSkipTurn;
 
     /**
-     *
+     * This is a FXML Button of the gameview that shows the previous card of the hand card.
      */
-    @FXML
-    private Label labelTypeConnection;
-
-    @FXML
-    private Label labelNameOtherPlayer;
-
-    @FXML
-    private ProgressBar progressBarLifeOtherPlayer;
-
-    @FXML
-    private Label labelNameThisPLayer;
-
-    @FXML
-    private ProgressBar progressBarLifeThisPLayer;
-
-    @FXML
-    private Label labelManaThisPlayer;
-
-    @FXML
-    private Label labelNumCarts;
-
-    @FXML
-    private StackPane stackPaneDeckCart;
-
-    @FXML
-    private ImageView cardD01;
-
-    @FXML
-    private ImageView cardD0;
-
-    @FXML
-    private HBox hBoxHandCard;
-
     @FXML
     private Button buttonPreviousCard;
 
-    @FXML
-    private ImageView cardD02;
-
+    /**
+     * This is a FXML Button of the gameview that shows the next card of the hand card.
+     */
     @FXML
     private Button buttonNextCard;
 
-    @FXML
-    private VBox vBoxTableCard;
-
-    @FXML
-    private ImageView cardD03;
-
-    @FXML
-    private ImageView cardD04;
-
-    @FXML
-    private VBox vBoxHistory;
-
+    /**
+     * This is a FXML Button of the gameview that shows the previous history node.
+     */
     @FXML
     private Button buttonPreviousHistory;
 
-    @FXML
-    private Label labelSender;
-
-    @FXML
-    private Label labelLifeSender;
-
-    @FXML
-    private ImageView cardD05;
-
-    @FXML
-    private Label labelReciber;
-
-    @FXML
-    private Label labelLifeReciber;
-
+    /**
+     * This is a FXML Button of the gameview that shows the next history node.
+     */
     @FXML
     private Button buttonNextHistory;
 
+    /**
+     * This is a FXML ProgressBar of the gameview that shows the life of the opponent.
+     */
     @FXML
-    private Label labelRoundHistory;
+    private ProgressBar progressBarLifeOtherPlayer;
 
     /**
-     * @param event
+     * This is a FXML ProgressBar of the gameview that shows the life of the current player.
+     */
+    @FXML
+    private ProgressBar progressBarLifeThisPLayer;
+
+    /**
+     * This is a FXML StackPane of the gameview that contains the deck.
+     */
+    @FXML
+    private StackPane stackPaneDeckCart;
+
+    /**
+     * This is a FXML HBox of the gameview that contains cardD02 and the next a previous buttons.
+     */
+    @FXML
+    private HBox hBoxHandCard;
+
+    /**
+     * This is a FXML VBox of the gameview that contains the hand card and the deck.
+     */
+    @FXML
+    private VBox vBoxTableCard;
+
+    /**
+     * This is a FXML VBox of the gameview that contais the labels and the image of the history nodes.
+     */
+    @FXML
+    private VBox vBoxHistory;
+
+    /**
+     * This is a FXML ImageView of the gameview that is used to create an animation.
+     */
+    @FXML
+    private ImageView cardD0;
+
+    /**
+     * This is a FXML ImageView of the gameview that contains the logic and the image of the reverse of the card deck.
+     */
+    @FXML
+    private ImageView cardD01;
+
+    /**
+     * This is a FXML ImageView of the gameview that contains the logic and the images of the card from hand card.
+     */
+    @FXML
+    private ImageView cardD02;
+
+    /**
+     * This is a FXML ImageView of the gameview that shows the card that the opponent send.
+     */
+    @FXML
+    private ImageView cardD03;
+
+    /**
+     * This is a FXML ImageView of the gameview that shows the card that the player send.
+     */
+    @FXML
+    private ImageView cardD04;
+
+    /**
+     * This is a FXML ImageView of the gameview that shows the card that was send in a determined round.
+     */
+    @FXML
+    private ImageView cardD05;
+
+
+    /**
+     * When the mouse is among the deck this method creates an animation that shows how many cards will be discounted
+     * also rotates the cardD0 which propose is decoration.
+     *
+     * @param event type MouseEvent
      */
     @FXML
     private void doSenalDeck(MouseEvent event) {
@@ -149,7 +232,10 @@ public class GameController {
     }
 
     /**
-     * @param event
+     * When the cardD01 is clicked and the player has cards on thew deck and the handCard below ten cards, this methods
+     * adds a new card to the deck.
+     *
+     * @param event type MouseEvent
      */
     @FXML
     private void addCardHandCard(MouseEvent event) {
@@ -170,8 +256,6 @@ public class GameController {
 
             this.cardD02.setImage(new Image("/images/" +
                     this.game.getHandCardList().displayCard("current").getImage()));
-        } else {
-            //sonido
         }
 
         if (this.game.getDeckStack().getTop() <= -1) {
@@ -183,7 +267,10 @@ public class GameController {
     }
 
     /**
-     * @param event
+     * When the mouse is not among the deck this method eliminates the animation that shows how many cards will be discounted
+     * also the one that rotates the cardD0 which propose is decoration.
+     *
+     * @param event type MouseEvent
      */
     @FXML
     private void revertSenalDeck(MouseEvent event) {
@@ -193,7 +280,10 @@ public class GameController {
     }
 
     /**
-     * @param event
+     * When the buttonPreviousCard button is clicked, this method sets the previous card on the circular double
+     * linked list and gets the image to display.
+     *
+     * @param event type ActionEvent
      */
     @FXML
     private void handlePreCard(ActionEvent event) {
@@ -201,8 +291,35 @@ public class GameController {
                 this.game.getHandCardList().displayCard("previous").getImage()));
     }
 
+
     /**
-     * @param event
+     * When the buttonNextCard button is clicked, this method sets the next card on the circular double
+     * linked list and gets the image to display.
+     *
+     * @param event type ActionEvent
+     */
+    @FXML
+    private void handleNextCard(ActionEvent event) {
+        this.cardD02.setImage(new Image("/images/" +
+                this.game.getHandCardList().displayCard("next").getImage()));
+    }
+
+    /**
+     * This method unselect the price of the card, the visualization of the maná returns back to normal.
+     *
+     * @param event type MouseEvent
+     */
+    @FXML
+    private void unselectCard(MouseEvent event) {
+        this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "");
+        this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
+    }
+
+    /**
+     * When the mouse is among the hand card this method shows an animation that tells if the maná is enough, if not it
+     * shows an "X".
+     *
+     * @param event MouseEvent
      */
     @FXML
     private void selectCard(MouseEvent event) {
@@ -224,7 +341,11 @@ public class GameController {
     }
 
     /**
-     * @param event
+     * When the mouse is clicked among the handcard, this method verifies if the player can buy the current card,
+     * then decreases the cost from the player's maná, send the information to the opponent, and verify the action
+     * of the card.
+     *
+     * @param event type MouseEvent
      */
     @FXML
     private void handleSend(MouseEvent event) {
@@ -238,7 +359,7 @@ public class GameController {
             this.cardD04.setImage(new Image("/images/" +
                     current.getImage()));
 
-            //Increase Mana
+            //Increase maná
             this.game.getPlayer().increaseManaTurn();
             
 
@@ -248,7 +369,7 @@ public class GameController {
                 this.game.setRound();
             }
 
-            //Actualiza la interfaz.
+            //update the interface
             updateGUI();
 
             this.dissableGUI(true);
@@ -260,7 +381,7 @@ public class GameController {
             this.game.getHandCardList().deleteCard(current.getCode());
             this.game.getHandCardList().setDisplayCard();
 
-            //Do the acttion Card
+            //Do the action Card
             this.actionCard(current.getCode(), true);
 
             //Sets the new image
@@ -277,28 +398,15 @@ public class GameController {
 
             //Listing the GUI
             this.recibeMessage(oldInfo);
-        } else {
-//            this.cardD02.setImage(new Image("/images/" +
-//                    "ReverseCards.png"));
         }
     }
 
     /**
-     * @param event
+     * When the buttonSkipTurn button is pressed this method increase 25% of the players life and notifies the opponent
+     * that the player skip turn. Then disables the interface.
+     *
+     * @param event type ActionEvent
      */
-    @FXML
-    private void unselectCard(MouseEvent event) {
-        this.labelManaThisPlayer.setText(this.game.getPlayer().getMana() + "");
-        this.labelManaThisPlayer.setTextFill(Paint.valueOf("#66d8f2"));
-    }
-
-    @FXML
-    private void handleNextCard(ActionEvent event) {
-        this.cardD02.setImage(new Image("/images/" +
-                this.game.getHandCardList().displayCard("next").getImage()));
-
-    }
-
     @FXML
     private void handleSkipTurn(ActionEvent event) {
 
@@ -310,6 +418,8 @@ public class GameController {
         if (this.game.getWhoFisrt() != this.game.getTypeConexion() && this.dissableTurn <= 1) {
             this.game.setRound();
         }
+        this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
+                this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), oldInfo.getCodeSendCart(), this.game.getRound());
 
         this.updateGUI();
         this.dissableGUI(true);
@@ -319,6 +429,12 @@ public class GameController {
         this.recibeMessage(oldInfo);
     }
 
+    /**
+     * When buttonPreviousHistory is pressed it gets the previous history node and gets the information from it. Then
+     * it updates the GUI with this information.
+     *
+     * @param event type ActionEvent
+     */
     @FXML
     private void handlePreHistory(ActionEvent event) {
         Game game = Game.getInstance();
@@ -335,9 +451,17 @@ public class GameController {
             this.labelReciber.setText(historyNode.getreciberName());
             this.labelLifeReciber.setText("Vida: " + String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        } else {
+            historyList.setCurrentDisplayHead();
         }
     }
 
+    /**
+     * When buttonNextHistory is pressed it gets the next history node and gets the information from it. Then
+     * it updates the GUI with this information.
+     *
+     * @param event type ActionEvent
+     */
     @FXML
     private void handleNextHistory(ActionEvent event) {
         Game game = Game.getInstance();
@@ -354,11 +478,15 @@ public class GameController {
             this.labelReciber.setText(historyNode.getreciberName());
             this.labelLifeReciber.setText(String.valueOf(historyNode.getreciberLife()));
             this.labelRoundHistory.setText("Ronda:  " + String.valueOf(historyNode.getRound()));
+        } else {
+            historyList.setCurrentDisplayTail();
         }
-
     }
 
     /**
+     * When the param setter is true, the interface blocks and the player cannot press anything but the History. And
+     * when it is false, habilitate the GUI.
+     *
      * @param setter This is boolean who blocks the GUI.
      */
     private void dissableGUI(boolean setter) {
@@ -379,8 +507,12 @@ public class GameController {
         this.stackPaneDeckCart.setDisable(setter);
     }
 
+
     /**
+     * This method is a thread, it verifies if the old info still the same or if the opponent send different
+     * information.
      *
+     * @param oldInfo type UpdateInfo. This is the old info saved on the game.
      */
     private void recibeMessage(UpdateInfo oldInfo) {
 
@@ -399,7 +531,8 @@ public class GameController {
     }
 
     /**
-     *
+     * this is an auxiliary method of recibeMessage(oldInfo) which interprets the new information and habilitates the
+     * interface again. Also verifies the action of the card.
      */
     private void recibeMessageAux() {
         this.dissableGUI(false);
@@ -410,7 +543,7 @@ public class GameController {
 
 
     /**
-     *
+     * This method reads the recent information like round, life, maná and current player and actualizes it.
      */
     private void updateGUI() {
 
@@ -420,7 +553,6 @@ public class GameController {
 
         //Set new Information
         this.game.setWhoFisrt(info.getWhoFirst());
-
         this.labelRound.setText(this.game.getRound() + "");
 
         this.labelNameOtherPlayer.setText(
@@ -459,16 +591,21 @@ public class GameController {
         }
     }
 
+
     /**
-     * @param code
+     * This method receives the code of the current card and a boolean indicating who is the sender. It reads the
+     * category of the card and creates the respective card
+     *
+     * @param code String contains the category and the code af the card
+     * @param sender boolean indicating who is the sender
      */
     private void actionCard(String code, boolean sender) {
         this.cardD03.setVisible(true);
         switch (code.split("@")[0]) {
             case "HENCHEMAN" -> {
-                Henchman henchman = new Henchman(code);
-                if (!sender) this.cardD03.setImage(new Image("/images/" + henchman.getImage()));
-                this.actionHenchman(henchman, sender);
+                Hencheman hencheman = new Hencheman(code);
+                if (!sender) this.cardD03.setImage(new Image("/images/" + hencheman.getImage()));
+                this.actionHenchman(hencheman, sender);
             }
             case "SECRET" -> {
                 Secret secret = new Secret(code);
@@ -489,25 +626,32 @@ public class GameController {
         this.GAMEOVER();
     }
 
+
     /**
+     * This method applies the reduction of players life. It gets the attack of the current card actualize the opponent
+     * life. Also it sets the progreesBar of the opponent.
      *
+     * @param hencheman int it is the code of the card
+     * @param sender boolean indicating who is the sender
      */
-    private void actionHenchman(Henchman henchman, boolean sender) {
+    private void actionHenchman(Hencheman hencheman, boolean sender) {
         Game game = Game.getInstance();
         if (sender) {
 
-            this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() - henchman.getAtack()));
+            this.game.setPlayerOtherLife((int) ((double) game.getPlayerOtherLife() - hencheman.getAtack()));
             this.progressBarLifeOtherPlayer.setProgress(((double) game.getPlayerOtherLife()) / 1000);
         } else {
-            game.getPlayer().decreaseLife(henchman.getAtack());
+            game.getPlayer().decreaseLife(hencheman.getAtack());
             this.progressBarLifeThisPLayer.setProgress(((double) game.getPlayer().getLife()) / 1000);
         }
     }
 
 
     /**
-     * @param spell
-     * @param sender
+     * This method sets the characteristics of each type of spell card, it can change life, maná and block turns.
+     *
+     * @param spell Card
+     * @param sender boolean indicating who is the sender
      */
     private void actionSpell(Spell spell, boolean sender) {
         short numCode = spell.getNumerCode();
@@ -540,7 +684,7 @@ public class GameController {
                         Card cd;
 
                         switch (rnd.nextInt(3)) {
-                            case 0 -> cd = new Henchman("HENCHMAN@" + rnd.nextInt(10));
+                            case 0 -> cd = new Hencheman("HENCHMAN@" + rnd.nextInt(10));
                             case 1 -> cd = new Secret("SPELL@" + rnd.nextInt(10));
                             case 2 -> cd = new Spell("SPELL@" + rnd.nextInt(10));
                             default -> throw new IllegalStateException("Unexpected value: " + rnd.nextInt(3));
@@ -633,6 +777,13 @@ public class GameController {
         }
     }
 
+    /**
+     * This method sets the characteristics of each type of secret card, it can change life, maná, add cards and
+     * make questions.
+     *
+     * @param secret Card
+     * @param sender boolean indicating who is the sender
+     */
     private void actionSecret (Secret secret,boolean sender){
         Game game = Game.getInstance();
         switch (secret.getNumerCode()) {
@@ -645,8 +796,8 @@ public class GameController {
             case 1:
                 if (sender){
                     if (game.getDeckStack().getTop() + 1 <= 14 ){
-                        game.getDeckStack().push(new Henchman("HENCHEMAN@3"));
-                        game.getDeckStack().push(new Henchman("HENCHEMAN@6"));
+                        game.getDeckStack().push(new Hencheman("HENCHEMAN@3"));
+                        game.getDeckStack().push(new Hencheman("HENCHEMAN@6"));
                     }
                 }
                 break;
@@ -834,6 +985,9 @@ public class GameController {
     }
 
 
+    /**
+     * This method block the turn of one player.
+     */
     private void blockTurn () {
         if (this.dissableTurn > 0) {
             this.handleSkipTurn(new ActionEvent());
@@ -841,6 +995,10 @@ public class GameController {
         }
     }
 
+    /**
+     * This method ends the game when one of the playes life is zero, then it creates a small window indicating who is
+     * the winner.
+     */
     private void GAMEOVER () {
         int me = this.game.getPlayer().getLife();
         int other = this.game.getPlayerOtherLife();
@@ -866,9 +1024,9 @@ public class GameController {
     }
 
 
-/**
-*
-*/
+    /**
+     * This method initialize all the game, it creates the hand card, deck, sets life and maná.
+     */
     @FXML
     private void initialize () {
 
