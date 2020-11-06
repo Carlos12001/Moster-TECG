@@ -50,6 +50,7 @@ public class MonsterTECGApp extends Application {
             this.window.show();
 
 
+
         } catch (IOException ignored) {
         }
     }

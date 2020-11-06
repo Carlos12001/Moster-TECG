@@ -628,7 +628,8 @@ public class GameController {
             this.game.getHistoryList().insertLast(this.game.getPlayerOtherName(), this.game.getPlayer().getName(),
                     this.game.getPlayerOtherLife(), this.game.getPlayer().getLife(), code, this.game.getRound());
         }
-        
+        this.handleNextHistory(new ActionEvent());
+
         this.GAMEOVER();
     }
 
