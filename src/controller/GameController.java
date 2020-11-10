@@ -930,7 +930,7 @@ public class GameController {
                     choices.add("Larry Page");
                     choices.add("Elon Musk");
 
-                    ChoiceDialog<String> dialog = new ChoiceDialog<>("b", choices);
+                    ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
                     dialog.setTitle("Google quiz!");
                     dialog.setHeaderText("Seleccione uno de los fundadores de Google");
                     dialog.setContentText("Su respuesta es: ");
